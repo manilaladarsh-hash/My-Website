@@ -1,0 +1,2274 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adarsh Manilal | Quantum Materials & NMR Research</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-dark': '#030304',
+                        'bg-card': '#08080A',
+                        'bg-surface': '#0E0E11',
+                        'accent-primary': '#00FF9D', /* Neon Green */
+                        'accent-secondary': '#FF3366', /* Neon Red */
+                        'accent-tertiary': '#7000FF', /* Neon Purple */
+                        'accent-cyan': '#00F0FF', /* Neon Cyan */
+                        'text-main': '#F0F0F0',
+                        'text-muted': '#888899',
+                        'border-light': 'rgba(255, 255, 255, 0.08)'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Manrope"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                        'pulse-fast': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'marquee': 'marquee 35s linear infinite',
+                        'spotlight': 'spotlight 2s ease .75s 1 forwards',
+                        'cursor-blink': 'cursor-blink 1s step-end infinite',
+                        'typewriter': 'typewriter 2s steps(40, end)',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        spotlight: {
+                            '0%': { opacity: 0, transform: 'translate(-50%, -50%) scale(0.5)' },
+                            '100%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
+                        },
+                        'cursor-blink': {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0 },
+                        },
+                        typewriter: {
+                            'from': { width: '0' },
+                            'to': { width: '100%' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* --- Core Variables & Reset --- */
+        :root {
+            --cursor-size: 20px;
+            --accent-glow: 0 0 20px rgba(0, 255, 157, 0.3);
+            --glass-bg: rgba(8, 8, 10, 0.7);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+            --glass-blur: blur(16px);
+        }
+
+        * {
+            cursor: none;
+            /* Custom cursor */
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+            /* Offset for fixed navbar */
+        }
+
+        body {
+            background-color: #030304;
+            color: #F0F0F0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Grain Texture (z-0) --- */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* --- Custom Cursor --- */
+        #cursor-dot,
+        #cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+            mix-blend-mode: difference;
+        }
+
+        #cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-primary);
+        }
+
+        #cursor-outline {
+            width: 25px;
+            height: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            will-change: transform;
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        body:hover #cursor-outline.hovered {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: transparent;
+        }
+
+        /* --- Utilities --- */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: var(--glass-border);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 0%, #888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- Spotlight Card Effect --- */
+        .spotlight-card {
+            position: relative;
+            background: #08080A;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            border-radius: inherit;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),
+                    rgba(255, 255, 255, 0.06),
+                    transparent 40%);
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .spotlight-card::after {
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            border-radius: inherit;
+            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y),
+                    rgba(0, 255, 157, 0.1),
+                    transparent 40%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        @media (hover: hover) {
+            .spotlight-card:hover::before {
+                opacity: 1;
+            }
+
+            .spotlight-card:hover::after {
+                opacity: 1;
+            }
+        }
+
+        /* --- Bento Grid --- */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+            }
+
+            .bento-item-lg {
+                grid-column: span 2;
+                grid-row: span 2;
+            }
+
+            .bento-item-md {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .bento-item-wide {
+                grid-column: span 2;
+            }
+
+            .bento-item-tall {
+                grid-row: span 2;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* --- Glitch Effect --- */
+        .glitch-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+
+        .glitch-active .glitch-layer:nth-child(1) {
+            color: #00FF9D;
+            animation: glitch-anim-1 0.4s infinite linear alternate-reverse;
+            opacity: 1;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+            transform: translate(-2px, 0);
+        }
+
+        .glitch-active .glitch-layer:nth-child(2) {
+            color: #FF3366;
+            animation: glitch-anim-2 0.4s infinite linear alternate-reverse;
+            opacity: 1;
+            clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+            transform: translate(2px, 0);
+        }
+
+        @keyframes glitch-anim-1 {
+            0% {
+                clip-path: inset(20% 0 80% 0);
+            }
+
+            100% {
+                clip-path: inset(60% 0 10% 0);
+            }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% {
+                clip-path: inset(10% 0 60% 0);
+            }
+
+            100% {
+                clip-path: inset(80% 0 5% 0);
+            }
+        }
+
+        /* --- Magnetic Button --- */
+        .magnetic-btn {
+            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* --- Timeline Styles --- */
+        .timeline-line {
+            position: absolute;
+            left: 2rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .timeline-progress {
+            position: absolute;
+            left: 2rem;
+            top: 0;
+            width: 2px;
+            height: 0%;
+            background: linear-gradient(to bottom, #00FF9D, #00F0FF);
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.5);
+            transition: height 0.1s linear;
+        }
+
+        /* --- Back to Top Button --- */
+        #back-to-top {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 90;
+        }
+
+        #back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* --- Active Nav Link --- */
+        .nav-active {
+            color: #00FF9D !important;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- Chat Widget Styles --- */
+        .chat-container {
+            position: fixed;
+            bottom: 6rem;
+            right: 2rem;
+            width: 350px;
+            height: 500px;
+            z-index: 100;
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-container.open {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #333;
+        }
+
+        /* --- AI Loader --- */
+        .ai-loader span {
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background: #00FF9D;
+            border-radius: 50%;
+            margin: 0 1px;
+            animation: bounce 0.6s infinite alternate;
+        }
+
+        .ai-loader span:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .ai-loader span:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        @keyframes bounce {
+            to {
+                transform: translateY(-4px);
+            }
+        }
+
+        /* --- Scrollbar --- */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #030304;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #222;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00FF9D;
+        }
+
+        /* --- Reduced Motion --- */
+        .motion-reduce *,
+        .motion-reduce *::before,
+        .motion-reduce *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+
+        /* --- Performance Hints --- */
+        .will-change-transform {
+            will-change: transform;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            /* Promote to layer */
+        }
+    </style>
+</head>
+
+<body class="selection:bg-accent-primary selection:text-black">
+
+    <!-- Noise Texture Overlay (z-0 to sit behind content) -->
+    <div class="noise-overlay pointer-events-none"></div>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-outline"></div>
+
+    <!-- Background Canvas (z-minus-1 to sit behind everything) -->
+    <div class="fixed inset-0 z-[-1] pointer-events-none opacity-30">
+        <canvas id="bg-canvas"></canvas>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top"
+        class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-accent-primary text-black flex items-center justify-center font-bold shadow-[0_0_20px_rgba(0,255,157,0.4)] hover:scale-110 transition-transform cursor-none pointer-events-auto">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- AI Chat Toggle Button -->
+    <button id="chat-toggle"
+        class="fixed bottom-24 right-8 w-12 h-12 rounded-full bg-bg-surface border border-accent-primary text-accent-primary flex items-center justify-center shadow-[0_0_15px_rgba(0,255,157,0.2)] hover:bg-accent-primary hover:text-black transition-all cursor-none pointer-events-auto z-50 group">
+        <i class="fa-solid fa-robot group-hover:animate-bounce"></i>
+    </button>
+
+    <!-- AI Chat Widget -->
+    <div id="chat-widget"
+        class="chat-container glass-panel rounded-2xl border border-white/10 overflow-hidden pointer-events-auto shadow-2xl">
+        <div class="bg-bg-card p-4 border-b border-white/10 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-accent-primary animate-pulse"></div>
+                <span class="font-mono text-xs font-bold text-white tracking-wider">QUANTUM ASSISTANT</span>
+            </div>
+            <div class="flex gap-3">
+                <button id="chat-settings-btn" class="text-text-muted hover:text-white"
+                    title="Settings / Add API Key"><i class="fa-solid fa-gear"></i></button>
+                <button id="close-chat" class="text-text-muted hover:text-white"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+
+        <!-- Settings Modal (Renamed & Expanded) -->
+        <div id="chat-settings-view" class="absolute inset-0 bg-bg-dark z-20 p-6 flex flex-col hidden">
+            <h3 class="text-white font-bold mb-6 text-center border-b border-white/10 pb-4">System Preferences</h3>
+
+            <div class="space-y-6 overflow-y-auto flex-1">
+                <!-- AI Section -->
+                <div>
+                    <h4 class="text-xs font-mono text-accent-primary uppercase tracking-widest mb-3">Intelligence</h4>
+                    <p class="text-xs text-text-muted mb-2">Google Gemini API Key</p>
+                    <input type="password" id="api-key-input" placeholder="Paste Gemini API Key"
+                        class="w-full bg-white/5 border border-white/10 rounded px-3 py-2 text-white text-sm focus:border-accent-primary outline-none">
+                </div>
+
+                <!-- Display Section -->
+                <div>
+                    <h4 class="text-xs font-mono text-accent-cyan uppercase tracking-widest mb-3">Display & FX</h4>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm text-gray-300">Reduced Motion</span>
+                        <button id="toggle-motion" class="w-10 h-5 bg-white/10 rounded-full relative transition-colors"
+                            data-active="false">
+                            <span
+                                class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-transform"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex gap-2 w-full mt-4 pt-4 border-t border-white/10">
+                <button id="save-api-key"
+                    class="flex-1 bg-accent-primary text-black font-bold py-2 rounded text-xs hover:bg-white transition-colors">Save
+                    Changes</button>
+                <button id="cancel-settings"
+                    class="flex-1 bg-white/10 text-white font-bold py-2 rounded text-xs hover:bg-white/20 transition-colors">Close</button>
+            </div>
+            <p class="text-[10px] text-text-muted mt-4 text-center"><a href="https://aistudio.google.com/app/apikey"
+                    target="_blank" class="underline hover:text-accent-primary">Get a free key here</a></p>
+        </div>
+
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-black/40 chat-messages relative">
+            <!-- Initial Message -->
+            <div class="flex gap-3">
+                <div
+                    class="w-8 h-8 rounded bg-accent-primary/20 flex items-center justify-center text-accent-primary shrink-0">
+                    <i class="fa-solid fa-robot text-xs"></i>
+                </div>
+                <div
+                    class="bg-white/5 p-3 rounded-tr-lg rounded-br-lg rounded-bl-lg text-sm text-gray-200 border border-white/5">
+                    Greetings. I am Adarsh's research assistant. Ask me about NMR, YBCO, or his work at McMaster.
+                </div>
+            </div>
+        </div>
+        <div class="p-4 bg-bg-card border-t border-white/10">
+            <form id="chat-form" class="relative">
+                <input type="text" id="chat-input" placeholder="Ask about research..."
+                    class="w-full bg-bg-surface border border-white/10 rounded-full py-2 px-4 pl-4 pr-10 text-sm text-white focus:outline-none focus:border-accent-primary transition-colors font-mono">
+                <button type="submit"
+                    class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-accent-primary hover:text-white transition-colors">
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Navbar (z-50 for clickability) -->
+    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b border-transparent" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-xl font-bold font-display tracking-tight hover-trigger pointer-events-auto"
+                data-hover-text="QUANTUM">
+                <span class="text-accent-primary">AM</span>
+            </a>
+
+            <div
+                class="hidden md:flex items-center gap-1 glass-panel p-1 rounded-full border border-white/5 shadow-2xl backdrop-blur-xl pointer-events-auto">
+                <a href="#about"
+                    class="nav-link px-4 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all">Overview</a>
+                <a href="#research"
+                    class="nav-link px-4 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all">Research</a>
+                <a href="#teaching"
+                    class="nav-link px-4 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all">Teaching</a>
+                <a href="#hobbies"
+                    class="nav-link px-4 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all">Interests</a>
+                <a href="#projects"
+                    class="nav-link px-4 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all">Projects</a>
+                <a href="#journey"
+                    class="nav-link px-4 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all">Timeline</a>
+                <a href="#dashboard"
+                    class="nav-link px-4 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all">State</a>
+                <a href="#contact"
+                    class="nav-link px-4 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all">Contact</a>
+            </div>
+
+            <div class="flex gap-4 pointer-events-auto">
+                <a href="cv.pdf" target="_blank"
+                    class="magnetic-btn hidden md:flex items-center gap-2 px-5 py-2 bg-white text-black font-bold text-xs uppercase tracking-wide rounded-full hover:bg-accent-primary transition-colors duration-300 group">
+                    <span>CV / Resume</span>
+                    <i class="fa-solid fa-arrow-down transform group-hover:translate-y-1 transition-transform"></i>
+                </a>
+                <button id="mobile-menu-btn" class="md:hidden text-white text-xl z-50 relative">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu"
+            class="fixed inset-0 bg-bg-dark/95 backdrop-blur-xl z-[60] transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center gap-6">
+            <a href="#about"
+                class="mobile-nav-link text-2xl font-bold font-display text-white hover:text-accent-primary transition-colors">Overview</a>
+            <a href="#research"
+                class="mobile-nav-link text-2xl font-bold font-display text-white hover:text-accent-primary transition-colors">Research</a>
+            <a href="#teaching"
+                class="mobile-nav-link text-2xl font-bold font-display text-white hover:text-accent-primary transition-colors">Teaching</a>
+            <a href="#hobbies"
+                class="mobile-nav-link text-2xl font-bold font-display text-white hover:text-accent-primary transition-colors">Interests</a>
+            <a href="#projects"
+                class="mobile-nav-link text-2xl font-bold font-display text-white hover:text-accent-primary transition-colors">Projects</a>
+            <a href="#journey"
+                class="mobile-nav-link text-2xl font-bold font-display text-white hover:text-accent-primary transition-colors">Timeline</a>
+            <a href="#dashboard"
+                class="mobile-nav-link text-2xl font-bold font-display text-white hover:text-accent-primary transition-colors">State</a>
+            <a href="#contact"
+                class="mobile-nav-link text-2xl font-bold font-display text-white hover:text-accent-primary transition-colors">Contact</a>
+            <a href="cv.pdf" target="_blank"
+                class="px-8 py-3 bg-white text-black font-bold text-lg rounded-full hover:bg-accent-primary transition-colors mt-2">View
+                CV</a>
+        </div>
+    </nav>
+
+    <!-- Main Content (z-10 to sit above noise) -->
+    <main class="relative z-10 pt-32 pb-20 pointer-events-auto">
+
+        <!-- Hero Section -->
+        <section id="home" class="min-h-[85vh] flex flex-col justify-center items-center relative overflow-hidden px-6">
+
+            <div class="text-center max-w-4xl mx-auto space-y-8 relative z-30">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-accent-primary/20 bg-accent-primary/5 text-accent-primary text-[10px] font-mono uppercase tracking-widest mb-6 animate-fade-in-up hover:bg-accent-primary/10 transition-colors cursor-help"
+                    title="Transferred to PhD Track May 2025">
+                    <span class="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse"></span>
+                    Status: PhD Candidate
+                </div>
+
+                <h1 class="text-4xl sm:text-6xl md:text-9xl font-display font-extrabold tracking-tighter leading-none glitch-wrapper select-none max-w-full overflow-hidden"
+                    id="hero-title">
+                    <span class="glitch-text text-white">ADARSH</span><br>
+                    <span class="text-white/20">MANILAL</span>
+                    <span class="glitch-layer" aria-hidden="true">ADARSH<br>MANILAL</span>
+                    <span class="glitch-layer" aria-hidden="true">ADARSH<br>MANILAL</span>
+                </h1>
+
+                <p
+                    class="text-lg md:text-xl text-text-muted max-w-2xl mx-auto font-light leading-relaxed tracking-wide">
+                    Exploring <span class="text-white font-medium">Quantum Materials</span> with <span
+                        class="text-accent-primary font-mono bg-accent-primary/5 px-1 rounded">NMR Spectroscopy</span>.
+                    Studying the physics of high-temperature superconductors.
+                </p>
+
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center mt-12 pointer-events-auto">
+                    <a href="#research"
+                        class="magnetic-btn relative px-8 py-4 bg-accent-primary text-black font-bold rounded-full overflow-hidden group hover:scale-105 transition-transform duration-300 pointer-events-auto">
+                        <span class="relative z-10 flex items-center gap-2">Explore Research <i
+                                class="fa-solid fa-arrow-right -rotate-45 group-hover:rotate-0 transition-transform"></i></span>
+                        <div
+                            class="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 mix-blend-overlay transition-opacity duration-300">
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div
+                class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3 opacity-30 hover:opacity-100 transition-opacity duration-500">
+                <span class="text-[9px] uppercase tracking-[0.3em] font-mono">Initiate Scroll</span>
+                <div class="w-[1px] h-16 bg-gradient-to-b from-white to-transparent relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1/2 bg-accent-primary animate-[float_2s_infinite]"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack Marquee -->
+        <div class="w-full overflow-hidden border-y border-white/5 bg-white/[0.02] py-6 mb-20 pointer-events-auto">
+            <div class="flex animate-marquee gap-12 min-w-max">
+                <!-- Content duplicated for seamless loop -->
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-brands fa-python text-accent-primary mr-2"></i>Python & SciPy</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-solid fa-magnet text-accent-secondary mr-2"></i>SQUID Magnetometry</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-solid fa-microchip text-accent-cyan mr-2"></i>PPMS</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-solid fa-snowflake text-accent-tertiary mr-2"></i>Dilution Fridge (He3/He4)</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-solid fa-wave-square text-accent-primary mr-2"></i>NMR / NQR</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-solid fa-layer-group text-accent-secondary mr-2"></i>Crystal Growth (Self-Flux)</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-solid fa-microscope text-accent-cyan mr-2"></i>SEM & EDAX</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-solid fa-chart-line text-accent-tertiary mr-2"></i>LabView</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-brands fa-linux text-accent-primary mr-2"></i>Linux/Bash</span>
+
+                <!-- Duplicate -->
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-brands fa-python text-accent-primary mr-2"></i>Python & SciPy</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-solid fa-magnet text-accent-secondary mr-2"></i>SQUID Magnetometry</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-solid fa-microchip text-accent-cyan mr-2"></i>PPMS</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-solid fa-snowflake text-accent-tertiary mr-2"></i>Dilution Fridge (He3/He4)</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-solid fa-wave-square text-accent-primary mr-2"></i>NMR / NQR</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-solid fa-layer-group text-accent-secondary mr-2"></i>Crystal Growth (Self-Flux)</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-solid fa-microscope text-accent-cyan mr-2"></i>SEM & EDAX</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-solid fa-chart-line text-accent-tertiary mr-2"></i>LabView</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i
+                        class="fa-brands fa-linux text-accent-primary mr-2"></i>Linux/Bash</span>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <section class="max-w-7xl mx-auto px-6 mb-32 pointer-events-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="spotlight-card p-6 text-center group hover:bg-white/5 transition-colors">
+                    <div class="text-4xl font-mono font-bold text-white group-hover:text-accent-primary transition-colors stat-number"
+                        data-target="4">0</div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-text-muted mt-2">Years Research Exp</div>
+                </div>
+                <div class="spotlight-card p-6 text-center group hover:bg-white/5 transition-colors">
+                    <div class="text-4xl font-mono font-bold text-white group-hover:text-accent-secondary transition-colors stat-number"
+                        data-target="2">0</div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-text-muted mt-2">Years TA Experience</div>
+                </div>
+                <div class="spotlight-card p-6 text-center group hover:bg-white/5 transition-colors">
+                    <div class="text-4xl font-mono font-bold text-white group-hover:text-accent-tertiary transition-colors stat-number"
+                        data-target="8">0</div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-text-muted mt-2">Lab Techniques</div>
+                </div>
+                <div class="spotlight-card p-6 text-center group hover:bg-white/5 transition-colors">
+                    <div class="text-4xl font-mono font-bold text-white group-hover:text-accent-cyan transition-colors stat-number"
+                        data-target="2">0</div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-text-muted mt-2">Mentees Supervised</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About / Overview -->
+        <section id="about" class="max-w-7xl mx-auto px-6 py-20 relative pointer-events-auto">
+            <div class="grid md:grid-cols-2 gap-20 items-center">
+                <div class="relative group perspective-1000">
+                    <div
+                        class="absolute -inset-4 bg-gradient-to-r from-accent-primary to-accent-cyan opacity-20 blur-2xl group-hover:opacity-40 transition-opacity duration-700 rounded-full">
+                    </div>
+                    <div
+                        class="relative rounded-2xl overflow-hidden border border-white/10 aspect-[4/5] bg-bg-surface shadow-2xl transform transition-transform duration-700 hover:rotate-y-12 hover:rotate-x-12 preserve-3d">
+                        <canvas id="quantum-sim-canvas"
+                            class="absolute inset-0 w-full h-full bg-black/20 z-10"></canvas>
+                        <script>
+                                (function () {
+                                    const canvas = document.getElementById('quantum-sim-canvas');
+                                    if (!canvas) return;
+
+                                    const ctx = canvas.getContext('2d');
+                                    let width = 300, height = 400;
+                                    let lattice = [];
+                                    let pairs = [];
+
+                                    function resize() {
+                                        const parent = canvas.parentElement;
+                                        if (parent) {
+                                            width = parent.offsetWidth || 300;
+                                            height = parent.offsetHeight || 400;
+                                        }
+                                        canvas.width = width;
+                                        canvas.height = height;
+                                        initLattice();
+                                    }
+
+                                    function initLattice() {
+                                        lattice = [];
+                                        const spacing = 50;
+                                        const cols = Math.ceil(width / spacing);
+                                        const rows = Math.ceil(height / spacing);
+                                        for (let i = 0; i < cols; i++) {
+                                            for (let j = 0; j < rows; j++) {
+                                                lattice.push({ x: i * spacing + spacing / 2, y: j * spacing + spacing / 2, baseX: i * spacing + spacing / 2, baseY: j * spacing + spacing / 2 });
+                                            }
+                                        }
+                                    }
+
+                                    // Init pairs with current width
+                                    function initPairs() {
+                                        pairs = [];
+                                        for (let i = 0; i < 6; i++) {
+                                            pairs.push({
+                                                cx: Math.random() * width,
+                                                cy: Math.random() * height,
+                                                vx: (Math.random() - 0.5) * 1.5,
+                                                vy: (Math.random() - 0.5) * 1.5,
+                                                angle: Math.random() * Math.PI * 2,
+                                                color1: '#00FF9D', color2: '#00F0FF'
+                                            });
+                                        }
+                                    }
+
+                                    function animate() {
+                                        ctx.clearRect(0, 0, width, height);
+
+                                        // Lattice
+                                        ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+                                        lattice.forEach(p => {
+                                            ctx.beginPath(); ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2); ctx.fill();
+                                            p.x += (p.baseX - p.x) * 0.1; p.y += (p.baseY - p.y) * 0.1;
+                                        });
+
+                                        // Pairs
+                                        pairs.forEach(p => {
+                                            p.cx += p.vx; p.cy += p.vy;
+                                            if (p.cx < 0 || p.cx > width) p.vx *= -1;
+                                            if (p.cy < 0 || p.cy > height) p.vy *= -1;
+                                            p.angle += 0.1;
+
+                                            // Interaction
+                                            lattice.forEach(l => {
+                                                const dx = p.cx - l.x, dy = p.cy - l.y;
+                                                const dist = Math.sqrt(dx * dx + dy * dy);
+                                                if (dist < 60) {
+                                                    const f = (60 - dist) / 60;
+                                                    l.x += (p.cx - l.x) * 0.05 * f; l.y += (p.cy - l.y) * 0.05 * f;
+                                                }
+                                            });
+
+                                            // Draw Electrons
+                                            const e1x = p.cx + Math.cos(p.angle) * 15;
+                                            const e1y = p.cy + Math.sin(p.angle) * 15;
+                                            const e2x = p.cx + Math.cos(p.angle + Math.PI) * 15;
+                                            const e2y = p.cy + Math.sin(p.angle + Math.PI) * 15;
+
+                                            ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+                                            ctx.beginPath(); ctx.moveTo(e1x, e1y); ctx.lineTo(e2x, e2y); ctx.stroke();
+
+                                            ctx.fillStyle = p.color1; ctx.beginPath(); ctx.arc(e1x, e1y, 3, 0, Math.PI * 2); ctx.fill();
+                                            ctx.fillStyle = p.color2; ctx.beginPath(); ctx.arc(e2x, e2y, 3, 0, Math.PI * 2); ctx.fill();
+                                        });
+                                        requestAnimationFrame(animate);
+                                    }
+
+                                    resize();
+                                    initPairs(); // Init pairs AFTER resize
+                                    window.addEventListener('resize', () => { resize(); });
+                                    animate();
+                                })(); 
+                        </script>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80">
+                        </div>
+                        <div
+                            class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <div
+                                class="font-mono text-accent-primary text-xs tracking-widest mb-2 border-l-2 border-accent-primary pl-3">
+                                IDENTIFICATION</div>
+                            <div class="text-white font-bold text-2xl">Adarsh Manilal</div>
+                            <div class="text-text-muted text-sm mt-1">PhD Candidate, McMaster University</div>
+                            <div class="text-text-muted text-xs mt-0.5">Advisor: Prof. Takashi Imai</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-8 relative">
+                    <div
+                        class="absolute -left-10 top-0 w-1 h-full bg-gradient-to-b from-white/10 to-transparent hidden md:block">
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-display font-bold leading-tight">Bridging Theory & <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-accent-primary to-accent-cyan">Experiment</span>
+                    </h2>
+                    <p class="text-text-muted leading-relaxed text-lg font-light">
+                        I am a PhD Candidate in the Department of Physics & Astronomy at McMaster University. My
+                        research utilizes <strong class="text-white font-medium">Nuclear Magnetic Resonance
+                            (NMR)</strong> and <strong class="text-white font-medium">Nuclear Quadrupole Resonance
+                            (NQR)</strong> to investigate Strongly Correlated Electron Systems.
+                    </p>
+                    <p class="text-text-muted leading-relaxed text-lg font-light">
+                        My work focuses on Quantum Magnetism and Quantum Phase Transitions, specifically studying the
+                        electronic properties and phase transitions in High-Temperature Superconductors (HTSC).
+                    </p>
+
+                    <div class="pt-8 border-t border-white/5">
+                        <h4 class="text-xs uppercase tracking-widest text-white/40 mb-4 font-mono">Core Competencies
+                        </h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-text-muted hover:text-white hover:border-accent-primary transition-colors cursor-help">#condensed_matter</span>
+                            <span
+                                class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-text-muted hover:text-white hover:border-accent-primary transition-colors cursor-help">#superconductivity</span>
+                            <span
+                                class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-text-muted hover:text-white hover:border-accent-primary transition-colors cursor-help">#quantum_magnetism</span>
+                            <span
+                                class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-text-muted hover:text-white hover:border-accent-primary transition-colors cursor-help">#spectroscopy</span>
+                            <span
+                                class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-text-muted hover:text-white hover:border-accent-primary transition-colors cursor-help">#cryogenics</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Bento Grid -->
+        <section id="research" class="max-w-7xl mx-auto px-6 py-20 pointer-events-auto">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-display font-bold mb-4">Research <span
+                            class="text-white/20">Experience</span></h2>
+                    <p class="text-text-muted max-w-xl font-light">A technical index of research projects, teaching
+                        roles, and extracurricular leadership.</p>
+                </div>
+                <div class="hidden md:block">
+                    <i class="fa-solid fa-arrow-right-long text-4xl text-accent-primary -rotate-45 animate-pulse"></i>
+                </div>
+            </div>
+
+            <div class="bento-grid">
+
+                <!-- Tile 1 (Large): McMaster Graduate Research - CLICKABLE -->
+                <article
+                    class="bento-item-lg spotlight-card group relative flex flex-col justify-between p-8 md:p-12 transition-all duration-500 hover:border-accent-primary/50">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                    </div>
+                    <canvas id="bento-canvas-1"
+                        class="absolute inset-0 w-full h-full opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none"></canvas>
+
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-8">
+                            <span
+                                class="px-3 py-1 rounded-full border border-white/10 bg-black/40 backdrop-blur-md text-[10px] font-mono uppercase tracking-widest text-accent-primary shadow-[0_0_10px_rgba(0,255,157,0.2)]">McMaster
+                                University</span>
+                            <i
+                                class="fa-solid fa-atom text-4xl text-white/10 group-hover:text-accent-primary transition-colors transform group-hover:rotate-180 duration-700"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4 group-hover:text-accent-primary transition-colors">NMR/NQR of
+                            HTSC</h3>
+                        <p class="text-text-muted mb-6 line-clamp-3 leading-relaxed">
+                            <strong>Graduate Researcher</strong> | Advisor: Prof. Takashi Imai<br>
+                            Utilizing Nuclear Magnetic Resonance (NMR) and Nuclear Quadrupole Resonance (NQR) to
+                            investigate electronic properties and phase transitions in high-temperature superconductor
+                            (HTSC) systems. Focused on pseudogap and charge order in YBCO.
+                        </p>
+                    </div>
+                    <!-- Stretched Link to make whole card clickable -->
+                    <a href="#publications"
+                        class="z-20 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider hover:text-accent-primary transition-colors after:absolute after:inset-0">Read
+                        Analysis <i
+                            class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i></a>
+                </article>
+
+                <!-- Tile 2 (Medium): IISER TVM Graduate Research -->
+                <article
+                    class="bento-item-md spotlight-card group relative p-8 flex flex-col justify-between hover:border-accent-secondary/50 transition-colors">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-b from-transparent to-accent-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    </div>
+                    <i
+                        class="fa-solid fa-layer-group text-3xl text-accent-secondary/50 group-hover:text-accent-secondary transition-colors mb-auto"></i>
+                    <div class="relative z-10 mt-12">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-white transition-colors">YBCO Synthesis &
+                            Thermodynamics</h3>
+                        <p class="text-xs text-text-muted leading-relaxed mb-2"><strong>IISER TVM</strong> | Advisor:
+                            Dr. Deepshikha Jaiswal Nagar</p>
+                        <p class="text-xs text-text-muted leading-relaxed">Synthesized high-quality YBCO single crystals
+                            via self-flux method. Investigated thermal expansion (capacitive dilatometry) and magnetic
+                            susceptibility (SQUID/PPMS).</p>
+                    </div>
+                </article>
+
+                <!-- Tile 3 (Medium): IISER TVM Research Fellow -->
+                <article
+                    class="bento-item-md spotlight-card group relative p-8 flex flex-col justify-between hover:border-accent-tertiary/50 transition-colors">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-b from-transparent to-accent-tertiary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    </div>
+                    <i
+                        class="fa-solid fa-bolt text-3xl text-accent-tertiary/50 group-hover:text-accent-tertiary transition-colors mb-auto"></i>
+                    <div class="relative z-10 mt-12">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-white transition-colors">Nonlinear Optics
+                        </h3>
+                        <p class="text-xs text-text-muted leading-relaxed mb-2"><strong>Research Fellow</strong> |
+                            Advisor: Dr. Adithya Lakshmanna</p>
+                        <p class="text-xs text-text-muted leading-relaxed">Designed Z-scan setup for Kerr nonlinearity.
+                            Characterized femtosecond pulses utilizing home-built FROG system.</p>
+                    </div>
+                </article>
+
+                <!-- Tile 4 (Wide): Extracurricular / Leadership -->
+                <article
+                    class="bento-item-wide spotlight-card group relative flex flex-col md:flex-row overflow-hidden hover:border-accent-cyan/50 transition-colors">
+                    <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center relative z-10">
+                        <h3 class="text-2xl font-bold mb-6 text-white group-hover:text-accent-cyan transition-colors">
+                            Leadership & Service</h3>
+                        <ul class="space-y-4 text-text-muted text-sm">
+                            <li class="flex items-start gap-3 group/item">
+                                <span
+                                    class="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-1.5 group-hover/item:scale-150 transition-transform"></span>
+                                <div><strong class="text-white">Department Steward (CUPE 3906):</strong> Liaison for
+                                    graduate assistants, advocating for labor rights.</div>
+                            </li>
+                            <li class="flex items-start gap-3 group/item">
+                                <span
+                                    class="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-1.5 group-hover/item:scale-150 transition-transform"></span>
+                                <div><strong class="text-white">Academic Supervisor:</strong> Supervising Undergraduate
+                                    Senior Thesis (Sep 2025 - Present).</div>
+                            </li>
+                            <li class="flex items-start gap-3 group/item">
+                                <span
+                                    class="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-1.5 group-hover/item:scale-150 transition-transform"></span>
+                                <div><strong class="text-white">Graduate Mentor:</strong> Mentoring incoming Master's
+                                    students.</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div
+                        class="md:w-1/2 bg-white/[0.02] relative border-l border-white/5 flex items-center justify-center">
+                        <div
+                            class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 pointer-events-none">
+                        </div>
+                        <i
+                            class="fa-solid fa-users-gear text-9xl text-white/5 group-hover:text-accent-cyan/10 transition-colors transform group-hover:scale-110 duration-500"></i>
+                    </div>
+                </article>
+
+                <!-- Tile 5 (Medium): Teaching Experience -->
+                <article
+                    class="bento-item-md spotlight-card group relative p-8 flex flex-col justify-between hover:border-accent-primary/50 transition-colors">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-b from-transparent to-accent-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    </div>
+                    <i
+                        class="fa-solid fa-chalkboard-user text-3xl text-accent-primary/50 group-hover:text-accent-primary transition-colors mb-auto"></i>
+                    <div class="relative z-10 mt-12">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-white transition-colors">Teaching Experience
+                        </h3>
+                        <ul class="text-xs text-text-muted leading-relaxed space-y-1 list-disc list-inside">
+                            <li><strong>DATASCI 2G03:</strong> Scientific Computing</li>
+                            <li><strong>PHYSICS 3K03:</strong> Thermodynamics</li>
+                            <li><strong>Core Physics:</strong> 1D03, 1A03, 1E03</li>
+                        </ul>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Worldline (Journey) Section - EDUCATION ONLY -->
+        <section id="journey" class="max-w-4xl mx-auto px-6 py-20 pointer-events-auto">
+            <h2 class="text-4xl font-display font-bold mb-16 text-center">My Worldline <span
+                    class="text-lg font-light text-text-muted block mt-2">(Education Only)</span></h2>
+            <div class="relative pl-12 space-y-20" id="timeline-container">
+                <!-- Vertical Lines -->
+                <div class="timeline-line"></div>
+                <div class="timeline-progress" id="timeline-progress-bar"></div>
+
+                <!-- Item 1: PhD -->
+                <div class="relative group timeline-item">
+                    <span
+                        class="absolute left-[-2.9rem] top-2 w-5 h-5 rounded-full border-4 border-bg-dark bg-bg-surface shadow-[0_0_10px_rgba(255,255,255,0.2)] group-hover:bg-accent-primary group-hover:shadow-[0_0_20px_#00FF9D] transition-all duration-500 z-10"></span>
+                    <div class="spotlight-card p-8 group-hover:-translate-y-1 transition-transform duration-500">
+                        <div class="flex justify-between items-start mb-4">
+                            <span
+                                class="px-2 py-1 bg-accent-primary/10 text-accent-primary font-mono text-[10px] uppercase tracking-wider rounded border border-accent-primary/20">Sep
+                                2023 - Present</span>
+                            <i
+                                class="fa-solid fa-graduation-cap text-white/20 group-hover:text-accent-primary transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white group-hover:text-accent-primary transition-colors">
+                            Doctor of Philosophy (Ph.D.) in Physics</h3>
+                        <div class="text-text-muted mt-2 text-sm leading-relaxed">
+                            <strong>McMaster University</strong>, Hamilton, ON, Canada<br>
+                            Advisor: Prof. Takashi Imai<br>
+                            <em>Transferred to Ph.D. track in May 2025 following successful completion of graduate
+                                coursework and M.Sc. research requirements.</em>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2: BS-MS -->
+                <div class="relative group timeline-item">
+                    <span
+                        class="absolute left-[-2.9rem] top-2 w-5 h-5 rounded-full border-4 border-bg-dark bg-bg-surface shadow-[0_0_10px_rgba(255,255,255,0.2)] group-hover:bg-accent-secondary group-hover:shadow-[0_0_20px_#FF3366] transition-all duration-500 z-10"></span>
+                    <div class="spotlight-card p-8 group-hover:-translate-y-1 transition-transform duration-500">
+                        <div class="flex justify-between items-start mb-4">
+                            <span
+                                class="px-2 py-1 bg-accent-secondary/10 text-accent-secondary font-mono text-[10px] uppercase tracking-wider rounded border border-accent-secondary/20">Aug
+                                2018 - May 2023</span>
+                            <i
+                                class="fa-solid fa-school text-white/20 group-hover:text-accent-secondary transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white group-hover:text-accent-secondary transition-colors">
+                            Integrated BS-MS in Physics (Minor in Chemistry)</h3>
+                        <div class="text-text-muted mt-2 text-sm leading-relaxed">
+                            <strong>Indian Institute of Science Education and Research (IISER)</strong>,
+                            Thiruvananthapuram, India<br>
+                            GPA: 8.28 / 10.0 (Physics Major GPA: 8.68)<br>
+                            <em>Thesis: Synthesis and thermodynamical studies of YBCO single crystals.</em>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Publications List (Empty Placeholder) -->
+        <section id="publications" class="max-w-5xl mx-auto px-6 py-20 pointer-events-auto">
+            <h2 class="text-3xl font-mono font-bold mb-10 flex items-center gap-3">
+                <span class="text-accent-primary">></span> ./publications.log
+            </h2>
+
+            <div
+                class="spotlight-card p-12 border border-white/10 flex flex-col items-center justify-center text-center opacity-70 hover:opacity-100 transition-opacity">
+                <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4">
+                    <i class="fa-regular fa-file-lines text-2xl text-text-muted"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Publications Pending</h3>
+                <p class="text-text-muted max-w-md">
+                    Research in progress. Upcoming manuscripts will be listed here.
+                </p>
+            </div>
+        </section>
+
+        <!-- Teaching Section -->
+        <section id="teaching" class="max-w-7xl mx-auto px-6 py-20 pointer-events-auto">
+            <h2 class="text-4xl md:text-5xl font-display font-bold mb-12 flex items-center gap-4">
+                <i class="fa-solid fa-chalkboard-user text-accent-cyan"></i> Teaching
+            </h2>
+            <!-- Consolidated Teaching Card -->
+            <div class="spotlight-card p-10 border border-white/5 relative overflow-hidden group max-w-4xl mx-auto">
+                <div class="absolute top-0 right-0 p-6 opacity-50 font-mono text-sm text-text-muted">2023 - Present
+                </div>
+                <h3 class="text-3xl font-bold text-white mb-3">Graduate Teaching Assistant</h3>
+                <p class="text-accent-cyan font-mono text-base mb-6">McMaster University</p>
+                <div class="space-y-6">
+                    <p class="text-text-muted text-lg leading-relaxed">
+                        Responsible for facilitating weekly tutorials, grading examinations, and supervising laboratory
+                        experiments for undergraduate physics courses.
+                    </p>
+                    <div class="grid gap-4">
+                        <!-- Course 1 -->
+                        <div
+                            class="bg-white/5 p-4 rounded border border-white/5 hover:border-accent-cyan/30 transition-colors">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <span class="font-bold text-white">DATASCI 2G03</span>
+                                <span class="text-xs text-text-muted uppercase tracking-wider">Scientific
+                                    Computing</span>
+                            </div>
+                            <p class="text-sm text-text-muted">Led lab sessions focused on numerical algorithms and C++
+                                data analysis.</p>
+                        </div>
+
+                        <!-- Course 2 -->
+                        <div
+                            class="bg-white/5 p-4 rounded border border-white/5 hover:border-accent-cyan/30 transition-colors">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <span class="font-bold text-white">PHYSICS 3K03</span>
+                                <span class="text-xs text-text-muted uppercase tracking-wider">Thermodynamics & Stat
+                                    Mech</span>
+                            </div>
+                            <p class="text-sm text-text-muted">Mentored senior students in advanced theoretical
+                                coursework.</p>
+                        </div>
+
+                        <!-- Course 3 -->
+                        <div
+                            class="bg-white/5 p-4 rounded border border-white/5 hover:border-accent-cyan/30 transition-colors">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <span class="font-bold text-white">Core Physics (1D03, 1A03, 1E03)</span>
+                                <span class="text-xs text-text-muted uppercase tracking-wider">Mechanics &
+                                    Electromagnetism</span>
+                            </div>
+                            <p class="text-sm text-text-muted">Conducted tutorials and labs for mechanics, waves, and
+                                electromagnetism.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Extra Curriculars (Hobbies) -->
+        <section id="hobbies" class="max-w-7xl mx-auto px-6 py-20 pointer-events-auto">
+            <h2 class="text-4xl md:text-5xl font-display font-bold mb-12 flex items-center gap-4">
+                <i class="fa-solid fa-person-running text-accent-secondary"></i> Extra Curricular
+            </h2>
+            <div class="spotlight-card p-12 border border-white/5 relative bg-white/[0.02]">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                    <!-- Card 1: Squash -->
+                    <div
+                        class="spotlight-card h-48 relative group overflow-hidden rounded-2xl md:p-6 p-4 flex flex-col items-center justify-center text-center cursor-pointer">
+                        <div
+                            class="absolute inset-0 bg-accent-cyan/10 opacity-0 group-hover:opacity-20 transition-opacity duration-300">
+                        </div>
+                        <div class="transform transition-all duration-300 group-hover:-translate-y-4">
+                            <i
+                                class="fa-solid fa-table-tennis-paddle-ball text-5xl text-accent-cyan mb-4 group-hover:scale-110 transition-transform"></i>
+                            <h3
+                                class="font-bold text-white uppercase tracking-wider text-sm group-hover:text-accent-cyan transition-colors">
+                                Squash</h3>
+                        </div>
+                        <div
+                            class="absolute bottom-[-100%] group-hover:bottom-6 transition-all duration-300 left-0 w-full px-4">
+                            <p class="text-xs text-text-muted leading-relaxed">Fast-paced tactical gameplay. Active
+                                competitor in the weekly university league.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Softball -->
+                    <div
+                        class="spotlight-card h-48 relative group overflow-hidden rounded-2xl md:p-6 p-4 flex flex-col items-center justify-center text-center cursor-pointer">
+                        <div
+                            class="absolute inset-0 bg-accent-primary/10 opacity-0 group-hover:opacity-20 transition-opacity duration-300">
+                        </div>
+                        <div class="transform transition-all duration-300 group-hover:-translate-y-4">
+                            <i
+                                class="fa-solid fa-baseball-bat-ball text-5xl text-accent-primary mb-4 group-hover:scale-110 transition-transform"></i>
+                            <h3
+                                class="font-bold text-white uppercase tracking-wider text-sm group-hover:text-accent-primary transition-colors">
+                                Softball</h3>
+                        </div>
+                        <div
+                            class="absolute bottom-[-100%] group-hover:bottom-6 transition-all duration-300 left-0 w-full px-4">
+                            <p class="text-xs text-text-muted leading-relaxed">Summer league outfielder. Enjoying team
+                                spirit, strategy, and hitting home runs.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Gym -->
+                    <div
+                        class="spotlight-card h-48 relative group overflow-hidden rounded-2xl md:p-6 p-4 flex flex-col items-center justify-center text-center cursor-pointer">
+                        <div
+                            class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-20 transition-opacity duration-300">
+                        </div>
+                        <div class="transform transition-all duration-300 group-hover:-translate-y-4">
+                            <i
+                                class="fa-solid fa-dumbbell text-5xl text-white mb-4 group-hover:scale-110 transition-transform"></i>
+                            <h3
+                                class="font-bold text-white uppercase tracking-wider text-sm group-hover:text-white transition-colors">
+                                Gym</h3>
+                        </div>
+                        <div
+                            class="absolute bottom-[-100%] group-hover:bottom-6 transition-all duration-300 left-0 w-full px-4">
+                            <p class="text-xs text-text-muted leading-relaxed">Dedicated to strength training and
+                                conditioning. Chasing personal bests.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Hiking -->
+                    <div
+                        class="spotlight-card h-48 relative group overflow-hidden rounded-2xl md:p-6 p-4 flex flex-col items-center justify-center text-center cursor-pointer">
+                        <div
+                            class="absolute inset-0 bg-accent-tertiary/10 opacity-0 group-hover:opacity-20 transition-opacity duration-300">
+                        </div>
+                        <div class="transform transition-all duration-300 group-hover:-translate-y-4">
+                            <i
+                                class="fa-solid fa-person-hiking text-5xl text-accent-tertiary mb-4 group-hover:scale-110 transition-transform"></i>
+                            <h3
+                                class="font-bold text-white uppercase tracking-wider text-sm group-hover:text-accent-tertiary transition-colors">
+                                Hiking</h3>
+                        </div>
+                        <div
+                            class="absolute bottom-[-100%] group-hover:bottom-6 transition-all duration-300 left-0 w-full px-4">
+                            <p class="text-xs text-text-muted leading-relaxed">Exploring Ontario's scenic trails.
+                                Recharging in nature away from the lab.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Biking -->
+                    <div
+                        class="spotlight-card h-48 relative group overflow-hidden rounded-2xl md:p-6 p-4 flex flex-col items-center justify-center text-center cursor-pointer">
+                        <div
+                            class="absolute inset-0 bg-accent-secondary/10 opacity-0 group-hover:opacity-20 transition-opacity duration-300">
+                        </div>
+                        <div class="transform transition-all duration-300 group-hover:-translate-y-4">
+                            <i
+                                class="fa-solid fa-bicycle text-5xl text-accent-secondary mb-4 group-hover:scale-110 transition-transform"></i>
+                            <h3
+                                class="font-bold text-white uppercase tracking-wider text-sm group-hover:text-accent-secondary transition-colors">
+                                Biking</h3>
+                        </div>
+                        <div
+                            class="absolute bottom-[-100%] group-hover:bottom-6 transition-all duration-300 left-0 w-full px-4">
+                            <p class="text-xs text-text-muted leading-relaxed">Urban cycling and endurance rides.
+                                Exploring the city on two wheels.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 6: Ice Skating -->
+                    <div
+                        class="spotlight-card h-48 relative group overflow-hidden rounded-2xl md:p-6 p-4 flex flex-col items-center justify-center text-center cursor-pointer">
+                        <div
+                            class="absolute inset-0 bg-blue-300/10 opacity-0 group-hover:opacity-20 transition-opacity duration-300">
+                        </div>
+                        <div class="transform transition-all duration-300 group-hover:-translate-y-4">
+                            <i
+                                class="fa-regular fa-snowflake text-5xl text-blue-300 mb-4 group-hover:scale-110 transition-transform"></i>
+                            <h3
+                                class="font-bold text-white uppercase tracking-wider text-sm group-hover:text-blue-300 transition-colors">
+                                Ice Skating</h3>
+                        </div>
+                        <div
+                            class="absolute bottom-[-100%] group-hover:bottom-6 transition-all duration-300 left-0 w-full px-4">
+                            <p class="text-xs text-text-muted leading-relaxed">Carving the ice in winter. A favorite
+                                seasonal pastime for balance and fun.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="max-w-7xl mx-auto px-6 py-20 pointer-events-auto bg-white/[0.02]">
+            <h2 class="text-4xl md:text-5xl font-display font-bold mb-12 flex items-center gap-4">
+                <i class="fa-solid fa-code text-accent-tertiary"></i> Code & Projects
+            </h2>
+            <div class="spotlight-card p-12 border border-white/5">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                    <div class="flex items-center gap-3 text-lg text-text-muted hover:text-white transition-colors">
+                        <i class="fa-brands fa-python text-accent-primary"></i> Python
+                    </div>
+                    <div class="flex items-center gap-3 text-lg text-text-muted hover:text-white transition-colors">
+                        <i class="fa-solid fa-code text-accent-secondary"></i> C++
+                    </div>
+                    <div class="flex items-center gap-3 text-lg text-text-muted hover:text-white transition-colors">
+                        <i class="fa-solid fa-layer-group text-accent-tertiary"></i> MATLAB
+                    </div>
+                    <div class="flex items-center gap-3 text-lg text-text-muted hover:text-white transition-colors">
+                        <i class="fa-solid fa-calculator text-accent-cyan"></i> Mathematica
+                    </div>
+                    <div class="flex items-center gap-3 text-lg text-text-muted hover:text-white transition-colors">
+                        <i class="fa-solid fa-file-code text-white"></i> LaTeX
+                    </div>
+                    <div class="flex items-center gap-3 text-lg text-text-muted hover:text-white transition-colors">
+                        <i class="fa-solid fa-flask text-accent-secondary"></i> LabView
+                    </div>
+                </div>
+            </div>
+
+            <!-- State Vectors (Personal Dashboard) -->
+            <section id="dashboard" class="max-w-5xl mx-auto px-6 py-20 pointer-events-auto">
+                <div class="spotlight-card p-1 border border-white/10 relative overflow-hidden bg-bg-card">
+                    <!-- Dashboard Header -->
+                    <div class="bg-bg-surface border-b border-white/5 p-4 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="flex gap-1.5">
+                                <span class="w-3 h-3 rounded-full bg-red-500/20 border border-red-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500/20 border border-green-500"></span>
+                            </div>
+                            <span class="ml-4 font-mono text-xs text-text-muted">user@manilal:~/dashboard</span>
+                        </div>
+                        <span class="w-2 h-2 rounded-full bg-accent-primary animate-pulse will-change-transform"></span>
+                    </div>
+
+                    <div class="p-8 md:p-12">
+                        <div class="grid md:grid-cols-2 gap-12">
+                            <!-- Column 1: Input -->
+                            <div class="space-y-10">
+                                <div>
+                                    <h4
+                                        class="text-[10px] uppercase tracking-[0.2em] text-text-muted mb-6 flex items-center gap-2">
+                                        <i class="fa-solid fa-book-open"></i> Input Stream
+                                    </h4>
+                                    <div class="flex items-start gap-6 group">
+                                        <div
+                                            class="w-20 h-28 bg-white/5 rounded shadow-2xl flex-shrink-0 overflow-hidden border border-white/10 relative group-hover:-translate-y-2 transition-transform duration-300">
+                                            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=200"
+                                                alt="Book Cover"
+                                                class="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
+                                        </div>
+                                        <div class="flex-1">
+                                            <div
+                                                class="text-white font-bold group-hover:text-accent-primary transition-colors text-lg">
+                                                The Three-Body Problem</div>
+                                            <div class="text-sm text-text-muted italic mb-3">Cixin Liu</div>
+                                            <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                                                <div
+                                                    class="h-full bg-gradient-to-r from-accent-primary to-accent-cyan w-3/4 relative overflow-hidden">
+                                                    <div
+                                                        class="absolute inset-0 bg-white/20 animate-[marquee_1s_linear_infinite] will-change-transform">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="flex justify-between text-[10px] font-mono text-text-muted mt-2">
+                                                <span>Progress</span>
+                                                <span>75%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4
+                                        class="text-[10px] uppercase tracking-[0.2em] text-text-muted mb-4 flex items-center gap-2">
+                                        <i class="fa-solid fa-headphones"></i> Audio Buffer
+                                    </h4>
+                                    <div
+                                        class="flex items-center gap-4 group p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-accent-secondary/30 transition-colors">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-accent-secondary/20 flex items-center justify-center text-accent-secondary">
+                                            <i class="fa-solid fa-music animate-spin-slow"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-sm font-bold text-white">Synthwave Mix Vol. 4</div>
+                                            <div class="text-xs text-text-muted">Spotify</div>
+                                        </div>
+                                        <div class="ml-auto flex gap-0.5 h-4 items-end">
+                                            <span
+                                                class="w-1 bg-accent-secondary animate-[float_0.5s_ease-in-out_infinite] h-full will-change-transform"></span>
+                                            <span
+                                                class="w-1 bg-accent-secondary animate-[float_0.7s_ease-in-out_infinite] h-2/3 will-change-transform"></span>
+                                            <span
+                                                class="w-1 bg-accent-secondary animate-[float_0.4s_ease-in-out_infinite] h-1/2 will-change-transform"></span>
+                                            <span
+                                                class="w-1 bg-accent-secondary animate-[float_0.6s_ease-in-out_infinite] h-3/4 will-change-transform"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Column 2: Status Log -->
+                            <div class="font-mono text-xs space-y-4">
+                                <h4
+                                    class="text-[10px] font-sans uppercase tracking-[0.2em] text-text-muted mb-6 flex items-center gap-2">
+                                    <i class="fa-solid fa-terminal"></i> System Log
+                                </h4>
+                                <div
+                                    class="bg-black/40 p-4 rounded border border-white/5 space-y-2 h-full flex flex-col">
+                                    <div id="terminal-content" class="flex-1 space-y-2">
+                                        <div class="flex gap-2">
+                                            <span class="text-text-muted">14:02</span>
+                                            <span class="text-accent-primary">SUCCESS</span>
+                                            <span class="text-white/80">Senior_Thesis_Review.pdf</span>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <span class="text-text-muted">11:45</span>
+                                            <span class="text-accent-cyan">INFO</span>
+                                            <span class="text-white/80">Union_Steward_Meeting attended</span>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <span class="text-text-muted">09:30</span>
+                                            <span class="text-accent-primary">SUCCESS</span>
+                                            <span class="text-white/80">SQUID_Measurement completed</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 pt-4 border-t border-white/5">
+                                        <span class="text-accent-primary">root@manilal:~$</span> <span
+                                            class="animate-cursor-blink">_</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="max-w-4xl mx-auto px-6 py-24 text-center pointer-events-auto">
+                <div class="spotlight-card p-12 relative overflow-hidden group">
+                    <div
+                        class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-primary via-accent-secondary to-accent-tertiary">
+                    </div>
+                    <div
+                        class="absolute -right-20 -bottom-20 w-64 h-64 bg-accent-primary/10 rounded-full blur-3xl group-hover:bg-accent-primary/20 transition-all duration-700">
+                    </div>
+
+                    <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">Contact Details</h2>
+                    <p class="text-text-muted text-lg mb-10 max-w-2xl mx-auto font-light">
+                        get in touch.
+                    </p>
+
+                    <div class="flex flex-col md:flex-row gap-4 justify-center items-center mb-8">
+                        <!-- Academic Email -->
+                        <button
+                            class="copy-citation-btn inline-flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 text-white rounded-full hover:bg-accent-primary hover:text-black transition-all group"
+                            data-citation="manilala@mcmaster.ca">
+                            <i class="fa-solid fa-university"></i>
+                            <span>manilala@mcmaster.ca</span>
+                        </button>
+
+                        <!-- Personal Email -->
+                        <button
+                            class="copy-citation-btn inline-flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 text-white rounded-full hover:bg-accent-secondary hover:text-black transition-all group"
+                            data-citation="manilaladarsh@gmail.com">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>manilaladarsh@gmail.com</span>
+                        </button>
+                    </div>
+
+                    <!-- Social Icons -->
+                    <div class="flex gap-6 justify-center">
+                        <a href="https://www.linkedin.com/in/adarsh-manilal-697799280/" target="_blank"
+                            class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#0077b5] hover:text-white transition-all hover:scale-110 text-text-muted text-xl">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center hover:bg-white hover:text-black transition-all hover:scale-110 text-text-muted text-xl">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#1DA1F2] hover:text-white transition-all hover:scale-110 text-text-muted text-xl">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                    </div>
+                    <div id="email-copied-msg"
+                        class="text-accent-primary text-sm opacity-0 transition-opacity duration-300">Copied to
+                        clipboard!
+                    </div>
+
+                    <div class="mt-12 flex justify-center gap-8 relative z-20">
+                        <a href="https://orcid.org/0009-0007-6127-5701" target="_blank"
+                            class="text-2xl text-text-muted hover:text-white hover:scale-125 transition-all"><i
+                                class="fa-brands fa-orcid"></i></a>
+                    </div>
+
+                    <div class="mt-12 text-xs font-mono text-white/20">
+                        &copy; <span id="year">2025</span> Adarsh Manilal. <br>System Status: OPTIMAL
+                    </div>
+                </div>
+            </section>
+
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- 1. Custom Cursor & Spotlight ---
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorOutline = document.getElementById('cursor-outline');
+
+            let mouseX = 0;
+            let mouseY = 0;
+            let cursorX = 0;
+            let cursorY = 0;
+
+            // PERFORMANCE OPTIMIZATION: Cache card positions
+            let spotlightCards = Array.from(document.querySelectorAll('.spotlight-card'));
+            let cardPositions = [];
+
+            function updateCardPositions() {
+                cardPositions = spotlightCards.map(card => {
+                    const rect = card.getBoundingClientRect();
+                    return {
+                        element: card,
+                        top: rect.top + window.scrollY,
+                        left: rect.left + window.scrollX
+                    };
+                });
+            }
+            window.addEventListener('resize', updateCardPositions);
+            setTimeout(updateCardPositions, 100);
+
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursorDot.style.left = `${mouseX}px`;
+                cursorDot.style.top = `${mouseY}px`;
+            });
+
+            // Optimized Smooth Cursor Loop (LERP) + Batched Spotlight Updates
+            function animateCursor() {
+                const lerpFactor = 0.15;
+
+                cursorX += (mouseX - cursorX) * lerpFactor;
+                cursorY += (mouseY - cursorY) * lerpFactor;
+
+                cursorOutline.style.left = `${cursorX}px`;
+                cursorOutline.style.top = `${cursorY}px`;
+
+                // Applied Spotlight Effect using Cached Positions (No Reflows)
+                const pageX = mouseX + window.scrollX;
+                const pageY = mouseY + window.scrollY;
+
+                cardPositions.forEach(card => {
+                    const x = pageX - card.left;
+                    const y = pageY - card.top;
+                    card.element.style.setProperty('--mouse-x', `${x}px`);
+                    card.element.style.setProperty('--mouse-y', `${y}px`);
+                });
+
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // Hover effects
+            const interactiveElements = document.querySelectorAll('a, button, .hover-trigger, .spotlight-card');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorOutline.classList.add('hovered');
+                    cursorDot.style.transform = 'translate(-50%, -50%) scale(0.5)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorOutline.classList.remove('hovered');
+                    cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+                });
+            });
+
+            // --- 2. Magnetic Buttons (Optimized) ---
+            const magneticBtns = document.querySelectorAll('.magnetic-btn');
+            magneticBtns.forEach(btn => {
+                let rect = null;
+
+                btn.addEventListener('mouseenter', () => {
+                    rect = btn.getBoundingClientRect(); // Cache on enter
+                });
+
+                btn.addEventListener('mousemove', (e) => {
+                    if (!rect) rect = btn.getBoundingClientRect(); // Fallback
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                });
+
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = 'translate(0, 0)';
+                    rect = null; // Clear cache
+                });
+            });
+
+            // --- 3. Copy Citation Logic ---
+            const copyBtns = document.querySelectorAll('.copy-citation-btn');
+            copyBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const citation = btn.getAttribute('data-citation');
+                    if (citation) {
+                        navigator.clipboard.writeText(citation).then(() => {
+                            const originalIcon = btn.innerHTML;
+                            btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+                            btn.classList.add('bg-accent-primary', 'text-black');
+                            btn.classList.remove('bg-white/5');
+
+                            setTimeout(() => {
+                                btn.innerHTML = originalIcon;
+                                btn.classList.remove('bg-accent-primary', 'text-black');
+                                btn.classList.add('bg-white/5');
+                            }, 2000);
+                        });
+                    }
+                });
+            });
+
+            // --- 4. Stats Counter ---
+            const stats = document.querySelectorAll('.stat-number');
+            const observerOptions = { threshold: 0.5 };
+
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseInt(entry.target.getAttribute('data-target'));
+                        animateValue(entry.target, 0, target, 2000);
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            stats.forEach(stat => statsObserver.observe(stat));
+
+            function animateValue(obj, start, end, duration) {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerHTML = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            // --- 5. Navbar Scroll & Scroll Spy ---
+            const navbar = document.getElementById('navbar');
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 50) {
+                    navbar.classList.add('bg-bg-dark/80', 'backdrop-blur-md', 'border-white/5');
+                    navbar.classList.remove('border-transparent');
+                } else {
+                    navbar.classList.remove('bg-bg-dark/80', 'backdrop-blur-md', 'border-white/5');
+                    navbar.classList.add('border-transparent');
+                }
+
+                // Scroll Spy Logic
+                let currentSection = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= sectionTop - 200) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('nav-active');
+                    if (link.getAttribute('href').includes(currentSection)) {
+                        link.classList.add('nav-active');
+                    }
+                });
+
+                // Back to Top Button Visibility
+                const backToTopBtn = document.getElementById('back-to-top');
+                if (window.pageYOffset > 500) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+
+            // --- 6. Back to Top Click ---
+            document.getElementById('back-to-top').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // --- 7. Timeline Progress ---
+            const timelineContainer = document.getElementById('timeline-container');
+            const timelineBar = document.getElementById('timeline-progress-bar');
+            if (timelineContainer) {
+                window.addEventListener('scroll', () => {
+                    const rect = timelineContainer.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+                    if (rect.top < windowHeight && rect.bottom > 0) {
+                        const totalHeight = rect.height;
+                        const scrolled = windowHeight - rect.top - (windowHeight / 2);
+                        let percentage = (scrolled / totalHeight) * 100;
+                        if (percentage < 0) percentage = 0;
+                        if (percentage > 100) percentage = 100;
+                        timelineBar.style.height = `${percentage}%`;
+                    }
+                });
+            }
+
+            // --- 8. Dynamic Terminal Logs ---
+            const terminalContent = document.getElementById('terminal-content');
+            const logs = [
+                { type: 'INFO', msg: 'Analysing NMR spectra...' },
+                { type: 'SUCCESS', msg: 'Data visualization updated' },
+                { type: 'WARN', msg: 'Temperature drift detected' },
+                { type: 'INFO', msg: 'Fetching arXiv preprints...' },
+                { type: 'SUCCESS', msg: 'Simulation converged' },
+                { type: 'INFO', msg: 'System optimal' }
+            ];
+
+            setInterval(() => {
+                const randomLog = logs[Math.floor(Math.random() * logs.length)];
+                const time = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+
+                let colorClass = 'text-white/80';
+                if (randomLog.type === 'SUCCESS') colorClass = 'text-accent-primary';
+                if (randomLog.type === 'WARN') colorClass = 'text-accent-secondary';
+                if (randomLog.type === 'INFO') colorClass = 'text-accent-cyan';
+
+                const newLog = document.createElement('div');
+                newLog.className = 'flex gap-2 animate-fade-in-up';
+                newLog.innerHTML = `
+                    <span class="text-text-muted">${time}</span>
+                    <span class="${colorClass}">${randomLog.type}</span>
+                    <span class="text-white/80">${randomLog.msg}</span>
+                `;
+
+                terminalContent.appendChild(newLog);
+                if (terminalContent.children.length > 5) {
+                    terminalContent.removeChild(terminalContent.children[0]);
+                }
+            }, 4000);
+
+            // --- 9. Email Copy Logic ---
+            const copyEmailBtn = document.getElementById('copy-email-btn');
+            const emailText = document.getElementById('email-text');
+            const copiedMsg = document.getElementById('email-copied-msg');
+
+            copyEmailBtn.addEventListener('click', () => {
+                const email = copyEmailBtn.getAttribute('data-email');
+                navigator.clipboard.writeText(email).then(() => {
+                    emailText.innerText = "Copied!";
+                    copiedMsg.style.opacity = '1';
+                    setTimeout(() => {
+                        emailText.innerText = email;
+                        copiedMsg.style.opacity = '0';
+                    }, 2000);
+                });
+            });
+
+            // --- 10. Background Canvas (Plexus) ---
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.size = Math.random() * 2;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                }
+                draw() {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < 40; i++) particles.push(new Particle());
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach((p, index) => {
+                    p.update();
+                    p.draw();
+                    for (let j = index + 1; j < particles.length; j++) {
+                        const p2 = particles[j];
+                        const dx = p.x - p2.x;
+                        const dy = p.y - p2.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 150) {
+                            ctx.strokeStyle = `rgba(255, 255, 255, ${0.05 - dist / 3000})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.stroke();
+                        }
+                    }
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+
+            // --- 11. Small Canvas in Bento Grid ---
+            const bentoCanvas = document.getElementById('bento-canvas-1');
+            if (bentoCanvas) {
+                const bCtx = bentoCanvas.getContext('2d');
+                let offset = 0;
+                function animateBento() {
+                    if (bentoCanvas.parentElement && bentoCanvas.width !== bentoCanvas.parentElement.offsetWidth) {
+                        bentoCanvas.width = bentoCanvas.parentElement.offsetWidth;
+                        bentoCanvas.height = bentoCanvas.parentElement.offsetHeight;
+                    }
+                    bCtx.clearRect(0, 0, bentoCanvas.width, bentoCanvas.height);
+                    bCtx.strokeStyle = '#00FF9D';
+                    bCtx.lineWidth = 1;
+                    bCtx.beginPath();
+                    for (let x = 0; x < bentoCanvas.width; x++) {
+                        const y = bentoCanvas.height / 2 + Math.sin((x + offset) * 0.02) * 20 * Math.sin(offset * 0.05);
+                        if (x === 0) bCtx.moveTo(x, y);
+                        else bCtx.lineTo(x, y);
+                    }
+                    bCtx.stroke();
+                    offset++;
+                    requestAnimationFrame(animateBento);
+                }
+                animateBento();
+            }
+
+            /* Quantum Simulation Code Removed (Moved Inline)
+            try {
+                const quantumCanvas = document.getElementById('quantum-sim-canvas');
+                if (!quantumCanvas) return;
+
+                const ctx = quantumCanvas.getContext('2d');
+                let width = 300, height = 400;
+
+                function resize() {
+                    const parent = quantumCanvas.parentElement;
+                    if (parent) {
+                        width = parent.offsetWidth || 300;
+                        height = parent.offsetHeight || 400;
+                    }
+                    quantumCanvas.width = width;
+                    quantumCanvas.height = height;
+                    initLattice();
+                }
+
+                // 1. Lattice (Ion Cores)
+                let lattice = [];
+                function initLattice() {
+                    lattice = [];
+                    const spacing = 50;
+                    const cols = Math.ceil(width / spacing);
+                    const rows = Math.ceil(height / spacing);
+                    for (let i = 0; i < cols; i++) {
+                        for (let j = 0; j < rows; j++) {
+                            lattice.push({
+                                x: i * spacing + spacing / 2,
+                                y: j * spacing + spacing / 2,
+                                baseX: i * spacing + spacing / 2,
+                                baseY: j * spacing + spacing / 2
+                            });
+                        }
+                    }
+                }
+
+                // Init dimensions first
+                resize();
+                window.addEventListener('resize', resize);
+                setTimeout(resize, 500);
+
+                // 2. Cooper Pairs (Bound Electron Pairs)
+                const pairs = [];
+                for (let i = 0; i < 6; i++) {
+                    pairs.push({
+                        cx: Math.random() * 300,
+                        cy: Math.random() * 400,
+                        vx: (Math.random() - 0.5) * 1.5,
+                        vy: (Math.random() - 0.5) * 1.5,
+                        angle: Math.random() * Math.PI * 2,
+                        separation: 15,
+                        history: [],
+                        color1: '#00FF9D',
+                        color2: '#00F0FF'
+                    });
+                }
+
+                // DEBUG: Force background blue to prove JS is working
+                quantumCanvas.style.background = '#000033';
+
+                function animate() {
+                    ctx.clearRect(0, 0, width, height);
+
+                    // DEBUG: Visual Stats
+                    ctx.fillStyle = 'red';
+                    ctx.font = '16px monospace';
+                    ctx.fillText(`Sim Running: ${width}x${height}`, 20, 30);
+                    ctx.fillText(`Lattice: ${lattice.length}, Pairs: ${pairs.length}`, 20, 50);
+
+                    // Draw Lattice
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'; // Increased opacity
+                    lattice.forEach(p => {
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+                        ctx.fill();
+                        // Reset position (spring back)
+                        p.x += (p.baseX - p.x) * 0.1;
+                        p.y += (p.baseY - p.y) * 0.1;
+                    });
+
+                    // Update & Draw Pairs
+                    pairs.forEach(p => {
+                        p.cx += p.vx;
+                        p.cy += p.vy;
+                        if (p.cx < 0 || p.cx > width) p.vx *= -1;
+                        if (p.cy < 0 || p.cy > height) p.vy *= -1;
+
+                        p.angle += 0.1;
+
+                        // Phonon Interaction (Distort Lattice)
+                        lattice.forEach(l => {
+                            const dx = p.cx - l.x;
+                            const dy = p.cy - l.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist < 60) {
+                                const force = (60 - dist) / 60;
+                                l.x += (p.cx - l.x) * 0.05 * force;
+                                l.y += (p.cy - l.y) * 0.05 * force;
+                            }
+                        });
+
+                        // Trail
+                        p.history.push({ x: p.cx, y: p.cy });
+                        if (p.history.length > 20) p.history.shift();
+
+                        // Draw Trail
+                        ctx.beginPath();
+                        ctx.strokeStyle = 'rgba(0, 255, 157, 0.2)';
+                        ctx.lineWidth = 2;
+                        for (let i = 0; i < p.history.length - 1; i++) {
+                            ctx.moveTo(p.history[i].x, p.history[i].y);
+                            ctx.lineTo(p.history[i + 1].x, p.history[i + 1].y);
+                        }
+                        ctx.stroke();
+
+                        // Calculate Electron Positions
+                        const e1x = p.cx + Math.cos(p.angle) * p.separation;
+                        const e1y = p.cy + Math.sin(p.angle) * p.separation;
+                        const e2x = p.cx + Math.cos(p.angle + Math.PI) * p.separation;
+                        const e2y = p.cy + Math.sin(p.angle + Math.PI) * p.separation;
+
+                        // Draw Binding (Spring)
+                        ctx.beginPath();
+                        ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+                        ctx.moveTo(e1x, e1y);
+                        ctx.lineTo(e2x, e2y);
+                        ctx.stroke();
+
+                        // Draw Electrons
+                        ctx.fillStyle = p.color1;
+                        ctx.beginPath();
+                        ctx.arc(e1x, e1y, 4, 0, Math.PI * 2);
+                        ctx.fill();
+
+                        ctx.fillStyle = p.color2;
+                        ctx.beginPath();
+                        ctx.arc(e2x, e2y, 4, 0, Math.PI * 2);
+                        ctx.fill();
+                    });
+
+                    requestAnimationFrame(animate);
+                }
+
+                resize();
+                window.addEventListener('resize', resize);
+                // Double check size after a moment
+                setTimeout(resize, 500);
+
+                animate();
+
+            } catch (e) {
+                console.error("Quantum Sim Failed:", e);
+            }
+            */
+
+            // --- 12. Gemini AI Integration with BYO Key ---
+            const envApiKey = ""; // Environment key (if any)
+            const chatToggle = document.getElementById('chat-toggle');
+            const chatWidget = document.getElementById('chat-widget');
+            const closeChat = document.getElementById('close-chat');
+            const chatForm = document.getElementById('chat-form');
+            const chatInput = document.getElementById('chat-input');
+            const chatMessages = document.getElementById('chat-messages');
+
+            // Settings Elements
+            const settingsBtn = document.getElementById('chat-settings-btn');
+            const settingsView = document.getElementById('chat-settings-view');
+            const apiKeyInput = document.getElementById('api-key-input');
+            const saveApiKeyBtn = document.getElementById('save-api-key');
+            const cancelSettingsBtn = document.getElementById('cancel-settings');
+
+            // --- API Key Management ---
+            function getApiKey() {
+                // Priority: Env Key > LocalStorage
+                if (envApiKey) return envApiKey;
+                return localStorage.getItem('gemini_api_key') || "";
+            }
+
+            settingsBtn.addEventListener('click', () => {
+                apiKeyInput.value = localStorage.getItem('gemini_api_key') || "";
+                settingsView.classList.remove('hidden');
+            });
+
+            cancelSettingsBtn.addEventListener('click', () => {
+                settingsView.classList.add('hidden');
+            });
+
+            saveApiKeyBtn.addEventListener('click', () => {
+                const key = apiKeyInput.value.trim();
+                if (key) {
+                    localStorage.setItem('gemini_api_key', key);
+                    settingsView.classList.add('hidden');
+                    addMessage("API Key saved successfully! I am ready to assist.", 'ai');
+                } else {
+                    alert("Please enter a valid key.");
+                }
+            });
+
+            // Toggle Chat Widget
+            chatToggle.addEventListener('click', () => {
+                chatWidget.classList.toggle('open');
+            });
+            closeChat.addEventListener('click', () => {
+                chatWidget.classList.remove('open');
+            });
+
+            // Helper: Call Gemini API
+            async function callGemini(prompt, systemInstruction = "") {
+                const key = getApiKey();
+                if (!key) {
+                    // Prompt user to enter key
+                    settingsView.classList.remove('hidden');
+                    chatWidget.classList.add('open'); // Ensure widget is visible
+                    return "I need a Google Gemini API Key to function. Please enter your free key in the settings panel above.";
+                }
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${key}`;
+
+                const payload = {
+                    contents: [{ parts: [{ text: prompt }] }],
+                    systemInstruction: { parts: [{ text: systemInstruction }] }
+                };
+
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        if (response.status === 400 || response.status === 403) {
+                            chatWidget.classList.add('open');
+                            settingsView.classList.remove('hidden');
+                            return "API Key Error. Please check your key in settings.";
+                        }
+                        throw new Error('API Request Failed');
+                    }
+
+                    const data = await response.json();
+                    return data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't process that.";
+                } catch (error) {
+                    console.error(error);
+                    return "Connection error. Please try again.";
+                }
+            }
+
+            // Chatbot Logic
+            let conversationHistory = []; // Store simplified history context
+            const researcherPersona = "You are a helpful AI research assistant for Adarsh Manilal, a PhD candidate in Physics at McMaster University. You specialize in Condensed Matter Physics, specifically High-Tc Superconductivity, YBCO, and NMR/NQR spectroscopy. Answer visitor questions professionally but concisely. If asked about contact info, provide 'manilala@mcmaster.ca'. Adarsh's key skills: Python, SQUID, PPMS, Dilution Fridges. He is a CUPE steward.";
+
+            chatForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const userMsg = chatInput.value.trim();
+                if (!userMsg) return;
+
+                // Add User Message
+                addMessage(userMsg, 'user');
+                chatInput.value = '';
+
+                // Add Loading Indicator
+                const loaderId = addLoader();
+
+                // Prepare Context
+                const contextPrompt = `Context: Previous User questions: ${conversationHistory.join(' | ')}. Current Question: ${userMsg}`;
+
+                // Call Gemini
+                const aiResponse = await callGemini(contextPrompt, researcherPersona);
+
+                // Update History (Keep it short)
+                conversationHistory.push(userMsg);
+                if (conversationHistory.length > 3) conversationHistory.shift();
+
+                // Remove Loader & Add AI Message
+                document.getElementById(loaderId).remove();
+                addMessage(aiResponse, 'ai');
+            });
+
+            function addMessage(text, sender) {
+                const div = document.createElement('div');
+                div.className = `flex gap-3 ${sender === 'user' ? 'flex-row-reverse' : ''}`;
+
+                const avatar = sender === 'user'
+                    ? `<div class="w-8 h-8 rounded bg-white/10 flex items-center justify-center text-white shrink-0"><i class="fa-solid fa-user text-xs"></i></div>`
+                    : `<div class="w-8 h-8 rounded bg-accent-primary/20 flex items-center justify-center text-accent-primary shrink-0"><i class="fa-solid fa-robot text-xs"></i></div>`;
+
+                const bubbleColor = sender === 'user' ? 'bg-accent-primary/20 border-accent-primary/30 text-white' : 'bg-white/5 border-white/5 text-gray-200';
+
+                div.innerHTML = `
+                    ${avatar}
+                    <div class="${bubbleColor} p-3 rounded-lg text-sm border max-w-[80%]">
+                        ${text}
+                    </div>
+                `;
+                chatMessages.appendChild(div);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function addLoader() {
+                const id = 'loader-' + Date.now();
+                const div = document.createElement('div');
+                div.id = id;
+                div.className = 'flex gap-3';
+                div.innerHTML = `
+                    <div class="w-8 h-8 rounded bg-accent-primary/20 flex items-center justify-center text-accent-primary shrink-0"><i class="fa-solid fa-robot text-xs"></i></div>
+                    <div class="bg-white/5 p-3 rounded-lg border border-white/5 ai-loader flex items-center gap-1">
+                        <span></span><span></span><span></span>
+                    </div>
+                `;
+                chatMessages.appendChild(div);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                return id;
+            }
+
+            // ELI5 Logic for Publications
+            document.querySelectorAll('.eli5-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const card = btn.closest('.spotlight-card');
+                    const title = card.querySelector('.publication-title').innerText;
+                    const resultBox = card.querySelector('.eli5-result');
+                    const resultText = card.querySelector('.eli5-text');
+
+                    if (!resultBox.classList.contains('hidden')) {
+                        resultBox.classList.add('hidden'); // Toggle off
+                        return;
+                    }
+
+                    // Show loading state
+                    resultBox.classList.remove('hidden');
+                    resultText.innerHTML = '<span class="animate-pulse">Analyzing paper content...</span>';
+
+                    const prompt = `Explain the scientific paper titled "${title}" in simple terms suitable for a high school student. Keep it under 2 sentences. Focus on the "why it matters".`;
+
+                    const explanation = await callGemini(prompt, "You are a science communicator explaining complex physics simply.");
+
+                    resultText.innerText = explanation;
+                });
+            });
+
+        });
+
+        // --- 13. Mobile Menu Logic ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        let isMenuOpen = false;
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                isMenuOpen = !isMenuOpen;
+                if (isMenuOpen) {
+                    mobileMenu.classList.remove('translate-x-full');
+                    mobileMenuBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+                } else {
+                    mobileMenu.classList.add('translate-x-full');
+                    mobileMenuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                }
+            });
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    isMenuOpen = false;
+                    mobileMenu.classList.add('translate-x-full');
+                    mobileMenuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                });
+            });
+        }
+
+        // --- 14. Motion Settings Logic ---
+        const toggleMotionBtn = document.getElementById('toggle-motion');
+        if (toggleMotionBtn) {
+            const motionKnob = toggleMotionBtn.querySelector('span');
+            let reducedMotion = localStorage.getItem('reduced_motion') === 'true';
+
+            function updateMotionState() {
+                if (reducedMotion) {
+                    toggleMotionBtn.setAttribute('data-active', 'true');
+                    toggleMotionBtn.classList.add('bg-accent-primary');
+                    toggleMotionBtn.classList.remove('bg-white/10');
+                    if (motionKnob) motionKnob.style.transform = 'translateX(20px)';
+                    document.body.classList.add('motion-reduce');
+                    if (document.getElementById('bg-canvas')) document.getElementById('bg-canvas').style.display = 'none';
+                } else {
+                    toggleMotionBtn.setAttribute('data-active', 'false');
+                    toggleMotionBtn.classList.remove('bg-accent-primary');
+                    toggleMotionBtn.classList.add('bg-white/10');
+                    if (motionKnob) motionKnob.style.transform = 'translateX(0)';
+                    document.body.classList.remove('motion-reduce');
+                    if (document.getElementById('bg-canvas')) document.getElementById('bg-canvas').style.display = 'block';
+                }
+                localStorage.setItem('reduced_motion', reducedMotion);
+            }
+
+            updateMotionState();
+
+            toggleMotionBtn.addEventListener('click', () => {
+                reducedMotion = !reducedMotion;
+                updateMotionState();
+            });
+        }
+
+
+    </script>
+</body>
+
+</html>
