@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adarsh Manilal | Physicist, Sound Designer &amp; Creative Coder</title>
+<!-- Google Fonts (optimized: display=swap, reduced weights) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- Tailwind CSS (optimized: deferred loading) -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'bg-dark': '#030304',
+            'bg-card': '#08080A',
+            'bg-surface': '#0E0E11',
+            'accent-primary': '#00FF9D', /* Neon Green */
+            'accent-secondary': '#FF3366', /* Neon Red */
+            'accent-tertiary': '#7000FF', /* Neon Purple */
+            'accent-cyan': '#00F0FF', /* Neon Cyan */
+            'text-main': '#F0F0F0',
+            'text-muted': '#888899',
+            'border-light': 'rgba(255, 255, 255, 0.08)'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Manrope"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          animation: {
+            'spin-slow': 'spin 12s linear infinite',
+            'pulse-fast': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'marquee': 'marquee 35s linear infinite',
+            'spotlight': 'spotlight 2s ease .75s 1 forwards',
+            'cursor-blink': 'cursor-blink 1s step-end infinite',
+            'typewriter': 'typewriter 2s steps(40, end)',
+          },
+          keyframes: {
+            float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+            },
+            marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-100%)' },
+            },
+            spotlight: {
+                '0%': { opacity: 0, transform: 'translate(-50%, -50%) scale(0.5)' },
+                '100%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
+            },
+            'cursor-blink': {
+                '0%, 100%': { opacity: 1 },
+                '50%': { opacity: 0 },
+            },
+            typewriter: {
+                'from': { width: '0' },
+                'to': { width: '100%' }
+            }
+          }
+        }
+      }
+    }
+</script>
+
+<style>
+/* --- Core Variables & Reset --- */
+:root {
+  --cursor-size: 20px;
+  --accent-glow: 0 0 20px rgba(0, 255, 157, 0.3);
+  --glass-bg: rgba(8, 8, 10, 0.7);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+  --glass-blur: blur(16px);
+}
+
+* {
+    box-sizing: border-box;
+}
+body {
+    cursor: none; /* Custom cursor - scoped to body to avoid unnecessary repaints */
+}
+a, button, [role="button"] {
+    cursor: none;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px; /* Offset for fixed navbar */
+}
+
+body {
+    background-color: #030304;
+    color: #F0F0F0;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- Grain Texture (z-0) --- */
+.noise-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0; 
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* --- Custom Cursor --- */
+#cursor-dot, #cursor-outline {
+    position: fixed;
+    top: 0; left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    will-change: transform;
+}
+#cursor-dot {
+    width: 8px; height: 8px;
+    background-color: var(--accent-primary);
+}
+#cursor-outline {
+    width: 40px; height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: width 0.2s, height 0.2s, background-color 0.2s, transform 0.08s ease-out;
+}
+body:hover #cursor-outline.hovered {
+    width: 60px; height: 60px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: transparent;
+}
+
+/* --- Utilities --- */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, #fff 0%, #888 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- Spotlight Card Effect --- */
+.spotlight-card {
+    position: relative;
+    background: #08080A;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.spotlight-card::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0; left: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+        800px circle at var(--mouse-x) var(--mouse-y),
+        rgba(255, 255, 255, 0.06),
+        transparent 40%
+    );
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+}
+
+.spotlight-card:hover::before {
+    opacity: 1;
+}
+
+.spotlight-card::after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0; left: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+        600px circle at var(--mouse-x) var(--mouse-y),
+        rgba(0, 255, 157, 0.1),
+        transparent 40%
+    );
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+}
+.spotlight-card:hover::after {
+    opacity: 1;
+}
+
+/* --- Bento Grid --- */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+}
+@media (min-width: 768px) {
+    .bento-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+    }
+    .bento-item-lg { grid-column: span 2; grid-row: span 2; }
+    .bento-item-md { grid-column: span 1; grid-row: span 1; }
+    .bento-item-wide { grid-column: span 2; }
+    .bento-item-full { grid-column: span 3; }
+    .bento-item-tall { grid-row: span 2; }
+}
+
+/* --- Glitch Effect --- */
+.glitch-wrapper { position: relative; display: inline-block; }
+.glitch-layer {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0;
+}
+.glitch-active .glitch-layer:nth-child(1) {
+    color: #00FF9D; animation: glitch-anim-1 0.4s infinite linear alternate-reverse; opacity: 1; clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); transform: translate(-2px, 0);
+}
+.glitch-active .glitch-layer:nth-child(2) {
+    color: #FF3366; animation: glitch-anim-2 0.4s infinite linear alternate-reverse; opacity: 1; clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%); transform: translate(2px, 0);
+}
+@keyframes glitch-anim-1 { 0% { clip-path: inset(20% 0 80% 0); } 100% { clip-path: inset(60% 0 10% 0); } }
+@keyframes glitch-anim-2 { 0% { clip-path: inset(10% 0 60% 0); } 100% { clip-path: inset(80% 0 5% 0); } }
+
+/* --- Magnetic Button --- */
+.magnetic-btn {
+    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* --- Timeline Styles --- */
+.timeline-line {
+    position: absolute;
+    left: 2rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.05);
+}
+.timeline-progress {
+    position: absolute;
+    left: 2rem;
+    top: 0;
+    width: 2px;
+    height: 0%;
+    background: linear-gradient(to bottom, #00FF9D, #00F0FF);
+    box-shadow: 0 0 15px rgba(0, 255, 157, 0.5);
+    transition: height 0.1s linear;
+}
+
+/* --- Back to Top Button --- */
+#back-to-top {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 90;
+}
+#back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- Active Nav Link --- */
+.nav-active {
+    color: #00FF9D !important;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #030304; }
+::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #00FF9D; }
+
+
+</style>
+</head>
+<body class="selection:bg-accent-primary selection:text-black">
+
+    <!-- Noise Texture Overlay (z-0 to sit behind content) -->
+    <div class="noise-overlay pointer-events-none"></div>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-outline"></div>
+
+    <!-- Background Canvas (z-minus-1 to sit behind everything) -->
+    <div class="fixed inset-0 z-[-1] pointer-events-none opacity-30">
+        <canvas id="bg-canvas"></canvas>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-accent-primary text-black flex items-center justify-center font-bold shadow-[0_0_20px_rgba(0,255,157,0.4)] hover:scale-110 transition-transform cursor-none pointer-events-auto">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+
+
+    <!-- Navbar (z-50 for clickability) -->
+    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b border-transparent" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-xl font-bold font-display tracking-tight hover-trigger pointer-events-auto" data-hover-text="CREATIVE">
+                <span class="text-accent-primary">ADARSH</span><span class="text-white">.MANILAL</span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-1 glass-panel p-1 rounded-full border border-white/5 shadow-2xl backdrop-blur-xl pointer-events-auto">
+                <a href="#about" class="nav-link px-5 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all">Overview</a>
+                <a href="#research" class="nav-link px-5 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all">Foundations</a>
+                <a href="#journey" class="nav-link px-5 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all">Timeline</a>
+                <a href="#dashboard" class="nav-link px-5 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all">State</a>
+                <a href="#projects" class="nav-link px-5 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all">Playground</a>
+                <a href="#contact" class="nav-link px-5 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all">Contact</a>
+            </div>
+
+            <div class="flex gap-4 pointer-events-auto">
+                <a href="assets/Manilal_CV.pdf" target="_blank" class="magnetic-btn hidden md:flex items-center gap-2 px-5 py-2 bg-white text-black font-bold text-xs uppercase tracking-wide rounded-full hover:bg-accent-primary transition-colors duration-300 group">
+                    <span>CV / Resume</span>
+                    <i class="fa-solid fa-arrow-down transform group-hover:translate-y-1 transition-transform"></i>
+                </a>
+                <button class="md:hidden text-white text-xl">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content (z-10 to sit above noise) -->
+    <main class="relative z-10 pt-32 pb-20 pointer-events-auto">
+
+        <!-- Hero Section -->
+        <section id="home" class="min-h-[85vh] flex flex-col justify-center items-center relative overflow-hidden px-6">
+            
+            <div class="text-center max-w-4xl mx-auto space-y-8 relative z-30">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-accent-primary/20 bg-accent-primary/5 text-accent-primary text-[10px] font-mono uppercase tracking-widest mb-6 animate-fade-in-up hover:bg-accent-primary/10 transition-colors cursor-help" title="Physicist, Creative Programmer &amp; Synthesist">
+                    <span class="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse"></span>
+                    Status: Physicist &amp; Sound Architect
+                </div>
+                
+                <h1 class="text-6xl md:text-9xl font-display font-extrabold tracking-tighter leading-[0.9] glitch-wrapper select-none" id="hero-title">
+                    <span class="glitch-text text-white">ADARSH</span><br>
+                    <span class="text-white/20">MANILAL</span>
+                    <span class="glitch-layer" aria-hidden="true">ADARSH<br>MANILAL</span>
+                    <span class="glitch-layer" aria-hidden="true">ADARSH<br>MANILAL</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-text-muted max-w-2xl mx-auto font-light leading-relaxed tracking-wide">
+                    Blending the laws of <span class="text-white font-medium">physics</span>, computational <span class="text-accent-primary font-mono bg-accent-primary/5 px-1 rounded">creative coding</span>, and generative audio synthesis into high-fidelity digital art.
+                </p>
+
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center mt-12 pointer-events-auto">
+                    <a href="#projects" class="magnetic-btn relative px-8 py-4 bg-accent-primary text-black font-bold rounded-full overflow-hidden group hover:scale-105 transition-transform duration-300 pointer-events-auto">
+                        <span class="relative z-10 flex items-center gap-2">Enter Creative Sandbox <i class="fa-solid fa-arrow-right -rotate-45 group-hover:rotate-0 transition-transform"></i></span>
+                        <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 mix-blend-overlay transition-opacity duration-300"></div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3 opacity-30 hover:opacity-100 transition-opacity duration-500">
+                <span class="text-[9px] uppercase tracking-[0.3em] font-mono">Initiate Scroll</span>
+                <div class="w-[1px] h-16 bg-gradient-to-b from-white to-transparent relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1/2 bg-accent-primary animate-[float_2s_infinite]"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack Marquee -->
+        <div class="w-full overflow-hidden border-y border-white/5 bg-white/[0.02] py-6 mb-20 pointer-events-auto">
+            <div class="flex animate-marquee gap-12 min-w-max">
+                <!-- Content duplicated for seamless loop -->
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-brands fa-python text-accent-primary mr-2"></i>Python &amp; SciPy</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-music text-accent-secondary mr-2"></i>Wave Synthesis</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-mug-hot text-accent-cyan mr-2"></i>Espresso Profiling</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-bread-slice text-accent-primary mr-2"></i>Sourdough Science</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-hive text-accent-secondary mr-2"></i>Cellular Automata</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-palette text-accent-cyan mr-2"></i>HTML5 Canvas Art</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-brands fa-linux text-accent-primary mr-2"></i>Linux/Bash</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-code text-accent-tertiary mr-2"></i>C++</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-sliders text-accent-secondary mr-2"></i>Generative Audio</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-circle-nodes text-accent-cyan mr-2"></i>Complexity Theory</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-atom text-accent-primary mr-2"></i>HTSC</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-heartpulse text-accent-cyan mr-2"></i>Cryogenics</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-headphones text-accent-tertiary mr-2"></i>Digital Soundscapes</span>
+
+                <!-- Duplicate -->
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-brands fa-python text-accent-primary mr-2"></i>Python &amp; SciPy</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-music text-accent-secondary mr-2"></i>Wave Synthesis</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-mug-hot text-accent-cyan mr-2"></i>Espresso Profiling</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-bread-slice text-accent-primary mr-2"></i>Sourdough Science</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-hive text-accent-secondary mr-2"></i>Cellular Automata</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-palette text-accent-cyan mr-2"></i>HTML5 Canvas Art</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-brands fa-linux text-accent-primary mr-2"></i>Linux/Bash</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-code text-accent-tertiary mr-2"></i>C++</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-sliders text-accent-secondary mr-2"></i>Generative Audio</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-circle-nodes text-accent-cyan mr-2"></i>Complexity Theory</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-atom text-accent-primary mr-2"></i>HTSC</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-heartpulse text-accent-cyan mr-2"></i>Cryogenics</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-headphones text-accent-tertiary mr-2"></i>Digital Soundscapes</span>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <section class="max-w-7xl mx-auto px-6 mb-32 pointer-events-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="spotlight-card p-6 text-center group hover:bg-white/5 transition-colors">
+                    <div class="text-4xl font-mono font-bold text-white group-hover:text-accent-primary transition-colors stat-number" data-target="4" data-suffix=" Years">0</div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-text-muted mt-2">Physics Research</div>
+                </div>
+                <div class="spotlight-card p-6 text-center group hover:bg-white/5 transition-colors">
+                    <div class="text-4xl font-mono font-bold text-white group-hover:text-accent-secondary transition-colors stat-number" data-target="1.34" data-suffix=" TDS">0</div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-text-muted mt-2">Espresso Extraction</div>
+                </div>
+                <div class="spotlight-card p-6 text-center group hover:bg-white/5 transition-colors">
+                    <div class="text-4xl font-mono font-bold text-white group-hover:text-accent-tertiary transition-colors stat-number" data-target="95" data-suffix=" BPM">0</div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-text-muted mt-2">Synthwave Tempo</div>
+                </div>
+                <div class="spotlight-card p-6 text-center group hover:bg-white/5 transition-colors">
+                    <div class="text-4xl font-mono font-bold text-white group-hover:text-accent-cyan transition-colors stat-number" data-target="78" data-suffix="%">0</div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-text-muted mt-2">Sourdough Hydration</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About / Overview -->
+        <section id="about" class="max-w-7xl mx-auto px-6 py-20 relative pointer-events-auto">
+            <div class="grid md:grid-cols-2 gap-20 items-center">
+                <div class="relative group perspective-1000">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-accent-primary to-accent-cyan opacity-20 blur-2xl group-hover:opacity-40 transition-opacity duration-700 rounded-full"></div>
+                    <div class="relative rounded-2xl overflow-hidden border border-white/10 aspect-[4/5] bg-bg-surface shadow-2xl transform transition-transform duration-700 hover:rotate-y-12 hover:rotate-x-12 preserve-3d">
+                        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=60&w=600" alt="Lab Work" class="object-cover w-full h-full opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" loading="lazy" decoding="async">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <div class="font-mono text-accent-primary text-xs tracking-widest mb-2 border-l-2 border-accent-primary pl-3">IDENTIFICATION</div>
+                            <div class="text-white font-bold text-2xl">Adarsh Manilal</div>
+                            <div class="text-text-muted text-sm mt-1">PhD Candidate, McMaster University</div>
+                            <div class="text-text-muted text-xs mt-0.5">Advisor: Prof. Takashi Imai</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-8 relative">
+                    <div class="absolute -left-10 top-0 w-1 h-full bg-gradient-to-b from-white/10 to-transparent hidden md:block"></div>
+                    <h2 class="text-4xl md:text-5xl font-display font-bold leading-tight">Bridging Theory & <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-primary to-accent-cyan">Experiment</span></h2>
+                    <p class="text-text-muted leading-relaxed text-lg font-light">
+                        I am a PhD Candidate in the Department of Physics & Astronomy at McMaster University. My research utilizes <strong class="text-white font-medium">Nuclear Magnetic Resonance (NMR)</strong> and <strong class="text-white font-medium">Nuclear Quadrupole Resonance (NQR)</strong> to investigate Strongly Correlated Electron Systems.
+                    </p>
+                    <p class="text-text-muted leading-relaxed text-lg font-light">
+                        My work focuses on Quantum Magnetism and Quantum Phase Transitions, specifically unraveling the electronic properties and phase transitions in High-Temperature Superconductors (HTSC).
+                    </p>
+                    
+                    <div class="pt-8 border-t border-white/5">
+                        <h4 class="text-xs uppercase tracking-widest text-white/40 mb-4 font-mono">Core Competencies</h4>
+                        <div class="flex flex-wrap gap-2">
+                             <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-text-muted hover:text-white hover:border-accent-primary transition-colors cursor-help">#condensed_matter</span>
+                             <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-text-muted hover:text-white hover:border-accent-primary transition-colors cursor-help">#superconductivity</span>
+                             <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-text-muted hover:text-white hover:border-accent-primary transition-colors cursor-help">#quantum_magnetism</span>
+                             <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-text-muted hover:text-white hover:border-accent-primary transition-colors cursor-help">#spectroscopy</span>
+                             <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-text-muted hover:text-white hover:border-accent-primary transition-colors cursor-help">#cryogenics</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Bento Grid -->
+        <section id="research" class="max-w-7xl mx-auto px-6 py-20 pointer-events-auto">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-display font-bold mb-4">Intellectual <span class="text-white/20">Foundations</span></h2>
+                    <p class="text-text-muted max-w-xl font-light">A technical timeline of my academic condensed-matter training, research posts, and laboratory teaching roles.</p>
+                </div>
+                <div class="hidden md:block">
+                    <i class="fa-solid fa-arrow-right-long text-4xl text-accent-primary -rotate-45 animate-pulse"></i>
+                </div>
+            </div>
+
+            <div class="bento-grid">
+                
+                <!-- Tile 1 (Large): McMaster Graduate Research - CLICKABLE -->
+                <article class="bento-item-lg spotlight-card group relative flex flex-col justify-between p-8 md:p-12 transition-all duration-500 hover:border-accent-primary/50">
+                    <div class="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                    <canvas id="bento-canvas-1" class="absolute inset-0 w-full h-full opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none"></canvas>
+                    
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-8">
+                            <span class="px-3 py-1 rounded-full border border-white/10 bg-black/40 backdrop-blur-md text-[10px] font-mono uppercase tracking-widest text-accent-primary shadow-[0_0_10px_rgba(0,255,157,0.2)]">McMaster University</span>
+                            <i class="fa-solid fa-atom text-4xl text-white/10 group-hover:text-accent-primary transition-colors transform group-hover:rotate-180 duration-700"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4 group-hover:text-accent-primary transition-colors">NMR/NQR of HTSC</h3>
+                        <p class="text-text-muted mb-6 line-clamp-3 leading-relaxed">
+                            <strong>Graduate Researcher</strong> | Advisor: Prof. Takashi Imai<br>
+                            Utilizing Nuclear Magnetic Resonance (NMR) and Nuclear Quadrupole Resonance (NQR) to investigate electronic properties and phase transitions in high-temperature superconductor (HTSC) systems. Focused on pseudogap and charge order in YBCO.
+                        </p>
+                    </div>
+                    <!-- Stretched Link to make whole card clickable -->
+                    <a href="#publications" class="z-20 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider hover:text-accent-primary transition-colors after:absolute after:inset-0">Read Analysis <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i></a>
+                </article>
+
+                <!-- Tile 2 (Medium): IISER TVM Graduate Research -->
+                <article class="bento-item-md spotlight-card group relative p-8 flex flex-col justify-between hover:border-accent-secondary/50 transition-colors">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-accent-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <i class="fa-solid fa-hive text-3xl text-accent-secondary/50 group-hover:text-accent-secondary transition-colors mb-auto"></i>
+                    <div class="relative z-10 mt-12">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-white transition-colors">YBCO Synthesis & Thermodynamics</h3>
+                        <p class="text-xs text-text-muted leading-relaxed mb-2"><strong>IISER TVM</strong> | Advisor: Dr. Deepshikha Jaiswal Nagar</p>
+                        <p class="text-xs text-text-muted leading-relaxed">Synthesized high-quality YBCO single crystals via self-flux method. Investigated thermal expansion (capacitive dilatometry) and magnetic susceptibility (SQUID/Espresso Profiling).</p>
+                    </div>
+                </article>
+
+                <!-- Tile 3 (Medium): IISER TVM Research Fellow -->
+                <article class="bento-item-md spotlight-card group relative p-8 flex flex-col justify-between hover:border-accent-tertiary/50 transition-colors">
+                     <div class="absolute inset-0 bg-gradient-to-b from-transparent to-accent-tertiary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <i class="fa-solid fa-bolt text-3xl text-accent-tertiary/50 group-hover:text-accent-tertiary transition-colors mb-auto"></i>
+                    <div class="relative z-10 mt-12">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-white transition-colors">Nonlinear Optics</h3>
+                        <p class="text-xs text-text-muted leading-relaxed mb-2"><strong>Research Fellow</strong> | Advisor: Dr. Adithya Lakshmanna</p>
+                        <p class="text-xs text-text-muted leading-relaxed">Designed Z-scan setup for Kerr nonlinearity. Characterized femtosecond pulses utilizing home-built FROG system.</p>
+                    </div>
+                </article>
+
+                 <!-- Tile 4 (Wide): Extracurricular / Leadership -->
+                 <article class="bento-item-wide spotlight-card group relative flex flex-col md:flex-row overflow-hidden hover:border-accent-cyan/50 transition-colors">
+                    <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center relative z-10">
+                        <h3 class="text-2xl font-bold mb-6 text-white group-hover:text-accent-cyan transition-colors">Leadership & Service</h3>
+                        <ul class="space-y-4 text-text-muted text-sm">
+                            <li class="flex items-start gap-3 group/item">
+                                <span class="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-1.5 group-hover/item:scale-150 transition-transform"></span>
+                                <div><strong class="text-white">Department Steward (CUPE 3906):</strong> Liaison for graduate assistants, advocating for labor rights.</div>
+                            </li>
+                            <li class="flex items-start gap-3 group/item">
+                                <span class="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-1.5 group-hover/item:scale-150 transition-transform"></span>
+                                <div><strong class="text-white">Academic Supervisor:</strong> Supervising Undergraduate Senior Thesis (Sep 2025 - Present).</div>
+                            </li>
+                            <li class="flex items-start gap-3 group/item">
+                                <span class="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-1.5 group-hover/item:scale-150 transition-transform"></span>
+                                <div><strong class="text-white">Graduate Mentor:</strong> Mentoring incoming Master's students.</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2 bg-white/[0.02] relative border-l border-white/5 flex items-center justify-center">
+                         <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 pointer-events-none"></div>
+                        <i class="fa-solid fa-users-gear text-9xl text-white/5 group-hover:text-accent-cyan/10 transition-colors transform group-hover:scale-110 duration-500"></i>
+                    </div>
+                </article>
+
+                <!-- Tile 5 (Wide): Teaching Assistant Experience -->
+                <article class="bento-item-full spotlight-card group relative overflow-hidden hover:border-accent-primary/50 transition-colors">
+                    <div class="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <div class="relative z-10 p-8 md:p-10">
+                        <div class="flex justify-between items-start mb-8">
+                            <div>
+                                <i class="fa-solid fa-chalkboard-user text-3xl text-accent-primary/50 group-hover:text-accent-primary transition-colors mb-4 block"></i>
+                                <h3 class="text-2xl font-bold group-hover:text-white transition-colors">Teaching Assistant</h3>
+                                <p class="text-sm text-text-muted mt-1">McMaster University, Dept. of Physics &amp; Astronomy</p>
+                            </div>
+                            <span class="shrink-0 px-3 py-1 rounded-full border border-accent-primary/30 bg-accent-primary/10 text-accent-primary text-[10px] font-mono uppercase tracking-widest">Sep 2023 – Present</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-accent-primary/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-primary/10 text-accent-primary border border-accent-primary/20">PHYSICS 1D03</span>
+                                </div>
+                                <p class="text-sm font-semibold text-white mb-1">Introductory Mechanics</p>
+                                <p class="text-xs text-text-muted leading-relaxed">Principles of mechanics for engineering students: Newton's Laws, rotational kinematics, torque, energy, momentum, angular momentum, and simple harmonic motion.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-accent-primary/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-primary/10 text-accent-primary border border-accent-primary/20">PHYSICS 1E03</span>
+                                </div>
+                                <p class="text-sm font-semibold text-white mb-1">Waves, Electricity &amp; Magnetic Fields</p>
+                                <p class="text-xs text-text-muted leading-relaxed">Engineering physics covering oscillations and waves, interference, electrostatics, electric potential, circuit elements, and magnetic fields.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-accent-primary/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-secondary/10 text-accent-secondary border border-accent-secondary/20">PHYSICS 1A03</span>
+                                </div>
+                                <p class="text-sm font-semibold text-white mb-1">Introductory Physics</p>
+                                <p class="text-xs text-text-muted leading-relaxed">First university physics course using examples from across the sciences. Topics: force, energy, mechanics, waves, and fluids.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-accent-primary/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-secondary/10 text-accent-secondary border border-accent-secondary/20">PHYSICS 2P03</span>
+                                </div>
+                                <p class="text-sm font-semibold text-white mb-1">Introductory Laboratory</p>
+                                <p class="text-xs text-text-muted leading-relaxed">Introduction to experimental physics techniques, data analysis, and error analysis. Core skills for empirical research methodology.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-accent-primary/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20">PHYSICS 3K03</span>
+                                </div>
+                                <p class="text-sm font-semibold text-white mb-1">Thermodynamics &amp; Statistical Mechanics</p>
+                                <p class="text-xs text-text-muted leading-relaxed">Laws of thermodynamics with emphasis on mathematical structure; classical and quantum statistical mechanics.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-accent-primary/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20">DATASCI 2G03</span>
+                                </div>
+                                <p class="text-sm font-semibold text-white mb-1">Scientific Computing</p>
+                                <p class="text-xs text-text-muted leading-relaxed">Hands-on intro to scientific programming (C/C++ under Linux): floating-point arithmetic, numerical methods, algorithms, graphics, and parallel programming. Administered by Physics &amp; Astronomy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            
+        </section>
+        
+        <!-- Worldline (Journey) Section - EDUCATION ONLY -->
+        <section id="journey" class="max-w-4xl mx-auto px-6 py-20 pointer-events-auto">
+            <h2 class="text-4xl font-display font-bold mb-16 text-center">My Worldline <span class="text-lg font-light text-text-muted block mt-2">(Education Only)</span></h2>
+            <div class="relative pl-12 space-y-20" id="timeline-container">
+                <!-- Vertical Lines -->
+                <div class="timeline-line"></div>
+                <div class="timeline-progress" id="timeline-progress-bar"></div>
+
+                <!-- Item 1: PhD -->
+                <div class="relative group timeline-item">
+                    <span class="absolute left-[-2.9rem] top-2 w-5 h-5 rounded-full border-4 border-bg-dark bg-bg-surface shadow-[0_0_10px_rgba(255,255,255,0.2)] group-hover:bg-accent-primary group-hover:shadow-[0_0_20px_#00FF9D] transition-all duration-500 z-10"></span>
+                    <div class="spotlight-card p-8 group-hover:-translate-y-1 transition-transform duration-500">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-2 py-1 bg-accent-primary/10 text-accent-primary font-mono text-[10px] uppercase tracking-wider rounded border border-accent-primary/20">Sep 2023 - Present</span>
+                            <i class="fa-solid fa-graduation-cap text-white/20 group-hover:text-accent-primary transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white group-hover:text-accent-primary transition-colors">Doctor of Philosophy (Ph.D.) in Physics</h3>
+                        <div class="text-text-muted mt-2 text-sm leading-relaxed">
+                            <strong>McMaster University</strong>, Hamilton, ON, Canada<br>
+                            Advisor: Prof. Takashi Imai<br>
+                            <em>Transferred to Ph.D. track in May 2025 following successful completion of graduate coursework and M.Sc. research requirements.</em>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2: BS-MS -->
+                <div class="relative group timeline-item">
+                    <span class="absolute left-[-2.9rem] top-2 w-5 h-5 rounded-full border-4 border-bg-dark bg-bg-surface shadow-[0_0_10px_rgba(255,255,255,0.2)] group-hover:bg-accent-secondary group-hover:shadow-[0_0_20px_#FF3366] transition-all duration-500 z-10"></span>
+                    <div class="spotlight-card p-8 group-hover:-translate-y-1 transition-transform duration-500">
+                         <div class="flex justify-between items-start mb-4">
+                            <span class="px-2 py-1 bg-accent-secondary/10 text-accent-secondary font-mono text-[10px] uppercase tracking-wider rounded border border-accent-secondary/20">Aug 2018 - May 2023</span>
+                            <i class="fa-solid fa-school text-white/20 group-hover:text-accent-secondary transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white group-hover:text-accent-secondary transition-colors">Integrated BS-MS in Physics (Minor in Chemistry)</h3>
+                        <div class="text-text-muted mt-2 text-sm leading-relaxed">
+                             <strong>Indian Institute of Science Education and Research (IISER)</strong>, Thiruvananthapuram, India<br>
+                             GPA: 8.28 / 10.0 (Physics Major GPA: 8.68)<br>
+                             <em>Thesis: Synthesis and thermodynamical studies of YBCO single crystals.</em>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Publications List (Digital Bookshelf Pivot) -->
+        <section id="publications" class="max-w-5xl mx-auto px-6 py-20 pointer-events-auto">
+            <div class="mb-12">
+                <p class="text-xs font-mono text-accent-primary tracking-[0.3em] uppercase mb-3">// reading lists & mindsets</p>
+                <h2 class="text-4xl md:text-5xl font-display font-bold">My Digital <span class="text-white/20">Bookshelf</span></h2>
+                <p class="text-text-muted max-w-xl font-light mt-4">A curated collection of books that have profoundly shaped my thinking about science, computing, philosophy, and complexity.</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Book Item 1 -->
+                <div class="spotlight-card p-6 hover:bg-white/5 transition-all duration-300 relative group/pub">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div class="flex items-start gap-4 flex-1">
+                            <!-- Book Cover Thumbnail -->
+                            <div class="w-12 h-16 bg-accent-primary/10 rounded flex items-center justify-center text-accent-primary font-mono text-[10px] border border-accent-primary/20 shrink-0 shadow-lg group-hover/pub:border-accent-primary/50 transition-colors">
+                                SCI-FI
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-1">
+                                    <span class="text-xs font-mono text-accent-primary border border-accent-primary/30 px-2 py-0.5 rounded bg-accent-primary/10">⭐⭐⭐⭐⭐</span>
+                                    <span class="text-xs font-mono text-text-muted">Cixin Liu</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-white hover:text-accent-primary transition-colors cursor-pointer">The Three-Body Problem</h3>
+                                <p class="text-sm text-text-muted mt-1 font-light">A mind-bending sci-fi masterpiece exploring cosmic sociology and orbital mechanics.</p>
+                                
+                                <!-- Takeaways Drawer -->
+                                <div class="eli5-result hidden mt-4 p-3 bg-accent-primary/10 border border-accent-primary/20 rounded-lg text-sm text-gray-200">
+                                    <div class="flex items-center gap-2 mb-1 text-accent-primary text-xs font-bold uppercase tracking-wider">
+                                        <i class="fa-solid fa-lightbulb"></i> My Key Takeaway
+                                    </div>
+                                    <p class="eli5-text">A brilliant sci-fi epic that blends orbital mechanics, history, and sociology. The description of multi-dimensional physics is breathtaking. It forces you to contemplate the ultimate scale of the universe and our place in it.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 relative z-20 shrink-0">
+                            <!-- Takeaways Button -->
+                            <button class="w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center hover:bg-accent-tertiary hover:text-white transition-all hover:scale-110 eli5-btn" title="My Key Takeaway">
+                                <span class="text-lg">✨</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book Item 2 -->
+                <div class="spotlight-card p-6 hover:bg-white/5 transition-all duration-300 relative group/pub">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div class="flex items-start gap-4 flex-1">
+                            <!-- Book Cover Thumbnail -->
+                            <div class="w-12 h-16 bg-accent-secondary/10 rounded flex items-center justify-center text-accent-secondary font-mono text-[10px] border border-accent-secondary/20 shrink-0 shadow-lg group-hover/pub:border-accent-secondary/50 transition-colors">
+                                PHILO
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-1">
+                                    <span class="text-xs font-mono text-accent-secondary border border-accent-secondary/30 px-2 py-0.5 rounded bg-accent-secondary/10">⭐⭐⭐⭐⭐</span>
+                                    <span class="text-xs font-mono text-text-muted">Douglas R. Hofstadter</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-white hover:text-accent-secondary transition-colors cursor-pointer">Gödel, Escher, Bach: An Eternal Golden Braid</h3>
+                                <p class="text-sm text-text-muted mt-1 font-light">An incredible exploration of how self-reference and formal systems give rise to human cognition.</p>
+                                
+                                <!-- Takeaways Drawer -->
+                                <div class="eli5-result hidden mt-4 p-3 bg-accent-secondary/10 border border-accent-secondary/20 rounded-lg text-sm text-gray-200">
+                                    <div class="flex items-center gap-2 mb-1 text-accent-secondary text-xs font-bold uppercase tracking-wider">
+                                        <i class="fa-solid fa-lightbulb"></i> My Key Takeaway
+                                    </div>
+                                    <p class="eli5-text">An absolute masterpiece exploring how self-reference, logic, and formal systems give rise to consciousness and music. A profound and beautifully written bridge between mathematics, art, and cognitive neuroscience.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 relative z-20 shrink-0">
+                            <!-- Takeaways Button -->
+                            <button class="w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center hover:bg-accent-tertiary hover:text-white transition-all hover:scale-110 eli5-btn" title="My Key Takeaway">
+                                <span class="text-lg">✨</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book Item 3 -->
+                <div class="spotlight-card p-6 hover:bg-white/5 transition-all duration-300 relative group/pub">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div class="flex items-start gap-4 flex-1">
+                            <!-- Book Cover Thumbnail -->
+                            <div class="w-12 h-16 bg-accent-cyan/10 rounded flex items-center justify-center text-accent-cyan font-mono text-[10px] border border-accent-cyan/20 shrink-0 shadow-lg group-hover/pub:border-accent-cyan/50 transition-colors">
+                                COMP
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-1">
+                                    <span class="text-xs font-mono text-accent-cyan border border-accent-cyan/30 px-2 py-0.5 rounded bg-accent-cyan/10">⭐⭐⭐⭐</span>
+                                    <span class="text-xs font-mono text-text-muted">Abelson, Sussman, & Sussman</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-white hover:text-accent-cyan transition-colors cursor-pointer">Structure and Interpretation of Computer Programs</h3>
+                                <p class="text-sm text-text-muted mt-1 font-light">The legendary "wizard book" of computer science, teaching functional design and abstraction.</p>
+                                
+                                <!-- Takeaways Drawer -->
+                                <div class="eli5-result hidden mt-4 p-3 bg-accent-cyan/10 border border-accent-cyan/20 rounded-lg text-sm text-gray-200">
+                                    <div class="flex items-center gap-2 mb-1 text-accent-cyan text-xs font-bold uppercase tracking-wider">
+                                        <i class="fa-solid fa-lightbulb"></i> My Key Takeaway
+                                    </div>
+                                    <p class="eli5-text">The definitive computer science bible. It teaches you to think about computation not just as code, but as a magical, highly structured medium for expressing ideas, managing intellectual complexity, and building elegant systems.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 relative z-20 shrink-0">
+                            <!-- Takeaways Button -->
+                            <button class="w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center hover:bg-accent-tertiary hover:text-white transition-all hover:scale-110 eli5-btn" title="My Key Takeaway">
+                                <span class="text-lg">✨</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard" class="max-w-7xl mx-auto px-6 py-20 pointer-events-auto">
+            <div class="spotlight-card p-1 border border-white/10 relative overflow-hidden bg-bg-card">
+                <!-- Dashboard Header -->
+                <div class="bg-bg-surface border-b border-white/5 p-4 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="flex gap-1.5">
+                            <span class="w-3 h-3 rounded-full bg-red-500/20 border border-red-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500/20 border border-green-500"></span>
+                        </div>
+                        <span class="ml-4 font-mono text-xs text-text-muted">user@manilal:~/personal_vitals</span>
+                    </div>
+                    <span class="w-2 h-2 rounded-full bg-accent-primary animate-pulse"></span>
+                </div>
+
+                <div class="p-6 md:p-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Column 1: Input Stream & Audio Buffer -->
+                        <div class="space-y-8">
+                            <div>
+                                <h4 class="text-[10px] uppercase tracking-[0.2em] text-text-muted mb-4 flex items-center gap-2">
+                                    <i class="fa-solid fa-book-open text-accent-primary"></i> Input Stream
+                                </h4>
+                                <div class="flex items-start gap-4 group">
+                                    <div class="w-16 h-24 bg-white/5 rounded shadow-2xl flex-shrink-0 overflow-hidden border border-white/10 relative group-hover:-translate-y-1 transition-transform duration-300">
+                                        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=50&w=150" alt="Book Cover" class="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" loading="lazy" decoding="async">
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="text-white font-bold group-hover:text-accent-primary transition-colors text-sm">The Three-Body Problem</div>
+                                        <div class="text-xs text-text-muted italic mb-2">Cixin Liu</div>
+                                        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                                            <div class="h-full bg-gradient-to-r from-accent-primary to-accent-cyan w-3/4 relative overflow-hidden">
+                                                <div class="absolute inset-0 bg-white/20 animate-[marquee_1s_linear_infinite]"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-between text-[9px] font-mono text-text-muted mt-1.5">
+                                            <span>Progress</span>
+                                            <span>75%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-[10px] uppercase tracking-[0.2em] text-text-muted mb-4 flex items-center gap-2">
+                                    <i class="fa-solid fa-headphones text-accent-secondary"></i> Audio Buffer
+                                </h4>
+                                <audio id="ncs-audio" preload="metadata">
+                                    <source src="synthwave_track_produced.wav" type="audio/wav">
+                                    Your browser does not support the audio element.
+                                </audio>
+                                <div class="flex flex-col gap-2.5 p-3.5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-accent-secondary/30 transition-colors pointer-events-auto relative">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex items-center gap-1 shrink-0">
+                                            <button id="play-pause-btn" class="w-8 h-8 rounded-full bg-accent-secondary/20 flex items-center justify-center text-accent-secondary hover:bg-accent-secondary hover:text-black transition-colors shrink-0">
+                                                <i class="fa-solid fa-play" id="play-icon"></i>
+                                            </button>
+                                            <button id="next-song-btn" class="w-7 h-7 rounded-full bg-white/5 flex items-center justify-center text-text-muted hover:text-white hover:bg-white/10 transition-colors" title="Next Song">
+                                                <i class="fa-solid fa-forward-step text-[10px]"></i>
+                                            </button>
+                                        </div>
+                                        <div class="flex-1 overflow-hidden">
+                                            <div class="flex justify-between items-end mb-0.5">
+                                                <div class="text-xs font-bold text-white truncate pr-2" id="track-title">Python Synthwave (Produced)</div>
+                                                <div class="flex items-center gap-1.5">
+                                                    <button id="mute-btn" class="text-text-muted hover:text-white transition-colors cursor-pointer w-3 text-center">
+                                                        <i class="fa-solid fa-volume-low text-[8px]" id="volume-icon"></i>
+                                                    </button>
+                                                    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.2" class="w-12 h-0.5 bg-white/20 rounded-lg appearance-none cursor-pointer accent-accent-secondary">
+                                                </div>
+                                            </div>
+                                            <div class="text-[10px] text-text-muted">NCS Style Release</div>
+                                            <div class="mt-1.5 w-full h-0.5 bg-white/10 rounded-full overflow-hidden cursor-pointer pointer-events-auto hover:h-1 transition-all" id="audio-progress-bar">
+                                                <div class="h-full bg-accent-secondary w-0 pointer-events-none transition-all duration-100" id="audio-progress"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col gap-1 items-center justify-center shrink-0 w-6">
+                                            <div class="flex gap-0.5 h-4 items-end" id="audio-visualizer" style="opacity: 0.3;">
+                                                <span class="w-0.5 bg-accent-secondary animate-[float_0.5s_ease-in-out_infinite] h-full"></span>
+                                                <span class="w-0.5 bg-accent-secondary animate-[float_0.7s_ease-in-out_infinite] h-2/3"></span>
+                                                <span class="w-0.5 bg-accent-secondary animate-[float_0.4s_ease-in-out_infinite] h-1/2"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Collapsible Code Toggle -->
+                                    <div class="border-t border-white/5 pt-2 mt-1 flex justify-between items-center text-[10px]">
+                                        <span class="font-mono text-text-muted">// generated in numpy</span>
+                                        <button id="toggle-synth-code-btn" class="flex items-center gap-1 text-accent-secondary hover:text-white transition-colors uppercase font-mono tracking-wider font-bold">
+                                            <span>[View Python Synth Code]</span>
+                                            <i class="fa-solid fa-chevron-down text-[8px] transition-transform duration-300" id="code-chevron"></i>
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Collapsible Code Drawer -->
+                                    <div id="synth-code-drawer" class="hidden overflow-hidden transition-all duration-500 max-h-0">
+                                        <div class="mt-2.5 p-3 rounded-lg bg-black/60 border border-white/5 text-[9px] font-mono text-text-muted select-text overflow-x-auto max-h-48 overflow-y-auto custom-scrollbar leading-relaxed relative">
+                                            <div class="sticky top-0 right-0 flex justify-end mb-1">
+                                                <span class="bg-white/5 border border-white/10 px-1.5 py-0.5 rounded text-[8px] uppercase tracking-wider text-accent-secondary font-bold font-mono">numpy + scipy</span>
+                                            </div>
+                                            <pre class="text-gray-300"><code class="language-python"># --- Generative Wave Synthesis Suite ---
+import numpy as np
+from scipy.io import wavfile
+from scipy import signal
+
+SAMPLE_RATE = 44100
+BPM = 95
+BEAT_DUR = 60.0 / BPM
+BAR_DUR = BEAT_DUR * 4
+
+# Mix detuned sawtooths for thick pad
+def synth_pad(note, dur):
+    t = np.linspace(0, dur, int(dur*SAMPLE_RATE), False)
+    f = 440.0 * (2.0 ** ((note - 69) / 12.0))
+    wave = 0.5 * signal.sawtooth(2 * np.pi * f * t)
+    wave += 0.3 * signal.sawtooth(2 * np.pi * f * 1.005 * t)
+    wave += 0.3 * signal.sawtooth(2 * np.pi * f * 0.995 * t)
+    # Lowpass smooth filter
+    b, a = signal.butter(2, 800 / (SAMPLE_RATE / 2), 'low')
+    return signal.lfilter(b, a, wave) * 0.3
+
+# Pure square growling bassline
+def bass(note, dur):
+    t = np.linspace(0, dur, int(dur*SAMPLE_RATE), False)
+    f = 440.0 * (2.0 ** ((note - 69) / 12.0))
+    wave = signal.square(2 * np.pi * f * t)
+    b, a = signal.butter(2, 300 / (SAMPLE_RATE / 2), 'low')
+    return signal.lfilter(b, a, wave) * 0.5</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Column 2: Cryostat Telemetry Monitor -->
+                        <div class="space-y-6">
+                            <h4 class="text-[10px] uppercase tracking-[0.2em] text-text-muted mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-heartpulse text-accent-cyan"></i> Personal Vitals & Telemetry
+                            </h4>
+                            <div class="bg-black/40 border border-white/5 rounded-2xl p-4 space-y-4">
+                                <!-- Flow State Focus Level -->
+                                <div class="flex justify-between items-center pb-2.5 border-b border-white/5">
+                                    <div>
+                                        <div class="text-[9px] uppercase tracking-wider text-text-muted">Deep Work Focus State</div>
+                                        <div class="text-lg font-mono font-bold text-accent-primary" id="temp-val">92.4%</div>
+                                    </div>
+                                    <div class="w-24 h-8 bg-black/40 border border-white/5 rounded-lg overflow-hidden shadow-inner">
+                                        <canvas id="temp-sparkline" class="w-full h-full"></canvas>
+                                    </div>
+                                </div>
+
+                                <!-- Hydration / Caffeine Fuel Cell -->
+                                <div class="flex justify-between items-center pb-2.5 border-b border-white/5">
+                                    <div>
+                                        <div class="text-[9px] uppercase tracking-wider text-text-muted">Caffeine / Hydration Cell</div>
+                                        <div class="text-sm font-mono font-bold text-accent-cyan" id="helium-val">72.8%</div>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full border border-white/10 bg-black/40 relative overflow-hidden flex items-center justify-center">
+                                        <canvas id="helium-circle" class="absolute inset-0 w-full h-full"></canvas>
+                                        <span class="relative z-10 text-[9px] font-mono font-bold text-white">☕</span>
+                                    </div>
+                                </div>
+
+                                <!-- Active Coordinate Node -->
+                                <div class="flex justify-between items-center pb-2.5 border-b border-white/5">
+                                    <div>
+                                        <div class="text-[9px] uppercase tracking-wider text-text-muted">Active Coordinate Node</div>
+                                        <div class="text-sm font-mono font-bold text-accent-secondary" id="magnet-val">Hamilton, ON</div>
+                                    </div>
+                                    <div class="w-8 h-8 rounded-lg bg-accent-secondary/10 border border-accent-secondary/20 flex items-center justify-center">
+                                        <i class="fa-solid fa-location-dot text-accent-secondary text-xs animate-bounce"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Current Activity Status -->
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <div class="text-[9px] uppercase tracking-wider text-text-muted">Current Focus Activity</div>
+                                        <div class="text-[10px] font-mono text-white flex items-center gap-1.5 mt-0.5">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse"></span>
+                                            <span id="active-activity-val">📚 Reading Cixin Liu</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[9px] font-mono text-text-muted uppercase">Flow</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Column 3: Status Log -->
+                        <div class="font-mono text-[11px] space-y-4">
+                            <h4 class="text-[10px] font-sans uppercase tracking-[0.2em] text-text-muted mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-terminal text-accent-tertiary"></i> System Log
+                            </h4>
+                            <div class="bg-black/40 p-4 rounded border border-white/5 space-y-2 h-full flex flex-col justify-between" style="min-height: 200px;">
+                                <div id="terminal-content" class="flex-1 space-y-2">
+                                    <div class="flex gap-2">
+                                        <span class="text-text-muted">14:02</span>
+                                        <span class="text-accent-primary">SUCCESS</span>
+                                        <span class="text-white/80">synthwave_track_produced.wav exported</span>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <span class="text-text-muted">11:45</span>
+                                        <span class="text-accent-cyan">INFO</span>
+                                        <span class="text-white/80">Brewed single-origin double espresso</span>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <span class="text-text-muted">09:30</span>
+                                        <span class="text-accent-primary">SUCCESS</span>
+                                        <span class="text-white/80">beehive_sim.py cellular automata completed</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 pt-3 border-t border-white/5 flex justify-between items-center">
+                                    <div>
+                                        <span class="text-accent-primary">root@manilal:~$</span> <span class="animate-cursor-blink">_</span>
+                                    </div>
+                                    <span class="text-[9px] uppercase tracking-wider text-text-muted">v2.1.0-opt</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hobbies & Creative Coding Section -->
+        <section id="projects" class="max-w-7xl mx-auto px-6 py-24 pointer-events-auto">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <p class="text-xs font-mono text-accent-primary tracking-[0.3em] uppercase mb-3">// code, simulations & hobbies</p>
+                    <h2 class="text-4xl md:text-6xl font-display font-bold">Creative <span class="text-white/20">Coding & Hobbies</span></h2>
+                    <p class="text-text-muted max-w-xl font-light mt-4">Personal side projects and interactive simulations blending mathematical concepts with art, sound, and natural physics.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Hobby Card 1 -->
+                <article class="spotlight-card group relative flex flex-col p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-accent-primary/40 transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <div class="flex justify-between items-start mb-4 relative z-10">
+                        <div class="w-10 h-10 rounded-xl bg-accent-primary/10 flex items-center justify-center text-accent-primary">
+                            <i class="fa-solid fa-music"></i>
+                        </div>
+                    </div>
+                    <div class="relative z-10 flex-1">
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-accent-primary transition-colors">Generative Music Synthesis</h3>
+                        <p class="text-sm text-text-muted leading-relaxed mb-4">Mathematical wave compilers in Python that synthesize custom ambient and synthwave audio tracks by compiling arrays directly into raw WAV files. The tracks in this website's player are created with these scripts!</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-primary/10 text-accent-primary border border-accent-primary/20">Python</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-muted border border-white/10">NumPy</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-muted border border-white/10">SciPy</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Hobby Card 2 -->
+                <article class="spotlight-card group relative flex flex-col p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-accent-secondary/40 transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <div class="flex justify-between items-start mb-4 relative z-10">
+                        <div class="w-10 h-10 rounded-xl bg-accent-secondary/10 flex items-center justify-center text-accent-secondary">
+                            <i class="fa-solid fa-hive"></i>
+                        </div>
+                    </div>
+                    <div class="relative z-10 flex-1">
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-accent-secondary transition-colors">Beehive Cellular Automata</h3>
+                        <p class="text-sm text-text-muted leading-relaxed mb-4">A custom swarm intelligence and mathematical simulation modeling cooperative behaviors, cellular automaton rules, and food dynamics inside localized hexagonal grid systems (`beehive_sim.py`).</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-secondary/10 text-accent-secondary border border-accent-secondary/20">Python</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-muted border border-white/10">Matplotlib</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-muted border border-white/10">SciKit</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Hobby Card 3 -->
+                <article class="spotlight-card group relative flex flex-col p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-accent-cyan/40 transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <div class="flex justify-between items-start mb-4 relative z-10">
+                        <div class="w-10 h-10 rounded-xl bg-accent-cyan/10 flex items-center justify-center text-accent-cyan">
+                            <i class="fa-solid fa-circle-nodes"></i>
+                        </div>
+                    </div>
+                    <div class="relative z-10 flex-1">
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-accent-cyan transition-colors">Cosmic Ray Visualizer</h3>
+                        <p class="text-sm text-text-muted leading-relaxed mb-4">An interactive, responsive HTML5 canvas visualization engine animating the beautiful ionization trails left behind by incoming cosmic rays colliding with atmospheric molecules in real-time.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20">JavaScript</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-muted border border-white/10">HTML5 Canvas</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-muted border border-white/10">Physics</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Hobby Card 4 -->
+                <article class="spotlight-card group relative flex flex-col p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-accent-tertiary/40 transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent-tertiary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <div class="flex justify-between items-start mb-4 relative z-10">
+                        <div class="w-10 h-10 rounded-xl bg-accent-tertiary/10 flex items-center justify-center text-accent-tertiary">
+                            <i class="fa-solid fa-mug-hot"></i>
+                        </div>
+                    </div>
+                    <div class="relative z-10 flex-1">
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-accent-tertiary transition-colors">Culinary Thermodynamics</h3>
+                        <p class="text-sm text-text-muted leading-relaxed mb-4">Exploring thermodynamics, fluid dynamics, and organic chemical reactions through hands-on coffee extraction ratios, espresso pressure-profiling, and sourdough yeast fermentation.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-tertiary/10 text-accent-tertiary border border-accent-tertiary/20">Thermodynamics</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-muted border border-white/10">Espresso</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-muted border border-white/10">Sourdough</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="contact" class="max-w-4xl mx-auto px-6 py-24 text-center pointer-events-auto">
+            <div class="spotlight-card p-12 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-primary via-accent-secondary to-accent-tertiary"></div>
+                <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-accent-primary/10 rounded-full blur-3xl group-hover:bg-accent-primary/20 transition-all duration-700"></div>
+                
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">Let's Collaborate</h2>
+                <p class="text-text-muted text-lg mb-10 max-w-2xl mx-auto font-light">
+                    Interested in quantum materials, NMR spectroscopy, or just want to discuss physics? My inbox is always open.
+                </p>
+                
+                <button id="copy-email-btn" class="magnetic-btn inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-accent-primary transition-colors text-lg group relative z-10 hover:shadow-[0_0_30px_rgba(0,255,157,0.4)] mb-4" data-email="manilala@mcmaster.ca">
+                    <i class="fa-solid fa-envelope group-hover:rotate-12 transition-transform"></i>
+                    <span id="email-text">manilala@mcmaster.ca</span>
+                </button>
+                <div id="email-copied-msg" class="text-accent-primary text-sm opacity-0 transition-opacity duration-300">Copied to clipboard!</div>
+
+                <div class="mt-12 flex justify-center gap-8 relative z-20">
+                     <a href="https://www.linkedin.com/in/adarsh-manilal-697799280" target="_blank" class="text-2xl text-text-muted hover:text-[#0077b5] hover:scale-125 transition-all"><i class="fa-brands fa-linkedin"></i></a>
+                     <a href="https://orcid.org/0009-0007-6127-5701" target="_blank" class="text-2xl text-text-muted hover:text-white hover:scale-125 transition-all"><i class="fa-brands fa-orcid"></i></a>
+                </div>
+
+                <div class="mt-12 text-xs font-mono text-white/20">
+                    &copy; <span id="year">2025</span> Adarsh Manilal. <br>System Status: OPTIMAL
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. Custom Cursor ---
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorOutline = document.getElementById('cursor-outline');
+            
+            // Performance: cache card refs + rAF-throttle mousemove
+            const spotlightCards = document.querySelectorAll('.spotlight-card');
+            let mouseMoveRAF = null;
+            window.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+                
+                // Hardware accelerated cursor position via transform instead of top/left
+                cursorDot.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`;
+                cursorOutline.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`;
+
+                // Throttle spotlight updates to animation frames
+                if (mouseMoveRAF) return;
+                mouseMoveRAF = requestAnimationFrame(() => {
+                    spotlightCards.forEach(card => {
+                        const rect = card.getBoundingClientRect();
+                        card.style.setProperty('--mouse-x', `${posX - rect.left}px`);
+                        card.style.setProperty('--mouse-y', `${posY - rect.top}px`);
+                    });
+                    mouseMoveRAF = null;
+                });
+            });
+
+            // Hover effects
+            const interactiveElements = document.querySelectorAll('a, button, .hover-trigger, .spotlight-card');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorOutline.classList.add('hovered');
+                    // Add scale class without overwriting position transform
+                    cursorDot.classList.add('scale-50');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorOutline.classList.remove('hovered');
+                    cursorDot.classList.remove('scale-50');
+                });
+            });
+
+            // --- 2. Magnetic Buttons ---
+            const magneticBtns = document.querySelectorAll('.magnetic-btn');
+            magneticBtns.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = 'translate(0, 0)';
+                });
+            });
+
+            // --- 3. Copy Citation Logic ---
+            const copyBtns = document.querySelectorAll('.copy-citation-btn');
+            copyBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const citation = btn.getAttribute('data-citation');
+                    if (citation) {
+                        navigator.clipboard.writeText(citation).then(() => {
+                            const originalIcon = btn.innerHTML;
+                            btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+                            btn.classList.add('bg-accent-primary', 'text-black');
+                            btn.classList.remove('bg-white/5');
+                            
+                            setTimeout(() => {
+                                btn.innerHTML = originalIcon;
+                                btn.classList.remove('bg-accent-primary', 'text-black');
+                                btn.classList.add('bg-white/5');
+                            }, 2000);
+                        });
+                    }
+                });
+            });
+
+            // --- 4. Stats Counter ---
+            const stats = document.querySelectorAll('.stat-number');
+            const observerOptions = { threshold: 0.5 };
+            
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseFloat(entry.target.getAttribute('data-target'));
+                        animateValue(entry.target, 0, target, 2000);
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            stats.forEach(stat => statsObserver.observe(stat));
+            
+            function animateValue(obj, start, endVal, duration) {
+                const isDecimal = endVal.toString().includes('.');
+                const decimalPlaces = isDecimal ? endVal.toString().split('.')[1].length : 0;
+                const suffix = obj.getAttribute('data-suffix') || '';
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const currentVal = progress * (endVal - start) + start;
+                    obj.innerHTML = currentVal.toFixed(decimalPlaces) + suffix;
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            // --- 5. CONSOLIDATED Scroll Handler (throttled via rAF) ---
+            const navbar = document.getElementById('navbar');
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const backToTopBtn = document.getElementById('back-to-top');
+            const timelineContainer = document.getElementById('timeline-container');
+            const timelineBar = document.getElementById('timeline-progress-bar');
+            let scrollRAF = null;
+
+            window.addEventListener('scroll', () => {
+                if (scrollRAF) return;
+                scrollRAF = requestAnimationFrame(() => {
+                    const scrollY = window.pageYOffset;
+
+                    // Navbar blur
+                    if (scrollY > 50) {
+                        navbar.classList.add('bg-bg-dark/80', 'backdrop-blur-md', 'border-white/5');
+                        navbar.classList.remove('border-transparent');
+                    } else {
+                        navbar.classList.remove('bg-bg-dark/80', 'backdrop-blur-md', 'border-white/5');
+                        navbar.classList.add('border-transparent');
+                    }
+
+                    // Scroll Spy
+                    let currentSection = '';
+                    sections.forEach(section => {
+                        if (scrollY >= section.offsetTop - 200) {
+                            currentSection = section.getAttribute('id');
+                        }
+                    });
+                    navLinks.forEach(link => {
+                        link.classList.remove('nav-active');
+                        if (link.getAttribute('href').includes(currentSection)) {
+                            link.classList.add('nav-active');
+                        }
+                    });
+
+                    // Back to Top
+                    backToTopBtn.classList.toggle('visible', scrollY > 500);
+
+                    // Timeline Progress
+                    if (timelineContainer) {
+                        const rect = timelineContainer.getBoundingClientRect();
+                        const wh = window.innerHeight;
+                        if (rect.top < wh && rect.bottom > 0) {
+                            let pct = ((wh - rect.top - wh/2) / rect.height) * 100;
+                            timelineBar.style.height = `${Math.max(0, Math.min(100, pct))}%`;
+                        }
+                    }
+
+                    scrollRAF = null;
+                });
+            });
+            
+            // --- 6. Back to Top Click ---
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // --- 8. Dynamic Terminal Logs ---
+            const terminalContent = document.getElementById('terminal-content');
+            const logs = [
+                { type: 'INFO', msg: 'Coffee extraction complete. TDS: 1.34%' },
+                { type: 'SUCCESS', msg: 'Compiled Python Synthwave Track: synthwave_track_produced.wav' },
+                { type: 'WARN', msg: 'Dehydration warning: time to sip some espresso' },
+                { type: 'INFO', msg: 'Chapter of The Three-Body Problem completed' },
+                { type: 'SUCCESS', msg: 'Beehive Cellular Automata simulation converged' },
+                { type: 'INFO', msg: 'Flow state focus level: optimal' }
+            ];
+            
+            setInterval(() => {
+                const randomLog = logs[Math.floor(Math.random() * logs.length)];
+                const time = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+                
+                let colorClass = 'text-white/80';
+                if(randomLog.type === 'SUCCESS') colorClass = 'text-accent-primary';
+                if(randomLog.type === 'WARN') colorClass = 'text-accent-secondary';
+                if(randomLog.type === 'INFO') colorClass = 'text-accent-cyan';
+
+                const newLog = document.createElement('div');
+                newLog.className = 'flex gap-2 animate-fade-in-up';
+                newLog.innerHTML = `
+                    <span class="text-text-muted">${time}</span>
+                    <span class="${colorClass}">${randomLog.type}</span>
+                    <span class="text-white/80">${randomLog.msg}</span>
+                `;
+                
+                terminalContent.appendChild(newLog);
+                if(terminalContent.children.length > 5) {
+                    terminalContent.removeChild(terminalContent.children[0]);
+                }
+            }, 4000);
+
+            // --- 9. Email Copy Logic ---
+            const copyEmailBtn = document.getElementById('copy-email-btn');
+            const emailText = document.getElementById('email-text');
+            const copiedMsg = document.getElementById('email-copied-msg');
+            
+            copyEmailBtn.addEventListener('click', () => {
+                const email = copyEmailBtn.getAttribute('data-email');
+                navigator.clipboard.writeText(email).then(() => {
+                    emailText.innerText = "Copied!";
+                    copiedMsg.style.opacity = '1';
+                    setTimeout(() => {
+                        emailText.innerText = email;
+                        copiedMsg.style.opacity = '0';
+                    }, 2000);
+                });
+            });
+
+            // --- 10. Background Canvas (Plexus) ---
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+            
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.size = Math.random() * 2;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                }
+                draw() {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            for(let i=0; i<25; i++) particles.push(new Particle()); // Reduced from 40 for perf
+            
+            let isPlexusVisible = true;
+            function animate() {
+                if(isPlexusVisible) {
+                    ctx.clearRect(0, 0, width, height);
+                particles.forEach((p, index) => {
+                    p.update();
+                    p.draw();
+                    for(let j=index+1; j<particles.length; j++) {
+                        const p2 = particles[j];
+                        const dx = p.x - p2.x;
+                        const dy = p.y - p2.y;
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+                        if (dist < 150) {
+                            ctx.strokeStyle = `rgba(255, 255, 255, ${0.05 - dist/3000})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.stroke();
+                        }
+                    }
+                });
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+
+             // --- 11. Small Canvas in Bento Grid ---
+             const bentoCanvas = document.getElementById('bento-canvas-1');
+             if(bentoCanvas) {
+                 const bCtx = bentoCanvas.getContext('2d');
+                 let offset = 0;
+                 function animateBento() {
+                    if(!isBentoVisible) {
+                        requestAnimationFrame(animateBento);
+                        return;
+                    }
+                    if(bentoCanvas.parentElement && bentoCanvas.width !== bentoCanvas.parentElement.offsetWidth) {
+                        bentoCanvas.width = bentoCanvas.parentElement.offsetWidth;
+                        bentoCanvas.height = bentoCanvas.parentElement.offsetHeight;
+                    }
+                    bCtx.clearRect(0,0, bentoCanvas.width, bentoCanvas.height);
+                    bCtx.strokeStyle = '#00FF9D';
+                    bCtx.lineWidth = 1;
+                    bCtx.beginPath();
+                    for(let x=0; x < bentoCanvas.width; x++) {
+                        const y = bentoCanvas.height/2 + Math.sin((x + offset) * 0.02) * 20 * Math.sin(offset*0.05);
+                        if(x===0) bCtx.moveTo(x,y);
+                        else bCtx.lineTo(x,y);
+                    }
+                     bCtx.stroke();
+                    offset++;
+                    requestAnimationFrame(animateBento);
+                 }
+                 
+                 let isBentoVisible = false;
+                 const bentoObserver = new IntersectionObserver((entries) => {
+                     entries.forEach(entry => {
+                         isBentoVisible = entry.isIntersecting;
+                     });
+                 }, { threshold: 0.1 });
+                 bentoObserver.observe(bentoCanvas);
+                 
+                 animateBento();
+             }
+
+            // --- 12. Personal Telemetry & Vitals Engine ---
+            
+            // A. Offline ELI5 Toggle
+            document.querySelectorAll('.eli5-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const card = btn.closest('.spotlight-card');
+                    const resultBox = card.querySelector('.eli5-result');
+                    resultBox.classList.toggle('hidden');
+                });
+            });
+
+            // B. Cryogenic Telemetry Engine
+            const tempVal = document.getElementById('temp-val');
+            const heliumVal = document.getElementById('helium-val');
+            const sparklineCanvas = document.getElementById('temp-sparkline');
+            const heliumCanvas = document.getElementById('helium-circle');
+            
+            let temperatures = Array.from({length: 15}, () => 88.5 + Math.random() * 5.5);
+            let wavePhase = 0;
+
+            // List of personal focus activities to cycle through
+            const activities = [
+                "📚 Reading Cixin Liu",
+                "☕ Brewing Espresso",
+                "💻 Coding Physics Art",
+                "🎵 Synthesizing Audio",
+                "🌌 Stargazing Hamilton",
+                "🍞 Baking Sourdough"
+            ];
+            const activityVal = document.getElementById('active-activity-val');
+
+            function updateTelemetry() {
+                // Fluctuating flow state between 88.5% and 94.0%
+                const currentTemp = 88.5 + Math.random() * 5.5;
+                if (tempVal) {
+                    tempVal.textContent = `${currentTemp.toFixed(1)}%`;
+                }
+                temperatures.push(currentTemp);
+                if (temperatures.length > 15) {
+                    temperatures.shift();
+                }
+                drawSparkline();
+
+                // Periodically update current focus activity
+                if (activityVal && Math.random() < 0.25) {
+                    activityVal.textContent = activities[Math.floor(Math.random() * activities.length)];
+                }
+            }
+
+            function drawSparkline() {
+                if (!sparklineCanvas) return;
+                const ctx = sparklineCanvas.getContext('2d');
+                const w = sparklineCanvas.width = sparklineCanvas.offsetWidth;
+                const h = sparklineCanvas.height = sparklineCanvas.offsetHeight;
+                
+                ctx.clearRect(0, 0, w, h);
+                
+                const minTemp = Math.min(...temperatures);
+                const maxTemp = Math.max(...temperatures);
+                const range = (maxTemp - minTemp) || 1;
+
+                ctx.strokeStyle = 'rgba(0, 255, 157, 0.8)';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+
+                for (let i = 0; i < temperatures.length; i++) {
+                    const x = (i / (temperatures.length - 1)) * w;
+                    // Invert y because screen coordinates start at top left
+                    const y = h - 4 - ((temperatures[i] - minTemp) / range) * (h - 8);
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+
+                // Fill area under line
+                ctx.lineTo(w, h);
+                ctx.lineTo(0, h);
+                ctx.closePath();
+                const grad = ctx.createLinearGradient(0, 0, 0, h);
+                grad.addColorStop(0, 'rgba(0, 255, 157, 0.15)');
+                grad.addColorStop(1, 'rgba(0, 255, 157, 0)');
+                ctx.fillStyle = grad;
+                ctx.fill();
+            }
+
+            function drawHeliumCircle() {
+                if (!heliumCanvas) return;
+                const hCtx = heliumCanvas.getContext('2d');
+                const w = heliumCanvas.width = heliumCanvas.offsetWidth;
+                const h = heliumCanvas.height = heliumCanvas.offsetHeight;
+
+                hCtx.clearRect(0, 0, w, h);
+
+                // Clip to circular gauge
+                hCtx.save();
+                hCtx.beginPath();
+                hCtx.arc(w/2, h/2, w/2 - 2, 0, Math.PI * 2);
+                hCtx.clip();
+
+                // Draw waving liquid (72.8% full)
+                const fillPercent = 0.728;
+                const fillHeight = h - h * fillPercent;
+
+                hCtx.fillStyle = 'rgba(0, 240, 255, 0.35)';
+                hCtx.beginPath();
+                hCtx.moveTo(0, h);
+                for (let x = 0; x <= w; x++) {
+                    const waveY = fillHeight + Math.sin((x + wavePhase) * 0.18) * 2;
+                    hCtx.lineTo(x, waveY);
+                }
+                hCtx.lineTo(w, h);
+                hCtx.closePath();
+                hCtx.fill();
+
+                hCtx.restore();
+
+                // Glowing outer ring border
+                hCtx.strokeStyle = 'rgba(0, 240, 255, 0.25)';
+                hCtx.lineWidth = 1.5;
+                hCtx.beginPath();
+                hCtx.arc(w/2, h/2, w/2 - 2, 0, Math.PI * 2);
+                hCtx.stroke();
+                
+                wavePhase += 0.05;
+            }
+
+            // Start Telemetry Loops
+            setInterval(updateTelemetry, 2000);
+            updateTelemetry(); // initial call
+            
+            function animateCryoTele() {
+                drawHeliumCircle();
+                requestAnimationFrame(animateCryoTele);
+            }
+            animateCryoTele();
+
+
+            
+            // --- 13. Audio Player Logic ---
+            const audio = document.getElementById('ncs-audio');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const nextSongBtn = document.getElementById('next-song-btn');
+            const playIcon = document.getElementById('play-icon');
+            const muteBtn = document.getElementById('mute-btn');
+            const volumeIcon = document.getElementById('volume-icon');
+            const volumeSlider = document.getElementById('volume-slider');
+            const progressBar = document.getElementById('audio-progress-bar');
+            const progress = document.getElementById('audio-progress');
+            const visualizer = document.getElementById('audio-visualizer');
+            const trackTitle = document.getElementById('track-title');
+            
+            const playlist = [
+                { src: "synthwave_track_produced.wav", title: "Python Synthwave (Produced)" },
+                { src: "my_first_python_song.wav", title: "First Wave (Python Compiled)" }
+            ];
+            let currentTrackIdx = Math.floor(Math.random() * playlist.length);
+
+            if (audio) {
+                let isPlaying = false;
+                let isMuted = false;
+                
+                // Initialize default volume
+                audio.volume = 0.2;
+                volumeSlider.value = 0.2;
+
+                const loadTrack = (idx) => {
+                    audio.src = playlist[idx].src;
+                    trackTitle.textContent = playlist[idx].title;
+                    audio.load();
+                };
+                
+                // Load random initial track immediately on startup
+                loadTrack(currentTrackIdx);
+
+                const updateVisuals = (playing) => {
+                    if (playing) {
+                        playIcon.classList.remove('fa-play');
+                        playIcon.classList.add('fa-pause');
+                        visualizer.style.opacity = '1';
+                        visualizer.querySelectorAll('span').forEach(s => s.style.animationPlayState = 'running');
+                    } else {
+                        playIcon.classList.remove('fa-pause');
+                        playIcon.classList.add('fa-play');
+                        visualizer.style.opacity = '0.3';
+                        visualizer.querySelectorAll('span').forEach(s => s.style.animationPlayState = 'paused');
+                    }
+                };
+                
+                let consecutiveErrors = 0;
+
+                const playNext = (isError = false) => {
+                    if (isError) {
+                        consecutiveErrors++;
+                        if (consecutiveErrors >= playlist.length) {
+                            trackTitle.textContent = "Playback Error";
+                            updateVisuals(false);
+                            isPlaying = false;
+                            return; // Stop the infinite loop!
+                        }
+                    } else {
+                        consecutiveErrors = 0; // Manual skip resets error count
+                    }
+
+                    currentTrackIdx = (currentTrackIdx + 1) % playlist.length;
+                    loadTrack(currentTrackIdx);
+                    
+                    if (isPlaying) {
+                        setTimeout(() => {
+                            audio.play().catch(e => console.warn("Audio playback exception:", e));
+                        }, 500); // 500ms debounce to prevent browser lockup
+                    }
+                };
+
+                playPauseBtn.addEventListener('click', () => {
+                    if (isPlaying) {
+                        audio.pause();
+                        updateVisuals(false);
+                    } else {
+                        consecutiveErrors = 0;
+                        audio.play().catch(e => console.warn("Audio playback exception:", e));
+                        updateVisuals(true);
+                    }
+                    isPlaying = !isPlaying;
+                });
+                
+                nextSongBtn.addEventListener('click', () => playNext(false));
+                audio.addEventListener('ended', () => playNext(false));
+                audio.addEventListener('error', () => playNext(true));
+                audio.addEventListener('playing', () => { consecutiveErrors = 0; });
+
+                muteBtn.addEventListener('click', () => {
+                    isMuted = !isMuted;
+                    audio.muted = isMuted;
+                    if(isMuted || audio.volume === 0) {
+                        volumeIcon.className = 'fa-solid fa-volume-xmark text-[10px]';
+                    } else {
+                        volumeIcon.className = 'fa-solid fa-volume-low text-[10px]';
+                    }
+                });
+
+                volumeSlider.addEventListener('input', (e) => {
+                    const vol = parseFloat(e.target.value);
+                    audio.volume = vol;
+                    if (vol === 0) {
+                        volumeIcon.className = 'fa-solid fa-volume-xmark text-[10px]';
+                        audio.muted = true;
+                        isMuted = true;
+                    } else {
+                        volumeIcon.className = 'fa-solid fa-volume-low text-[10px]';
+                        audio.muted = false;
+                        isMuted = false;
+                    }
+                });
+
+                audio.addEventListener('timeupdate', () => {
+                    if (audio.duration) {
+                        const percent = (audio.currentTime / audio.duration) * 100;
+                        progress.style.width = `${percent}%`;
+                    }
+                });
+
+                progressBar.addEventListener('click', (e) => {
+                    const rect = progressBar.getBoundingClientRect();
+                    const pos = (e.clientX - rect.left) / rect.width;
+                    if (audio.duration) {
+                        audio.currentTime = pos * audio.duration;
+                    }
+                });
+                
+                // Initialize state
+                visualizer.querySelectorAll('span').forEach(s => s.style.animationPlayState = 'paused');
+                
+                // --- Python Synth Code Collapsible Toggle ---
+                const toggleCodeBtn = document.getElementById('toggle-synth-code-btn');
+                const codeDrawer = document.getElementById('synth-code-drawer');
+                const codeChevron = document.getElementById('code-chevron');
+                
+                if (toggleCodeBtn && codeDrawer) {
+                    toggleCodeBtn.addEventListener('click', () => {
+                        const isHidden = codeDrawer.classList.contains('hidden');
+                        if (isHidden) {
+                            codeDrawer.classList.remove('hidden');
+                            // Trigger reflow then expand
+                            codeDrawer.style.maxHeight = '0px';
+                            requestAnimationFrame(() => {
+                                codeDrawer.style.transition = 'max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                                codeDrawer.style.maxHeight = '200px';
+                                codeChevron.style.transform = 'rotate(180deg)';
+                            });
+                        } else {
+                            codeDrawer.style.transition = 'max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                            codeDrawer.style.maxHeight = '0px';
+                            codeChevron.style.transform = 'rotate(0deg)';
+                            setTimeout(() => {
+                                codeDrawer.classList.add('hidden');
+                            }, 400);
+                        }
+                    });
+                }
+            }
+
+        });
+    </script>
+</body>
+</html>

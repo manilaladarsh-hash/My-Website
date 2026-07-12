@@ -1,0 +1,2735 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Adarsh Manilal | Physicist, Sound Designer &amp; Creative Coder</title>
+
+<!-- Theme Initializer (Immediate to prevent styling flash) -->
+<script>
+    (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    })();
+</script>
+
+<!-- Google Fonts (optimized: display=swap, reduced weights) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- Tailwind CSS (optimized: deferred loading) -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'bg-dark': 'var(--color-bg-dark)',
+            'bg-card': 'var(--color-bg-card)',
+            'bg-surface': 'var(--color-bg-surface)',
+            'accent-primary': 'var(--accent-primary)',
+            'accent-secondary': 'var(--accent-secondary)',
+            'accent-tertiary': 'var(--accent-tertiary)',
+            'accent-cyan': 'var(--accent-cyan)',
+            'text-main': 'var(--color-text-main)',
+            'text-muted': 'var(--color-text-muted)',
+            'border-light': 'var(--color-border-light)'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Manrope"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          animation: {
+            'spin-slow': 'spin 12s linear infinite',
+            'pulse-fast': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'marquee': 'marquee 35s linear infinite',
+            'spotlight': 'spotlight 2s ease .75s 1 forwards',
+            'cursor-blink': 'cursor-blink 1s step-end infinite',
+            'typewriter': 'typewriter 2s steps(40, end)',
+          },
+          keyframes: {
+            float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+            },
+            marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-100%)' },
+            },
+            spotlight: {
+                '0%': { opacity: 0, transform: 'translate(-50%, -50%) scale(0.5)' },
+                '100%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
+            },
+            'cursor-blink': {
+                '0%, 100%': { opacity: 1 },
+                '50%': { opacity: 0 },
+            },
+            typewriter: {
+                'from': { width: '0' },
+                'to': { width: '100%' }
+            }
+          }
+        }
+      }
+    }
+</script>
+
+<style>
+/* --- Core Variables & Reset --- */
+:root {
+  --color-bg-dark: #f8fafc;
+  --color-bg-card: #ffffff;
+  --color-bg-surface: #f1f5f9;
+  --color-text-main: #0f172a;
+  --color-text-muted: #475569;
+  --color-border-light: rgba(15, 23, 42, 0.08);
+
+  --accent-primary: #059669; /* Emerald 600 */
+  --accent-secondary: #e11d48; /* Rose 600 */
+  --accent-tertiary: #6366f1; /* Indigo 500 */
+  --accent-cyan: #0891b2; /* Cyan 600 */
+
+  --cursor-size: 20px;
+  --accent-glow: 0 0 20px rgba(5, 150, 105, 0.2);
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: 1px solid rgba(15, 23, 42, 0.08);
+  --glass-blur: blur(16px);
+}
+
+.dark {
+  --color-bg-dark: #030304;
+  --color-bg-card: #08080A;
+  --color-bg-surface: #0E0E11;
+  --color-text-main: #F0F0F0;
+  --color-text-muted: #888899;
+  --color-border-light: rgba(255, 255, 255, 0.08);
+
+  --accent-primary: #00FF9D; /* Neon Green */
+  --accent-secondary: #FF3366; /* Neon Red */
+  --accent-tertiary: #7000FF; /* Neon Purple */
+  --accent-cyan: #00F0FF; /* Neon Cyan */
+
+  --accent-glow: 0 0 20px rgba(0, 255, 157, 0.3);
+  --glass-bg: rgba(8, 8, 10, 0.7);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+body {
+    cursor: none; /* Custom cursor - scoped to body to avoid unnecessary repaints */
+}
+a, button, [role="button"] {
+    cursor: none;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px; /* Offset for fixed navbar */
+}
+
+body {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-main);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* --- Grain Texture (z-0) --- */
+.noise-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0; 
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* --- Custom Cursor --- */
+#cursor-dot, #cursor-outline {
+    position: fixed;
+    top: 0; left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    will-change: transform;
+}
+#cursor-dot {
+    width: 8px; height: 8px;
+    background-color: var(--accent-primary);
+}
+#cursor-outline {
+    width: 40px; height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: width 0.2s, height 0.2s, background-color 0.2s, transform 0.08s ease-out;
+}
+body:hover #cursor-outline.hovered {
+    width: 60px; height: 60px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: transparent;
+}
+
+/* --- Utilities --- */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, #fff 0%, #888 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- Spotlight Card Effect --- */
+.spotlight-card {
+    position: relative;
+    background: var(--color-bg-card);
+    border-radius: 1.5rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border-light);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.spotlight-card::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0; left: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+        800px circle at var(--mouse-x) var(--mouse-y),
+        rgba(255, 255, 255, 0.06),
+        transparent 40%
+    );
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+}
+
+.spotlight-card:hover::before {
+    opacity: 1;
+}
+
+.spotlight-card::after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0; left: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+        600px circle at var(--mouse-x) var(--mouse-y),
+        rgba(0, 255, 157, 0.1),
+        transparent 40%
+    );
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+}
+.spotlight-card:hover::after {
+    opacity: 1;
+}
+
+/* --- Bento Grid --- */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+}
+@media (min-width: 768px) {
+    .bento-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+    }
+    .bento-item-lg { grid-column: span 2; grid-row: span 2; }
+    .bento-item-md { grid-column: span 1; grid-row: span 1; }
+    .bento-item-wide { grid-column: span 2; }
+    .bento-item-full { grid-column: span 3; }
+    .bento-item-tall { grid-row: span 2; }
+}
+
+/* --- Glitch Effect --- */
+.glitch-wrapper { position: relative; display: inline-block; }
+.glitch-layer {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0;
+}
+.glitch-active .glitch-layer:nth-child(1) {
+    color: var(--accent-primary); animation: glitch-anim-1 0.4s infinite linear alternate-reverse; opacity: 1; clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); transform: translate(-2px, 0);
+}
+.glitch-active .glitch-layer:nth-child(2) {
+    color: var(--accent-secondary); animation: glitch-anim-2 0.4s infinite linear alternate-reverse; opacity: 1; clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%); transform: translate(2px, 0);
+}
+@keyframes glitch-anim-1 { 0% { clip-path: inset(20% 0 80% 0); } 100% { clip-path: inset(60% 0 10% 0); } }
+@keyframes glitch-anim-2 { 0% { clip-path: inset(10% 0 60% 0); } 100% { clip-path: inset(80% 0 5% 0); } }
+
+/* --- Magnetic Button --- */
+.magnetic-btn {
+    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* --- Timeline Styles --- */
+.timeline-line {
+    position: absolute;
+    left: 2rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.05);
+}
+.timeline-progress {
+    position: absolute;
+    left: 2rem;
+    top: 0;
+    width: 2px;
+    height: 0%;
+    background: linear-gradient(to bottom, var(--accent-primary), var(--accent-cyan));
+    box-shadow: 0 0 15px rgba(0, 255, 157, 0.5);
+    transition: height 0.1s linear;
+}
+
+/* --- Back to Top Button --- */
+#back-to-top {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 90;
+}
+#back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- Active Nav Link --- */
+.nav-active {
+    color: var(--accent-primary) !important;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg-dark); }
+::-webkit-scrollbar-thumb { background: var(--color-border-light); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+
+/* Custom range input styling for premium physics sliders */
+.nmr-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: var(--color-border-light);
+    border-radius: 3px;
+    outline: none;
+    transition: background 0.3s;
+}
+.nmr-slider:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+.nmr-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.8);
+    transition: transform 0.1s, background-color 0.2s;
+}
+.nmr-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: var(--accent-cyan);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.8);
+}
+.nmr-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border: none;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.8);
+    transition: transform 0.1s, background-color 0.2s;
+}
+.nmr-slider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    background: var(--accent-cyan);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.8);
+}
+
+/* --- Section-Based Navigation --- */
+.page-section {
+    display: none;
+    opacity: 0;
+}
+.page-section.active {
+    display: block;
+    animation: fadeInSection 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes fadeInSection {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero collapses when not on home */
+.hero-compact {
+    min-height: auto !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+}
+.hero-compact .text-6xl { font-size: 2.5rem !important; }
+.hero-compact .md\:text-9xl { font-size: 2.5rem !important; }
+.hero-compact p, .hero-compact .flex.flex-col, .hero-compact .absolute.bottom-10 { display: none !important; }
+
+
+/* ==========================================================================
+   --- Light Mode Specific Overrides ---
+   ========================================================================== */
+html:not(.dark) .text-white {
+    color: var(--color-text-main) !important;
+}
+html:not(.dark) .text-white\/10 {
+    color: rgba(15, 23, 42, 0.15) !important;
+}
+html:not(.dark) .text-white\/20 {
+    color: rgba(15, 23, 42, 0.25) !important;
+}
+html:not(.dark) .text-white\/40 {
+    color: rgba(15, 23, 42, 0.45) !important;
+}
+html:not(.dark) .text-white\/80 {
+    color: rgba(15, 23, 42, 0.8) !important;
+}
+html:not(.dark) .border-white\/5 {
+    border-color: rgba(15, 23, 42, 0.06) !important;
+}
+html:not(.dark) .border-white\/10 {
+    border-color: rgba(15, 23, 42, 0.1) !important;
+}
+html:not(.dark) .border-white\/20 {
+    border-color: rgba(15, 23, 42, 0.18) !important;
+}
+html:not(.dark) .bg-white\/5 {
+    background-color: rgba(15, 23, 42, 0.04) !important;
+}
+html:not(.dark) .bg-white\/10 {
+    background-color: rgba(15, 23, 42, 0.08) !important;
+}
+html:not(.dark) .bg-white\/[0.02] {
+    background-color: rgba(15, 23, 42, 0.02) !important;
+}
+html:not(.dark) .bg-black\/40 {
+    background-color: rgba(255, 255, 255, 0.6) !important;
+}
+html:not(.dark) .bg-black\/50 {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+}
+html:not(.dark) .bg-black\/60 {
+    background-color: rgba(255, 255, 255, 0.65) !important;
+}
+html:not(.dark) .bg-black\/80 {
+    background-color: rgba(255, 255, 255, 0.85) !important;
+}
+html:not(.dark) .bg-bg-dark\/80 {
+    background-color: rgba(248, 250, 252, 0.8) !important;
+}
+html:not(.dark) .bg-bg-dark\/98 {
+    background-color: rgba(248, 250, 252, 0.98) !important;
+}
+html:not(.dark) .nav-active {
+    color: var(--accent-primary) !important;
+    background-color: rgba(15, 23, 42, 0.05);
+}
+html:not(.dark) .hover\:text-white:hover {
+    color: var(--color-text-main) !important;
+}
+html:not(.dark) .hover\:bg-white\/5:hover {
+    background-color: rgba(15, 23, 42, 0.05) !important;
+}
+html:not(.dark) .hover\:bg-white\/10:hover {
+    background-color: rgba(15, 23, 42, 0.1) !important;
+}
+html:not(.dark) .spotlight-card::before {
+    background: radial-gradient(
+        800px circle at var(--mouse-x) var(--mouse-y),
+        rgba(15, 23, 42, 0.04),
+        transparent 40%
+    );
+}
+html:not(.dark) .spotlight-card::after {
+    background: radial-gradient(
+        600px circle at var(--mouse-x) var(--mouse-y),
+        rgba(5, 150, 105, 0.08),
+        transparent 40%
+    );
+}
+html:not(.dark) #cursor-outline {
+    border-color: rgba(15, 23, 42, 0.4);
+}
+html:not(.dark) .timeline-line {
+    background: rgba(15, 23, 42, 0.08);
+}
+html:not(.dark) #theme-toggle-btn {
+    border-color: rgba(15, 23, 42, 0.1);
+    color: #475569;
+}
+html:not(.dark) #theme-toggle-btn:hover {
+    border-color: var(--accent-primary);
+    color: var(--color-text-main);
+    background-color: rgba(15, 23, 42, 0.04);
+}
+html:not(.dark) svg pattern path {
+    stroke: rgba(15, 23, 42, 0.05) !important;
+}
+html:not(.dark) svg text {
+    fill: rgba(15, 23, 42, 0.5) !important;
+}
+html:not(.dark) svg circle[stroke*="rgba(255, 255, 255"] {
+    stroke: rgba(15, 23, 42, 0.05) !important;
+}
+html:not(.dark) svg line[stroke*="rgba(255,255,255"] {
+    stroke: rgba(15, 23, 42, 0.15) !important;
+}
+html:not(.dark) svg line[stroke*="rgba(255, 255, 255"] {
+    stroke: rgba(15, 23, 42, 0.1) !important;
+}
+
+/* Specific CV button styling in light mode */
+html:not(.dark) .magnetic-btn.bg-white {
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+}
+html:not(.dark) .magnetic-btn.bg-white:hover {
+    background-color: var(--accent-primary) !important;
+    color: #ffffff !important;
+}
+
+/* --- Mobile / Touch Device Optimizations --- */
+@media (hover: none) and (pointer: coarse) {
+    body, a, button, [role="button"], input, select, textarea {
+        cursor: auto !important;
+    }
+    #cursor-dot, #cursor-outline {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
+   --- Comprehensive Mobile Responsiveness ---
+   ========================================================================== */
+
+/* Force no horizontal overflow */
+html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+/* Mobile-first adjustments */
+@media (max-width: 767px) {
+    /* Hero section */
+    #home {
+        min-height: 70vh !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    /* Reduce hero title size on very small screens */
+    .text-5xl {
+        font-size: 2.5rem !important;
+    }
+    
+    /* About section profile card */
+    .relative.rounded-2xl {
+        padding: 1.25rem !important;
+    }
+    
+    /* SVG in profile card */
+    svg.w-full.h-48 {
+        height: 120px !important;
+    }
+    
+    /* Monospace profile fields */
+    .font-mono.text-\[11px\] {
+        font-size: 10px !important;
+    }
+    
+    /* Bento grid items on mobile */
+    .bento-item-lg,
+    .bento-item-md,
+    .bento-item-wide,
+    .bento-item-full,
+    .bento-item-tall {
+        grid-column: span 1 !important;
+        grid-row: span 1 !important;
+    }
+    
+    /* Leadership tile - stack vertically */
+    .bento-item-wide .md\:w-1\/2 {
+        width: 100% !important;
+    }
+    .bento-item-wide {
+        flex-direction: column !important;
+    }
+    .bento-item-wide .border-l {
+        border-left: none !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        min-height: 120px;
+    }
+    
+    /* Research tile padding */
+    .bento-item-lg {
+        padding: 1.5rem !important;
+    }
+    .bento-item-lg h3 {
+        font-size: 1.5rem !important;
+    }
+    
+    /* Teaching grid - single column */
+    .bento-item-full .grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Timeline adjustments */
+    #timeline-container {
+        padding-left: 2rem !important;
+    }
+    .timeline-line,
+    .timeline-progress {
+        left: 0.75rem !important;
+    }
+    .timeline-item span[class*="absolute left-"] {
+        left: -1.5rem !important;
+    }
+    
+    /* Dashboard section */
+    #dashboard .grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Publication items */
+    .pub-item {
+        padding: 1rem !important;
+    }
+    .pub-item .font-mono.text-sm {
+        font-size: 0.75rem !important;
+    }
+    
+    /* Contact section */
+    #contact .spotlight-card {
+        padding: 2rem 1.5rem !important;
+    }
+    #contact h2 {
+        font-size: 1.75rem !important;
+    }
+    
+    /* Social links gap */
+    .flex.justify-center.gap-8 {
+        gap: 1.5rem !important;
+    }
+    
+    /* Stats grid on mobile */
+    #home-stats .grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.75rem !important;
+    }
+    #home-stats .text-4xl {
+        font-size: 1.75rem !important;
+    }
+    
+    /* Marquee text size */
+    .animate-marquee span {
+        font-size: 0.7rem !important;
+    }
+    
+    /* Section padding */
+    .page-section {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+    
+    /* Section headings */
+    .page-section h2.text-4xl {
+        font-size: 1.75rem !important;
+    }
+    .page-section h2.text-5xl,
+    .page-section h2.md\:text-5xl {
+        font-size: 2rem !important;
+    }
+    .page-section h2.md\:text-6xl {
+        font-size: 2rem !important;
+    }
+    
+    /* Navbar padding */
+    nav .max-w-7xl {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    /* Fix CTA button */
+    .magnetic-btn {
+        font-size: 0.875rem !important;
+        padding: 0.75rem 1.5rem !important;
+    }
+    
+    /* Projects section responsive fixes */
+    #projects .grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Search/filter panel stack */
+    .grid.grid-cols-1.md\:grid-cols-4 {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Hobbies section */
+    #hobbies .grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Footer text */
+    .text-xs.font-mono.text-white\/20 {
+        font-size: 0.6rem !important;
+    }
+    
+    /* Back to top button - smaller on mobile */
+    #back-to-top {
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+        bottom: 1rem !important;
+        right: 1rem !important;
+    }
+}
+
+/* Very small screens (< 375px) */
+@media (max-width: 374px) {
+    .text-5xl {
+        font-size: 2rem !important;
+    }
+    
+    #home-stats .grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .pub-item .flex {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+    }
+}
+
+</style>
+</head>
+<body class="selection:bg-accent-primary selection:text-black">
+
+    <!-- Noise Texture Overlay (z-0 to sit behind content) -->
+    <div class="noise-overlay pointer-events-none"></div>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-outline"></div>
+
+    <!-- Background Canvas (z-minus-1 to sit behind everything) -->
+    <div class="fixed inset-0 z-[-1] pointer-events-none opacity-30">
+        <canvas id="bg-canvas"></canvas>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-accent-primary text-black flex items-center justify-center font-bold shadow-[0_0_20px_rgba(0,255,157,0.4)] hover:scale-110 transition-transform cursor-none pointer-events-auto">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+
+
+    <!-- Navbar (z-50 for clickability) -->
+    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b border-transparent" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" data-section="home" class="text-xl font-bold font-display tracking-tight hover-trigger pointer-events-auto" data-hover-text="CREATIVE">
+                <span class="text-accent-primary">ADARSH</span><span class="text-white">.MANILAL</span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-1 glass-panel p-1 rounded-full border border-white/5 shadow-2xl backdrop-blur-xl pointer-events-auto">
+                <a href="#about" data-section="about" class="nav-link px-4 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all cursor-pointer">About</a>
+                <a href="#research" data-section="research" class="nav-link px-4 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all cursor-pointer">Research</a>
+                <a href="#publications" data-section="publications" class="nav-link px-4 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all cursor-pointer">Publications</a>
+                <a href="#projects" data-section="projects" class="nav-link px-4 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all cursor-pointer">Projects</a>
+                <a href="#contact" data-section="contact" class="nav-link px-4 py-2 text-xs font-semibold uppercase tracking-widest text-text-muted hover:text-white rounded-full hover:bg-white/5 transition-all cursor-pointer">Contact</a>
+            </div>
+ 
+            <div class="flex items-center gap-3 pointer-events-auto">
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle-btn" class="w-9 h-9 rounded-full flex items-center justify-center border border-white/10 hover:border-accent-primary/50 text-text-muted hover:text-white transition-all duration-300 cursor-pointer" title="Toggle Theme">
+                    <i id="theme-toggle-icon" class="fa-solid fa-moon text-xs"></i>
+                </button>
+
+
+                <a href="assets/Manilal_CV.pdf" target="_blank" class="magnetic-btn hidden md:flex items-center gap-2 px-5 py-2 bg-white text-black font-bold text-xs uppercase tracking-wide rounded-full hover:bg-accent-primary transition-colors duration-300 group">
+                    <span>CV / Resume</span>
+                    <i class="fa-solid fa-arrow-down transform group-hover:translate-y-1 transition-transform"></i>
+                </a>
+                <button id="mobile-menu-btn" class="mobile-nav-toggle md:hidden text-white text-xl p-2 focus:outline-none relative z-50 cursor-pointer">
+                    <i id="mobile-menu-icon" class="fa-solid fa-bars transition-transform duration-300"></i>
+                </button>
+            </div>
+        </div>
+ 
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-bg-dark/98 backdrop-blur-3xl z-40 md:hidden flex flex-col justify-center items-center gap-6 opacity-0 pointer-events-none transition-all duration-300">
+            <a href="#about" data-section="about" class="mobile-nav-link text-2xl font-bold uppercase tracking-widest text-text-muted hover:text-white transition-colors cursor-none">About</a>
+            <a href="#research" data-section="research" class="mobile-nav-link text-2xl font-bold uppercase tracking-widest text-text-muted hover:text-white transition-colors cursor-none">Research</a>
+            <a href="#publications" data-section="publications" class="mobile-nav-link text-2xl font-bold uppercase tracking-widest text-text-muted hover:text-white transition-colors cursor-none">Publications</a>
+            <a href="#projects" data-section="projects" class="mobile-nav-link text-2xl font-bold uppercase tracking-widest text-text-muted hover:text-white transition-colors cursor-none">Projects</a>
+            <a href="#contact" data-section="contact" class="mobile-nav-link text-2xl font-bold uppercase tracking-widest text-text-muted hover:text-white transition-colors cursor-none">Contact</a>
+            
+            <a href="assets/Manilal_CV.pdf" target="_blank" class="mt-6 flex items-center gap-2 px-6 py-3 bg-white text-black font-bold text-sm uppercase tracking-wide rounded-full hover:bg-accent-primary transition-all duration-300 cursor-none">
+                <span>CV / Resume</span>
+                <i class="fa-solid fa-arrow-down"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content (z-10 to sit above noise) -->
+    <main class="relative z-10 pt-32 pb-20 pointer-events-auto">
+
+        <!-- Hero Section -->
+        <section id="home" class="min-h-[85vh] flex flex-col justify-center items-center relative overflow-hidden px-6">
+            
+            <div class="text-center max-w-4xl mx-auto space-y-8 relative z-30">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-accent-primary/20 bg-accent-primary/5 text-accent-primary text-[10px] font-mono uppercase tracking-widest mb-6 animate-fade-in-up hover:bg-accent-primary/10 transition-colors cursor-help" title="Physicist &amp; PhD Candidate">
+                    <span class="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse"></span>
+                    Status: Physicist &amp; PhD Candidate
+                </div>
+                
+                <h1 class="text-5xl sm:text-6xl md:text-9xl font-display font-extrabold tracking-tighter leading-[0.9] glitch-wrapper select-none" id="hero-title">
+                    <span class="glitch-text text-white">ADARSH</span><br>
+                    <span class="text-white/20">MANILAL</span>
+                    <span class="glitch-layer" aria-hidden="true">ADARSH<br>MANILAL</span>
+                    <span class="glitch-layer" aria-hidden="true">ADARSH<br>MANILAL</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-text-muted max-w-2xl mx-auto font-light leading-relaxed tracking-wide">
+                    Blending the laws of <span class="text-white font-medium">physics</span>, computational <span class="text-accent-primary font-mono bg-accent-primary/5 px-1 rounded">creative coding</span>, and generative audio synthesis into high-fidelity digital art.
+                </p>
+
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center mt-12 pointer-events-auto">
+                    <a href="#research" data-section="research" class="magnetic-btn relative px-8 py-4 bg-accent-primary text-black font-bold rounded-full overflow-hidden group hover:scale-105 transition-transform duration-300 pointer-events-auto">
+                        <span class="relative z-10 flex items-center gap-2">Explore My Research <i class="fa-solid fa-arrow-right -rotate-45 group-hover:rotate-0 transition-transform"></i></span>
+                        <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 mix-blend-overlay transition-opacity duration-300"></div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3 opacity-30 hover:opacity-100 transition-opacity duration-500">
+                <span class="text-[9px] uppercase tracking-[0.3em] font-mono">Initiate Scroll</span>
+                <div class="w-[1px] h-16 bg-gradient-to-b from-white to-transparent relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1/2 bg-accent-primary animate-[float_2s_infinite]"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack Marquee -->
+        <div id="home-marquee" class="home-content w-full overflow-hidden border-y border-white/5 bg-white/[0.02] py-6 mb-20 pointer-events-auto">
+            <div class="flex animate-marquee gap-12 min-w-max">
+                <!-- Content duplicated for seamless loop -->
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-brands fa-python text-accent-primary mr-2"></i>Python &amp; SciPy</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-music text-accent-secondary mr-2"></i>Wave Synthesis</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-mug-hot text-accent-cyan mr-2"></i>Espresso Profiling</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-bread-slice text-accent-primary mr-2"></i>Sourdough Science</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-hive text-accent-secondary mr-2"></i>Cellular Automata</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-palette text-accent-cyan mr-2"></i>HTML5 Canvas Art</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-brands fa-linux text-accent-primary mr-2"></i>Linux/Bash</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-code text-accent-tertiary mr-2"></i>C++</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-sliders text-accent-secondary mr-2"></i>Generative Audio</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-circle-nodes text-accent-cyan mr-2"></i>Complexity Theory</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-atom text-accent-primary mr-2"></i>HTSC</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-heartpulse text-accent-cyan mr-2"></i>Cryogenics</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-headphones text-accent-tertiary mr-2"></i>Digital Soundscapes</span>
+
+                <!-- Duplicate -->
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-brands fa-python text-accent-primary mr-2"></i>Python &amp; SciPy</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-music text-accent-secondary mr-2"></i>Wave Synthesis</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-mug-hot text-accent-cyan mr-2"></i>Espresso Profiling</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-bread-slice text-accent-primary mr-2"></i>Sourdough Science</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-hive text-accent-secondary mr-2"></i>Cellular Automata</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-palette text-accent-cyan mr-2"></i>HTML5 Canvas Art</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-brands fa-linux text-accent-primary mr-2"></i>Linux/Bash</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-code text-accent-tertiary mr-2"></i>C++</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-sliders text-accent-secondary mr-2"></i>Generative Audio</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-circle-nodes text-accent-cyan mr-2"></i>Complexity Theory</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-atom text-accent-primary mr-2"></i>HTSC</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-heartpulse text-accent-cyan mr-2"></i>Cryogenics</span>
+                <span class="text-sm font-mono text-text-muted uppercase tracking-widest"><i class="fa-solid fa-headphones text-accent-tertiary mr-2"></i>Digital Soundscapes</span>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <section id="home-stats" class="home-content max-w-7xl mx-auto px-6 mb-32 pointer-events-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="spotlight-card p-6 text-center group hover:bg-white/5 transition-colors">
+                    <div class="text-4xl font-mono font-bold text-white group-hover:text-accent-primary transition-colors stat-number" data-target="4" data-suffix=" Years">0</div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-text-muted mt-2">Physics Research</div>
+                </div>
+                <div class="spotlight-card p-6 text-center group hover:bg-white/5 transition-colors">
+                    <div class="text-4xl font-mono font-bold text-white group-hover:text-accent-secondary transition-colors stat-number" data-target="1.34" data-suffix=" TDS">0</div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-text-muted mt-2">Espresso Extraction</div>
+                </div>
+                <div class="spotlight-card p-6 text-center group hover:bg-white/5 transition-colors">
+                    <div class="text-4xl font-mono font-bold text-white group-hover:text-accent-tertiary transition-colors stat-number" data-target="95" data-suffix=" BPM">0</div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-text-muted mt-2">Synthwave Tempo</div>
+                </div>
+                <div class="spotlight-card p-6 text-center group hover:bg-white/5 transition-colors">
+                    <div class="text-4xl font-mono font-bold text-white group-hover:text-accent-cyan transition-colors stat-number" data-target="78" data-suffix="%">0</div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-text-muted mt-2">Sourdough Hydration</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About / Overview -->
+        <section id="about" class="page-section max-w-7xl mx-auto px-6 py-20 relative pointer-events-auto">
+            <div class="grid md:grid-cols-2 gap-20 items-center">
+                <div class="relative group">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-accent-primary to-accent-cyan opacity-10 blur-2xl group-hover:opacity-20 transition-opacity duration-700 rounded-full"></div>
+                    <div class="relative rounded-2xl border border-white/10 bg-bg-surface/60 shadow-2xl backdrop-blur-xl p-8 transition-all duration-500 hover:border-accent-primary/30">
+                        <!-- Futuristic corner borders -->
+                        <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-accent-primary rounded-tl-lg"></div>
+                        <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-accent-cyan rounded-tr-lg"></div>
+                        <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-accent-cyan rounded-bl-lg"></div>
+                        <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-accent-primary rounded-br-lg"></div>
+
+                        <!-- Personal Vector Console -->
+                        <div class="relative rounded-lg overflow-hidden border border-white/5 bg-black/40 mb-6 p-4">
+                            <div class="absolute top-2 left-3 flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse"></span>
+                                <span class="font-mono text-[9px] text-accent-primary tracking-widest uppercase">PERSONAL MATRIX // COGNITIVE GRID</span>
+                            </div>
+                            
+                            <!-- Inline SVG for Personal Horizon (Synthwave Sun, Mountain Wireframes, Audio Waves) -->
+                            <svg class="w-full h-48 mt-2" viewBox="0 0 200 200">
+                                <!-- Grid background -->
+                                <defs>
+                                    <pattern id="grid-personal" width="10" height="10" patternUnits="userSpaceOnUse">
+                                        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/>
+                                    </pattern>
+                                    
+                                    <!-- Sunset Sun Gradient -->
+                                    <linearGradient id="sunset" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#ff00aa" />
+                                        <stop offset="50%" stop-color="#ff5e00" />
+                                        <stop offset="100%" stop-color="#ffaa00" />
+                                    </linearGradient>
+                                    
+                                    <!-- Neon Glow filters -->
+                                    <filter id="glow-magenta" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="3" result="blur" />
+                                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                    </filter>
+                                    <filter id="glow-cyan-pers" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="3" result="blur" />
+                                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                    </filter>
+                                    <filter id="glow-green-pers" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="3" result="blur" />
+                                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                    </filter>
+                                </defs>
+                                <rect width="100%" height="100%" fill="url(#grid-personal)" />
+                                
+                                <!-- Retro-Futuristic Sun (Synthwave Theme for Sound/Music) -->
+                                <g filter="url(#glow-magenta)" opacity="0.85">
+                                    <!-- Main Sun Circle -->
+                                    <circle cx="100" cy="100" r="40" fill="url(#sunset)" />
+                                    
+                                    <!-- Synthwave horizontal cuts -->
+                                    <line x1="50" y1="75" x2="150" y2="75" stroke="#0b0f19" stroke-width="2" />
+                                    <line x1="50" y1="83" x2="150" y2="83" stroke="#0b0f19" stroke-width="2.5" />
+                                    <line x1="50" y1="92" x2="150" y2="92" stroke="#0b0f19" stroke-width="3" />
+                                    <line x1="50" y1="102" x2="150" y2="102" stroke="#0b0f19" stroke-width="3.5" />
+                                    <line x1="50" y1="113" x2="150" y2="113" stroke="#0b0f19" stroke-width="4.5" />
+                                    <line x1="50" y1="125" x2="150" y2="125" stroke="#0b0f19" stroke-width="5.5" />
+                                    <line x1="50" y1="138" x2="150" y2="138" stroke="#0b0f19" stroke-width="7" />
+                                </g>
+
+                                <!-- Mountain Range Outline (Representing Hiking and Outdoors) -->
+                                <!-- Back Mountains -->
+                                <path d="M 10 160 L 60 95 L 110 160 L 150 110 L 190 160 Z" fill="rgba(0, 240, 255, 0.03)" stroke="rgba(0, 240, 255, 0.15)" stroke-width="1" />
+                                
+                                <!-- Front Mountains -->
+                                <path d="M 30 160 L 90 80 L 140 160 L 175 125 L 205 160 Z" fill="rgba(0, 240, 255, 0.05)" stroke="#00f0ff" stroke-width="1.5" filter="url(#glow-cyan-pers)" />
+                                
+                                <!-- Horizon Grid Lines -->
+                                <line x1="0" y1="160" x2="200" y2="160" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1" />
+                                <line x1="0" y1="165" x2="200" y2="165" stroke="rgba(255, 255, 255, 0.07)" stroke-width="1" />
+                                <line x1="0" y1="172" x2="200" y2="172" stroke="rgba(255, 255, 255, 0.05)" stroke-width="1" />
+                                <line x1="0" y1="182" x2="200" y2="182" stroke="rgba(255, 255, 255, 0.03)" stroke-width="1" />
+
+                                <!-- Active Energy Wave / Audio Waveform (Music & Gym) -->
+                                <g filter="url(#glow-green-pers)">
+                                    <path d="M 5 155 Q 25 155, 35 150 T 55 145 T 75 165 T 95 120 T 115 150 T 135 130 T 155 165 T 175 155 L 195 155" fill="none" stroke="#00ff9d" stroke-width="2">
+                                        <animate attributeName="stroke-dashoffset" values="40;0" dur="3s" repeatCount="indefinite" />
+                                    </path>
+                                </g>
+                                
+                                <!-- Tech crosshairs/elements for space-age UI look -->
+                                <circle cx="100" cy="100" r="75" fill="none" stroke="rgba(255, 255, 255, 0.03)" stroke-width="1" stroke-dasharray="2 10" />
+                                <line x1="10" y1="20" x2="20" y2="20" stroke="rgba(255,255,255,0.15)" stroke-width="1" />
+                                <line x1="10" y1="20" x2="10" y2="30" stroke="rgba(255,255,255,0.15)" stroke-width="1" />
+                                <line x1="190" y1="20" x2="180" y2="20" stroke="rgba(255,255,255,0.15)" stroke-width="1" />
+                                <line x1="190" y1="20" x2="190" y2="30" stroke="rgba(255,255,255,0.15)" stroke-width="1" />
+                                
+                                <!-- Small High-Tech labels -->
+                                <text x="15" y="32" font-family="monospace" font-size="6" fill="rgba(255,255,255,0.3)" letter-spacing="1">SYNTH.ACTIVE</text>
+                                <text x="135" y="32" font-family="monospace" font-size="6" fill="rgba(255,255,255,0.3)" letter-spacing="1">OUTDOORS // HI</text>
+                            </svg>
+                        </div>
+
+                        <!-- Monospace Profile Fields -->
+                        <div class="border-t border-white/10 pt-6 font-mono text-[11px] md:text-xs space-y-3">
+                            <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                                <span class="text-white/40">RESEARCHER ID</span>
+                                <span class="text-accent-primary font-bold">MANILAL // AM.PHD</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                                <span class="text-white/40">AFFILIATION</span>
+                                <span class="text-white text-right">MCMASTER UNIVERSITY</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                                <span class="text-white/40">DEPARTMENT</span>
+                                <span class="text-white text-right">PHYSICS & ASTRONOMY</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                                <span class="text-white/40">SUPERVISOR</span>
+                                <span class="text-accent-cyan font-bold">PROF. TAKASHI IMAI</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                                <span class="text-white/40">LAB / GROUP</span>
+                                <span class="text-white">IMAI NMR GROUP</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-white/40">STATUS</span>
+                                <span class="inline-flex items-center gap-1.5 text-accent-primary font-bold">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-accent-primary animate-ping"></span>
+                                    PHD_CANDIDATE
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-8 relative">
+                    <div class="absolute -left-10 top-0 w-1 h-full bg-gradient-to-b from-white/10 to-transparent hidden md:block"></div>
+                    <h2 class="text-4xl md:text-5xl font-display font-bold leading-tight">Bridging Theory & <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-primary to-accent-cyan">Experiment</span></h2>
+                    <p class="text-text-muted leading-relaxed text-lg font-light">
+                        I am a PhD Candidate in the Department of Physics & Astronomy at McMaster University. My research utilizes <strong class="text-white font-medium">Nuclear Magnetic Resonance (NMR)</strong> and <strong class="text-white font-medium">Nuclear Quadrupole Resonance (NQR)</strong> to investigate Strongly Correlated Electron Systems.
+                    </p>
+                    <p class="text-text-muted leading-relaxed text-lg font-light">
+                        My work focuses on Quantum Magnetism and Quantum Phase Transitions, specifically unraveling the electronic properties and phase transitions in High-Temperature Superconductors (HTSC).
+                    </p>
+                    
+                    <div class="pt-8 border-t border-white/5">
+                        <h4 class="text-xs uppercase tracking-widest text-white/40 mb-4 font-mono">Core Competencies</h4>
+                        <div class="flex flex-wrap gap-2">
+                             <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-text-muted hover:text-white hover:border-accent-primary transition-colors cursor-help">#condensed_matter</span>
+                             <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-text-muted hover:text-white hover:border-accent-primary transition-colors cursor-help">#superconductivity</span>
+                             <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-text-muted hover:text-white hover:border-accent-primary transition-colors cursor-help">#quantum_magnetism</span>
+                             <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-text-muted hover:text-white hover:border-accent-primary transition-colors cursor-help">#spectroscopy</span>
+                             <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-text-muted hover:text-white hover:border-accent-primary transition-colors cursor-help">#cryogenics</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Bento Grid -->
+        <section id="research" class="page-section max-w-7xl mx-auto px-6 py-20 pointer-events-auto">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-display font-bold mb-4">Research</h2>
+                    <p class="text-text-muted max-w-xl font-light">My condensed-matter research, laboratory roles, and academic contributions at McMaster University and IISER Thiruvananthapuram.</p>
+                </div>
+                <div class="hidden md:block">
+                    <i class="fa-solid fa-arrow-right-long text-4xl text-accent-primary -rotate-45 animate-pulse"></i>
+                </div>
+            </div>
+
+            <div class="bento-grid">
+                
+                <!-- Tile 1 (Large): McMaster Graduate Research - CLICKABLE -->
+                <article class="bento-item-lg spotlight-card group relative flex flex-col justify-between p-8 md:p-12 transition-all duration-500 hover:border-accent-primary/50">
+                    <div class="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                    <canvas id="bento-canvas-1" class="absolute inset-0 w-full h-full opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none"></canvas>
+                    
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-8">
+                            <div class="flex items-center gap-3">
+                                <span class="px-3 py-1 rounded-full border border-white/10 bg-black/40 backdrop-blur-md text-[10px] font-mono uppercase tracking-widest text-accent-primary shadow-[0_0_10px_rgba(0,255,157,0.2)]">McMaster University</span>
+                                <span class="px-2 py-1 bg-accent-primary text-black font-mono text-[9px] uppercase tracking-wider rounded font-bold animate-pulse">Active</span>
+                            </div>
+                            <i class="fa-solid fa-atom text-4xl text-white/10 group-hover:text-accent-primary transition-colors transform group-hover:rotate-180 duration-700"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4 group-hover:text-accent-primary transition-colors">NMR/NQR of High-T<sub>c</sub> Superconductors</h3>
+                        <p class="text-text-muted mb-4 leading-relaxed">
+                            <strong class="text-white">Graduate Researcher</strong> &nbsp;|&nbsp; Advisor: <strong class="text-accent-cyan">Prof. Takashi Imai</strong> &nbsp;|&nbsp; <span class="text-white/50 font-mono text-xs">Sep 2023 – Present</span>
+                        </p>
+                        <p class="text-text-muted mb-4 leading-relaxed text-sm">
+                            Probing the microscopic electronic structure of cuprate high-temperature superconductors using Nuclear Magnetic Resonance (NMR) and Nuclear Quadrupole Resonance (NQR) spectroscopy. My work focuses on unraveling the interplay between the pseudogap phase, charge density wave (CDW) order, and superconductivity in YBa<sub>2</sub>Cu<sub>3</sub>O<sub>y</sub> (YBCO) systems.
+                        </p>
+                        <p class="text-text-muted mb-6 leading-relaxed text-sm">
+                            Through site-selective <sup>63</sup>Cu and <sup>17</sup>O NMR/NQR measurements at cryogenic temperatures, I investigate how spin-lattice relaxation rates (1/T<sub>1</sub>) and Knight shift anomalies reveal signatures of competing quantum phases near optimal doping — providing direct experimental evidence for charge ordering phenomena coexisting with superconductivity.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-primary/10 text-accent-primary border border-accent-primary/20">#NMR/NQR</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-primary/10 text-accent-primary border border-accent-primary/20">#cuprate_HTSC</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-primary/10 text-accent-primary border border-accent-primary/20">#pseudogap</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20">#charge_order</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20">#cryogenics</span>
+                        </div>
+                    </div>
+                    <!-- Stretched Link to make whole card clickable -->
+                    <a href="#publications" class="z-20 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider hover:text-accent-primary transition-colors after:absolute after:inset-0">View Publications <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i></a>
+                </article>
+
+                <!-- Tile 2 (Medium): IISER TVM Graduate Research -->
+                <article class="bento-item-md spotlight-card group relative p-8 flex flex-col justify-between hover:border-accent-secondary/50 transition-colors">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-accent-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <i class="fa-solid fa-hive text-3xl text-accent-secondary/50 group-hover:text-accent-secondary transition-colors mb-auto"></i>
+                    <div class="relative z-10 mt-12">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-white transition-colors">YBCO Synthesis & Thermodynamics</h3>
+                        <p class="text-xs text-text-muted leading-relaxed mb-2"><strong>IISER TVM</strong> | Advisor: Dr. Deepshikha Jaiswal Nagar</p>
+                        <p class="text-xs text-text-muted leading-relaxed">Synthesized high-quality YBCO single crystals via self-flux method. Investigated thermal expansion (capacitive dilatometry) and magnetic susceptibility (SQUID/Espresso Profiling).</p>
+                    </div>
+                </article>
+
+                <!-- Tile 3 (Medium): IISER TVM Research Fellow -->
+                <article class="bento-item-md spotlight-card group relative p-8 flex flex-col justify-between hover:border-accent-tertiary/50 transition-colors">
+                     <div class="absolute inset-0 bg-gradient-to-b from-transparent to-accent-tertiary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <i class="fa-solid fa-bolt text-3xl text-accent-tertiary/50 group-hover:text-accent-tertiary transition-colors mb-auto"></i>
+                    <div class="relative z-10 mt-12">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-white transition-colors">Nonlinear Optics</h3>
+                        <p class="text-xs text-text-muted leading-relaxed mb-2"><strong>Research Fellow</strong> | Advisor: Dr. Adithya Lakshmanna</p>
+                        <p class="text-xs text-text-muted leading-relaxed">Designed Z-scan setup for Kerr nonlinearity. Characterized femtosecond pulses utilizing home-built FROG system.</p>
+                    </div>
+                </article>
+
+                 <!-- Tile 4 (Wide): Academic Leadership & Community -->
+                 <article class="bento-item-wide spotlight-card group relative flex flex-col md:flex-row overflow-hidden hover:border-accent-cyan/50 transition-colors">
+                    <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center relative z-10">
+                        <div class="flex items-center gap-3 mb-6">
+                            <i class="fa-solid fa-handshake-angle text-xl text-accent-cyan/60 group-hover:text-accent-cyan transition-colors"></i>
+                            <h3 class="text-2xl font-bold text-white group-hover:text-accent-cyan transition-colors">Academic Leadership</h3>
+                        </div>
+                        <p class="text-text-muted text-xs mb-5 leading-relaxed">Beyond the lab, I am actively involved in mentoring, academic governance, and supporting the next generation of physicists at McMaster.</p>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/5 hover:border-accent-cyan/20 transition-colors group/item">
+                                <div class="w-8 h-8 rounded-lg bg-accent-cyan/10 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-scale-balanced text-accent-cyan text-xs"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-semibold text-white">Department Steward — CUPE 3906</div>
+                                    <p class="text-xs text-text-muted leading-relaxed mt-0.5">Elected representative and liaison for graduate teaching assistants. Advocate for fair working conditions, workload equity, and labor rights within the Physics & Astronomy department.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/5 hover:border-accent-cyan/20 transition-colors group/item">
+                                <div class="w-8 h-8 rounded-lg bg-accent-cyan/10 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-user-graduate text-accent-cyan text-xs"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-semibold text-white">Thesis Co-Supervisor</div>
+                                    <p class="text-xs text-text-muted leading-relaxed mt-0.5">Co-supervising an undergraduate senior thesis project on NMR data analysis and spectral fitting techniques (Sep 2025 – Present).</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/5 hover:border-accent-cyan/20 transition-colors group/item">
+                                <div class="w-8 h-8 rounded-lg bg-accent-cyan/10 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-people-arrows text-accent-cyan text-xs"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-semibold text-white">Graduate Peer Mentor</div>
+                                    <p class="text-xs text-text-muted leading-relaxed mt-0.5">Guiding incoming M.Sc. students through lab onboarding, coursework planning, and navigating the transition into graduate research life.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 bg-white/[0.02] relative border-l border-white/5 flex items-center justify-center p-8">
+                         <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 pointer-events-none"></div>
+                         <div class="text-center relative z-10">
+                             <i class="fa-solid fa-users-gear text-7xl text-white/5 group-hover:text-accent-cyan/15 transition-colors transform group-hover:scale-110 duration-500 mb-6 block"></i>
+                             <div class="grid grid-cols-2 gap-4 max-w-[200px] mx-auto">
+                                 <div class="text-center">
+                                     <div class="text-2xl font-mono font-bold text-accent-cyan">3+</div>
+                                     <div class="text-[9px] uppercase tracking-widest text-text-muted mt-1">Roles</div>
+                                 </div>
+                                 <div class="text-center">
+                                     <div class="text-2xl font-mono font-bold text-accent-cyan">2</div>
+                                     <div class="text-[9px] uppercase tracking-widest text-text-muted mt-1">Years</div>
+                                 </div>
+                             </div>
+                         </div>
+                    </div>
+                </article>
+
+                <!-- Tile 5 (Wide): Teaching Assistant Experience -->
+                <article class="bento-item-full spotlight-card group relative overflow-hidden hover:border-accent-primary/50 transition-colors">
+                    <div class="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <div class="relative z-10 p-8 md:p-10">
+                        <div class="flex justify-between items-start mb-8">
+                            <div>
+                                <i class="fa-solid fa-chalkboard-user text-3xl text-accent-primary/50 group-hover:text-accent-primary transition-colors mb-4 block"></i>
+                                <h3 class="text-2xl font-bold group-hover:text-white transition-colors">Teaching Assistant</h3>
+                                <p class="text-sm text-text-muted mt-1">McMaster University, Dept. of Physics &amp; Astronomy</p>
+                            </div>
+                            <span class="shrink-0 px-3 py-1 rounded-full border border-accent-primary/30 bg-accent-primary/10 text-accent-primary text-[10px] font-mono uppercase tracking-widest">Sep 2023 – Present</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-accent-primary/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-primary/10 text-accent-primary border border-accent-primary/20">PHYSICS 1D03</span>
+                                </div>
+                                <p class="text-sm font-semibold text-white mb-1">Introductory Mechanics</p>
+                                <p class="text-xs text-text-muted leading-relaxed">Principles of mechanics for engineering students: Newton's Laws, rotational kinematics, torque, energy, momentum, angular momentum, and simple harmonic motion.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-accent-primary/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-primary/10 text-accent-primary border border-accent-primary/20">PHYSICS 1E03</span>
+                                </div>
+                                <p class="text-sm font-semibold text-white mb-1">Waves, Electricity &amp; Magnetic Fields</p>
+                                <p class="text-xs text-text-muted leading-relaxed">Engineering physics covering oscillations and waves, interference, electrostatics, electric potential, circuit elements, and magnetic fields.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-accent-primary/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-secondary/10 text-accent-secondary border border-accent-secondary/20">PHYSICS 1A03</span>
+                                </div>
+                                <p class="text-sm font-semibold text-white mb-1">Introductory Physics</p>
+                                <p class="text-xs text-text-muted leading-relaxed">First university physics course using examples from across the sciences. Topics: force, energy, mechanics, waves, and fluids.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-accent-primary/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-secondary/10 text-accent-secondary border border-accent-secondary/20">PHYSICS 2P03</span>
+                                </div>
+                                <p class="text-sm font-semibold text-white mb-1">Introductory Laboratory</p>
+                                <p class="text-xs text-text-muted leading-relaxed">Introduction to experimental physics techniques, data analysis, and error analysis. Core skills for empirical research methodology.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-accent-primary/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20">PHYSICS 3K03</span>
+                                </div>
+                                <p class="text-sm font-semibold text-white mb-1">Thermodynamics &amp; Statistical Mechanics</p>
+                                <p class="text-xs text-text-muted leading-relaxed">Laws of thermodynamics with emphasis on mathematical structure; classical and quantum statistical mechanics.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-accent-primary/30 transition-colors">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20">DATASCI 2G03</span>
+                                </div>
+                                <p class="text-sm font-semibold text-white mb-1">Scientific Computing</p>
+                                <p class="text-xs text-text-muted leading-relaxed">Hands-on intro to scientific programming (C/C++ under Linux): floating-point arithmetic, numerical methods, algorithms, graphics, and parallel programming. Administered by Physics &amp; Astronomy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            
+        </section>
+        
+        <!-- Worldline (Journey) Section - EDUCATION ONLY -->
+        <section id="journey" class="page-section max-w-4xl mx-auto px-6 py-20 pointer-events-auto">
+            <h2 class="text-4xl font-display font-bold mb-16 text-center">My Worldline <span class="text-lg font-light text-text-muted block mt-2">(Education Only)</span></h2>
+            <div class="relative pl-12 space-y-20" id="timeline-container">
+                <!-- Vertical Lines -->
+                <div class="timeline-line"></div>
+                <div class="timeline-progress" id="timeline-progress-bar"></div>
+
+                <!-- Item 1: PhD (CURRENT) -->
+                <div class="relative group timeline-item">
+                    <span class="absolute left-[-2.9rem] top-2 w-6 h-6 rounded-full border-4 border-bg-dark bg-accent-primary shadow-[0_0_15px_rgba(0,255,157,0.5)] z-10 animate-pulse-fast"></span>
+                    <div class="spotlight-card p-8 md:p-10 group-hover:-translate-y-1 transition-transform duration-500 border border-accent-primary/30 bg-accent-primary/[0.03]">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="flex items-center gap-3">
+                                <span class="px-2 py-1 bg-accent-primary/10 text-accent-primary font-mono text-[10px] uppercase tracking-wider rounded border border-accent-primary/20">Sep 2023 - Present</span>
+                                <span class="px-2 py-1 bg-accent-primary text-black font-mono text-[9px] uppercase tracking-wider rounded font-bold animate-pulse">CURRENT</span>
+                            </div>
+                            <i class="fa-solid fa-graduation-cap text-accent-primary/40 group-hover:text-accent-primary transition-colors text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white group-hover:text-accent-primary transition-colors">Doctor of Philosophy (Ph.D.) in Physics</h3>
+                        <div class="text-text-muted mt-3 text-sm leading-relaxed space-y-2">
+                            <p><strong class="text-white">McMaster University</strong>, Hamilton, ON, Canada</p>
+                            <p>Advisor: <strong class="text-white">Prof. Takashi Imai</strong></p>
+                            <p>Investigating electronic properties and quantum phase transitions in high-temperature superconductors using NMR/NQR spectroscopy. Focused on pseudogap phenomena and charge ordering in YBCO systems.</p>
+                            <p class="text-xs italic opacity-70">Transferred to Ph.D. track in May 2025 following successful completion of graduate coursework and M.Sc. research requirements.</p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-primary/10 text-accent-primary border border-accent-primary/20">#NMR</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-primary/10 text-accent-primary border border-accent-primary/20">#HTSC</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-primary/10 text-accent-primary border border-accent-primary/20">#QuantumMagnetism</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-primary/10 text-accent-primary border border-accent-primary/20">#YBCO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2: BS-MS -->
+                <div class="relative group timeline-item">
+                    <span class="absolute left-[-2.9rem] top-2 w-5 h-5 rounded-full border-4 border-bg-dark bg-bg-surface shadow-[0_0_10px_rgba(255,255,255,0.2)] group-hover:bg-accent-secondary group-hover:shadow-[0_0_20px_#FF3366] transition-all duration-500 z-10"></span>
+                    <div class="spotlight-card p-8 group-hover:-translate-y-1 transition-transform duration-500">
+                         <div class="flex justify-between items-start mb-4">
+                            <span class="px-2 py-1 bg-accent-secondary/10 text-accent-secondary font-mono text-[10px] uppercase tracking-wider rounded border border-accent-secondary/20">Aug 2018 - May 2023</span>
+                            <i class="fa-solid fa-school text-white/20 group-hover:text-accent-secondary transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white group-hover:text-accent-secondary transition-colors">Integrated BS-MS in Physics (Minor in Chemistry)</h3>
+                        <div class="text-text-muted mt-2 text-sm leading-relaxed">
+                             <strong>Indian Institute of Science Education and Research (IISER)</strong>, Thiruvananthapuram, India<br>
+                             GPA: 8.28 / 10.0 (Physics Major GPA: 8.68)<br>
+                             <em>Thesis: Synthesis and thermodynamical studies of YBCO single crystals.</em>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Publication List -->
+        <section id="publications" class="page-section max-w-5xl mx-auto px-6 py-20 pointer-events-auto">
+            <div class="mb-12">
+                <p class="text-xs font-mono text-accent-primary tracking-[0.3em] uppercase mb-3">// academic output</p>
+                <h2 class="text-4xl md:text-5xl font-mono font-bold">Publication <span class="text-white/20">List</span></h2>
+                <p class="text-text-muted max-w-xl font-light mt-4">Peer-reviewed academic journal publications, conference proceedings, and open-source scientific software tools.</p>
+            </div>
+
+            <!-- Search, Filter & Export Panel -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                <div class="md:col-span-2 relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted">
+                        <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                    </span>
+                    <input type="text" id="pub-search" placeholder="Search by title, author, or journal..." class="w-full pl-9 pr-4 py-2.5 bg-bg-surface border border-white/10 rounded-lg text-sm text-white placeholder-text-muted focus:outline-none focus:border-accent-primary focus:ring-1 focus:ring-accent-primary transition-all duration-300 font-mono cursor-none">
+                </div>
+                <div>
+                    <select id="pub-filter" class="w-full px-3 py-2.5 bg-bg-surface border border-white/10 rounded-lg text-sm text-white focus:outline-none focus:border-accent-primary focus:ring-1 focus:ring-accent-primary transition-all duration-300 font-mono cursor-none">
+                        <option value="all">All Years</option>
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                    </select>
+                </div>
+                <div class="flex gap-2">
+                    <button id="export-bibtex" class="flex-1 px-3 py-2.5 bg-accent-primary/10 border border-accent-primary/20 text-accent-primary rounded-lg text-xs font-semibold uppercase tracking-wider font-mono hover:bg-accent-primary hover:text-black transition-all duration-300 flex items-center justify-center gap-2 cursor-none">
+                        <i class="fa-solid fa-file-code"></i> BibTeX
+                    </button>
+                    <button id="export-apa" class="flex-1 px-3 py-2.5 bg-accent-cyan/10 border border-accent-cyan/20 text-accent-cyan rounded-lg text-xs font-semibold uppercase tracking-wider font-mono hover:bg-accent-cyan hover:text-black transition-all duration-300 flex items-center justify-center gap-2 cursor-none">
+                        <i class="fa-solid fa-file-lines"></i> APA
+                    </button>
+                </div>
+            </div>
+
+            <!-- Publications Container -->
+            <div class="space-y-6" id="publications-list">
+                <!-- Publication Item 1 -->
+                <div class="pub-item spotlight-card p-6 border-l-4 border-accent-primary bg-bg-card relative group/pub overflow-hidden" data-year="2025" data-title="Spin-lattice relaxation evidence for charge ordering in optimally-doped YBCO" data-authors="Manilal, A., et al." data-journal="Phys. Rev. B">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex-1 font-mono text-sm leading-relaxed text-gray-200">
+                            <span class="text-accent-primary font-bold">Manilal, A.</span> et al. (2025). <br class="md:hidden">
+                            <span class="text-white font-semibold">"Spin-lattice relaxation evidence for charge ordering in optimally-doped YBCO"</span><br>
+                            <span class="italic text-accent-primary/80">Phys. Rev. B</span>. 
+                            <div class="text-xs text-text-muted mt-2 font-sans font-light leading-relaxed border-l border-white/10 pl-3">
+                                Demonstrates coexistence of charge order and superconductivity in high-temperature superconductors.
+                            </div>
+                        </div>
+                        <button class="cite-btn p-2 bg-white/5 border border-white/10 rounded-md hover:bg-accent-primary hover:text-black transition-all hover:scale-105 shrink-0 flex items-center justify-center w-8 h-8 cursor-none" title="Copy APA Citation">
+                            <i class="fa-solid fa-copy text-xs pointer-events-none"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Publication Item 2 -->
+                <div class="pub-item spotlight-card p-6 border-l-4 border-accent-secondary bg-bg-card relative group/pub overflow-hidden" data-year="2024" data-title="Cryogenic NQR study of stripe phases in La-Ba-Cu-O" data-authors="Doe, J., Manilal, A." data-journal="J. Magn. Reson.">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex-1 font-mono text-sm leading-relaxed text-gray-200">
+                            <span class="text-accent-secondary font-bold">Doe, J., Manilal, A.</span> (2024). <br class="md:hidden">
+                            <span class="text-white font-semibold">"Cryogenic NQR study of stripe phases in La-Ba-Cu-O"</span><br>
+                            <span class="italic text-accent-secondary/80">J. Magn. Reson.</span>.
+                            <div class="text-xs text-text-muted mt-2 font-sans font-light leading-relaxed border-l border-white/10 pl-3">
+                                Reveals temperature-independent quadrupole splitting linked to spin stripes in cuprate materials.
+                            </div>
+                        </div>
+                        <button class="cite-btn p-2 bg-white/5 border border-white/10 rounded-md hover:bg-accent-secondary hover:text-black transition-all hover:scale-105 shrink-0 flex items-center justify-center w-8 h-8 cursor-none" title="Copy APA Citation">
+                            <i class="fa-solid fa-copy text-xs pointer-events-none"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Publication Item 3 -->
+                <div class="pub-item spotlight-card p-6 border-l-4 border-accent-cyan bg-bg-card relative group/pub overflow-hidden" data-year="2023" data-title="Automated multi-Gaussian fitting toolbox for NQR spectra" data-authors="Manilal, A." data-journal="SoftwareX">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex-1 font-mono text-sm leading-relaxed text-gray-200">
+                            <span class="text-accent-cyan font-bold">Manilal, A.</span> (2023). <br class="md:hidden">
+                            <span class="text-white font-semibold">"Automated multi-Gaussian fitting toolbox for NQR spectra"</span><br>
+                            <span class="italic text-accent-cyan/80">SoftwareX</span>.
+                            <div class="text-xs text-text-muted mt-2 font-sans font-light leading-relaxed border-l border-white/10 pl-3">
+                                Open-source Python package accelerating deconvolution and analysis of nuclear quadrupole resonance spectra.
+                            </div>
+                        </div>
+                        <button class="cite-btn p-2 bg-white/5 border border-white/10 rounded-md hover:bg-accent-cyan hover:text-black transition-all hover:scale-105 shrink-0 flex items-center justify-center w-8 h-8 cursor-none" title="Copy APA Citation">
+                            <i class="fa-solid fa-copy text-xs pointer-events-none"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard" class="page-section max-w-7xl mx-auto px-6 py-20 pointer-events-auto">
+            <div class="spotlight-card p-1 border border-white/10 relative overflow-hidden bg-bg-card">
+                <!-- Dashboard Header -->
+                <div class="bg-bg-surface border-b border-white/5 p-4 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="flex gap-1.5">
+                            <span class="w-3 h-3 rounded-full bg-red-500/20 border border-red-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500/20 border border-green-500"></span>
+                        </div>
+                        <span class="ml-4 font-mono text-xs text-text-muted">user@manilal:~/personal_vitals</span>
+                    </div>
+                    <span class="w-2 h-2 rounded-full bg-accent-primary animate-pulse"></span>
+                </div>
+
+                <div class="p-6 md:p-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Column 1: Input Stream & Audio Buffer -->
+                        <div class="space-y-8">
+                            <div>
+                                <h4 class="text-[10px] uppercase tracking-[0.2em] text-text-muted mb-4 flex items-center gap-2">
+                                    <i class="fa-solid fa-book-open text-accent-primary"></i> Input Stream
+                                </h4>
+                                <div class="flex items-start gap-4 group">
+                                    <div class="w-16 h-24 bg-white/5 rounded shadow-2xl flex-shrink-0 overflow-hidden border border-white/10 relative group-hover:-translate-y-1 transition-transform duration-300">
+                                        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=50&w=150" alt="Book Cover" class="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" loading="lazy" decoding="async">
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="text-white font-bold group-hover:text-accent-primary transition-colors text-sm">The Three-Body Problem</div>
+                                        <div class="text-xs text-text-muted italic mb-2">Cixin Liu</div>
+                                        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                                            <div class="h-full bg-gradient-to-r from-accent-primary to-accent-cyan w-3/4 relative overflow-hidden">
+                                                <div class="absolute inset-0 bg-white/20 animate-[marquee_1s_linear_infinite]"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-between text-[9px] font-mono text-text-muted mt-1.5">
+                                            <span>Progress</span>
+                                            <span>75%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-[10px] uppercase tracking-[0.2em] text-text-muted mb-4 flex items-center gap-2">
+                                    <i class="fa-solid fa-headphones text-accent-secondary"></i> Audio Buffer
+                                </h4>
+                                <audio id="ncs-audio" preload="metadata">
+                                    <source src="synthwave_track_produced.wav" type="audio/wav">
+                                    Your browser does not support the audio element.
+                                </audio>
+                                <div class="flex flex-col gap-2.5 p-3.5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-accent-secondary/30 transition-colors pointer-events-auto relative">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex items-center gap-1 shrink-0">
+                                            <button id="play-pause-btn" class="w-8 h-8 rounded-full bg-accent-secondary/20 flex items-center justify-center text-accent-secondary hover:bg-accent-secondary hover:text-black transition-colors shrink-0">
+                                                <i class="fa-solid fa-play" id="play-icon"></i>
+                                            </button>
+                                            <button id="next-song-btn" class="w-7 h-7 rounded-full bg-white/5 flex items-center justify-center text-text-muted hover:text-white hover:bg-white/10 transition-colors" title="Next Song">
+                                                <i class="fa-solid fa-forward-step text-[10px]"></i>
+                                            </button>
+                                        </div>
+                                        <div class="flex-1 overflow-hidden">
+                                            <div class="flex justify-between items-end mb-0.5">
+                                                <div class="text-xs font-bold text-white truncate pr-2" id="track-title">Python Synthwave (Produced)</div>
+                                                <div class="flex items-center gap-1.5">
+                                                    <button id="mute-btn" class="text-text-muted hover:text-white transition-colors cursor-pointer w-3 text-center">
+                                                        <i class="fa-solid fa-volume-low text-[8px]" id="volume-icon"></i>
+                                                    </button>
+                                                    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.2" class="w-12 h-0.5 bg-white/20 rounded-lg appearance-none cursor-pointer accent-accent-secondary">
+                                                </div>
+                                            </div>
+                                            <div class="text-[10px] text-text-muted">NCS Style Release</div>
+                                            <div class="mt-1.5 w-full h-0.5 bg-white/10 rounded-full overflow-hidden cursor-pointer pointer-events-auto hover:h-1 transition-all" id="audio-progress-bar">
+                                                <div class="h-full bg-accent-secondary w-0 pointer-events-none transition-all duration-100" id="audio-progress"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col gap-1 items-center justify-center shrink-0 w-6">
+                                            <div class="flex gap-0.5 h-4 items-end" id="audio-visualizer" style="opacity: 0.3;">
+                                                <span class="w-0.5 bg-accent-secondary animate-[float_0.5s_ease-in-out_infinite] h-full"></span>
+                                                <span class="w-0.5 bg-accent-secondary animate-[float_0.7s_ease-in-out_infinite] h-2/3"></span>
+                                                <span class="w-0.5 bg-accent-secondary animate-[float_0.4s_ease-in-out_infinite] h-1/2"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Collapsible Code Toggle -->
+                                    <div class="border-t border-white/5 pt-2 mt-1 flex justify-between items-center text-[10px]">
+                                        <span class="font-mono text-text-muted">// generated in numpy</span>
+                                        <button id="toggle-synth-code-btn" class="flex items-center gap-1 text-accent-secondary hover:text-white transition-colors uppercase font-mono tracking-wider font-bold">
+                                            <span>[View Python Synth Code]</span>
+                                            <i class="fa-solid fa-chevron-down text-[8px] transition-transform duration-300" id="code-chevron"></i>
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Collapsible Code Drawer -->
+                                    <div id="synth-code-drawer" class="hidden overflow-hidden transition-all duration-500 max-h-0">
+                                        <div class="mt-2.5 p-3 rounded-lg bg-black/60 border border-white/5 text-[9px] font-mono text-text-muted select-text overflow-x-auto max-h-48 overflow-y-auto custom-scrollbar leading-relaxed relative">
+                                            <div class="sticky top-0 right-0 flex justify-end mb-1">
+                                                <span class="bg-white/5 border border-white/10 px-1.5 py-0.5 rounded text-[8px] uppercase tracking-wider text-accent-secondary font-bold font-mono">numpy + scipy</span>
+                                            </div>
+                                            <pre class="text-gray-300"><code class="language-python"># --- Generative Wave Synthesis Suite ---
+import numpy as np
+from scipy.io import wavfile
+from scipy import signal
+
+SAMPLE_RATE = 44100
+BPM = 95
+BEAT_DUR = 60.0 / BPM
+BAR_DUR = BEAT_DUR * 4
+
+# Mix detuned sawtooths for thick pad
+def synth_pad(note, dur):
+    t = np.linspace(0, dur, int(dur*SAMPLE_RATE), False)
+    f = 440.0 * (2.0 ** ((note - 69) / 12.0))
+    wave = 0.5 * signal.sawtooth(2 * np.pi * f * t)
+    wave += 0.3 * signal.sawtooth(2 * np.pi * f * 1.005 * t)
+    wave += 0.3 * signal.sawtooth(2 * np.pi * f * 0.995 * t)
+    # Lowpass smooth filter
+    b, a = signal.butter(2, 800 / (SAMPLE_RATE / 2), 'low')
+    return signal.lfilter(b, a, wave) * 0.3
+
+# Pure square growling bassline
+def bass(note, dur):
+    t = np.linspace(0, dur, int(dur*SAMPLE_RATE), False)
+    f = 440.0 * (2.0 ** ((note - 69) / 12.0))
+    wave = signal.square(2 * np.pi * f * t)
+    b, a = signal.butter(2, 300 / (SAMPLE_RATE / 2), 'low')
+    return signal.lfilter(b, a, wave) * 0.5</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Column 2: Cryostat Telemetry Monitor -->
+                        <div class="space-y-6">
+                            <h4 class="text-[10px] uppercase tracking-[0.2em] text-text-muted mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-heartpulse text-accent-cyan"></i> Personal Vitals & Telemetry
+                            </h4>
+                            <div class="bg-black/40 border border-white/5 rounded-2xl p-4 space-y-4">
+                                <!-- Flow State Focus Level -->
+                                <div class="flex justify-between items-center pb-2.5 border-b border-white/5">
+                                    <div>
+                                        <div class="text-[9px] uppercase tracking-wider text-text-muted">Deep Work Focus State</div>
+                                        <div class="text-lg font-mono font-bold text-accent-primary" id="temp-val">92.4%</div>
+                                    </div>
+                                    <div class="w-24 h-8 bg-black/40 border border-white/5 rounded-lg overflow-hidden shadow-inner">
+                                        <canvas id="temp-sparkline" class="w-full h-full"></canvas>
+                                    </div>
+                                </div>
+
+                                <!-- Hydration / Caffeine Fuel Cell -->
+                                <div class="flex justify-between items-center pb-2.5 border-b border-white/5">
+                                    <div>
+                                        <div class="text-[9px] uppercase tracking-wider text-text-muted">Caffeine / Hydration Cell</div>
+                                        <div class="text-sm font-mono font-bold text-accent-cyan" id="helium-val">72.8%</div>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full border border-white/10 bg-black/40 relative overflow-hidden flex items-center justify-center">
+                                        <canvas id="helium-circle" class="absolute inset-0 w-full h-full"></canvas>
+                                        <span class="relative z-10 text-[9px] font-mono font-bold text-white">☕</span>
+                                    </div>
+                                </div>
+
+                                <!-- Active Coordinate Node -->
+                                <div class="flex justify-between items-center pb-2.5 border-b border-white/5">
+                                    <div>
+                                        <div class="text-[9px] uppercase tracking-wider text-text-muted">Active Coordinate Node</div>
+                                        <div class="text-sm font-mono font-bold text-accent-secondary" id="magnet-val">Hamilton, ON</div>
+                                    </div>
+                                    <div class="w-8 h-8 rounded-lg bg-accent-secondary/10 border border-accent-secondary/20 flex items-center justify-center">
+                                        <i class="fa-solid fa-location-dot text-accent-secondary text-xs animate-bounce"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Current Activity Status -->
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <div class="text-[9px] uppercase tracking-wider text-text-muted">Current Focus Activity</div>
+                                        <div class="text-[10px] font-mono text-white flex items-center gap-1.5 mt-0.5">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse"></span>
+                                            <span id="active-activity-val">📚 Reading Cixin Liu</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[9px] font-mono text-text-muted uppercase">Flow</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Column 3: Status Log -->
+                        <div class="font-mono text-[11px] space-y-4">
+                            <h4 class="text-[10px] font-sans uppercase tracking-[0.2em] text-text-muted mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-terminal text-accent-tertiary"></i> System Log
+                            </h4>
+                            <div class="bg-black/40 p-4 rounded border border-white/5 space-y-2 h-full flex flex-col justify-between" style="min-height: 200px;">
+                                <div id="terminal-content" class="flex-1 space-y-2">
+                                    <div class="flex gap-2">
+                                        <span class="text-text-muted">14:02</span>
+                                        <span class="text-accent-primary">SUCCESS</span>
+                                        <span class="text-white/80">synthwave_track_produced.wav exported</span>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <span class="text-text-muted">11:45</span>
+                                        <span class="text-accent-cyan">INFO</span>
+                                        <span class="text-white/80">Brewed single-origin double espresso</span>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <span class="text-text-muted">09:30</span>
+                                        <span class="text-accent-primary">SUCCESS</span>
+                                        <span class="text-white/80">beehive_sim.py cellular automata completed</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 pt-3 border-t border-white/5 flex justify-between items-center">
+                                    <div>
+                                        <span class="text-accent-primary">root@manilal:~$</span> <span class="animate-cursor-blink">_</span>
+                                    </div>
+                                    <span class="text-[9px] uppercase tracking-wider text-text-muted">v2.1.0-opt</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Open Source Projects Section -->
+        <section id="projects" class="page-section max-w-7xl mx-auto px-6 py-24 pointer-events-auto">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <p class="text-xs font-mono text-accent-primary tracking-[0.3em] uppercase mb-3">// code & simulations</p>
+                    <h2 class="text-4xl md:text-6xl font-display font-bold">Open Source <span class="text-white/20">Projects</span></h2>
+                    <p class="text-text-muted max-w-xl font-light mt-4">Personal side projects and interactive simulations blending mathematical concepts with art, sound, and generative computing.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Hobby Card 1 -->
+                <article class="spotlight-card group relative flex flex-col p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-accent-primary/40 transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <div class="flex justify-between items-start mb-4 relative z-10">
+                        <div class="w-10 h-10 rounded-xl bg-accent-primary/10 flex items-center justify-center text-accent-primary">
+                            <i class="fa-solid fa-music"></i>
+                        </div>
+                    </div>
+                    <div class="relative z-10 flex-1">
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-accent-primary transition-colors">Generative Music Synthesis</h3>
+                        <p class="text-sm text-text-muted leading-relaxed mb-4">Mathematical wave compilers in Python that synthesize custom ambient and synthwave audio tracks by compiling arrays directly into raw WAV files. The tracks in this website's player are created with these scripts!</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-primary/10 text-accent-primary border border-accent-primary/20">Python</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-muted border border-white/10">NumPy</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-muted border border-white/10">SciPy</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Hobby Card 2 -->
+                <article class="spotlight-card group relative flex flex-col p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-accent-secondary/40 transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <div class="flex justify-between items-start mb-4 relative z-10">
+                        <div class="w-10 h-10 rounded-xl bg-accent-secondary/10 flex items-center justify-center text-accent-secondary">
+                            <i class="fa-solid fa-hive"></i>
+                        </div>
+                    </div>
+                    <div class="relative z-10 flex-1">
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-accent-secondary transition-colors">Beehive Cellular Automata</h3>
+                        <p class="text-sm text-text-muted leading-relaxed mb-4">A custom swarm intelligence and mathematical simulation modeling cooperative behaviors, cellular automaton rules, and food dynamics inside localized hexagonal grid systems (`beehive_sim.py`).</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-secondary/10 text-accent-secondary border border-accent-secondary/20">Python</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-muted border border-white/10">Matplotlib</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-muted border border-white/10">SciKit</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Hobby Card 3 -->
+                <article class="spotlight-card group relative flex flex-col p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-accent-cyan/40 transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <div class="flex justify-between items-start mb-4 relative z-10">
+                        <div class="w-10 h-10 rounded-xl bg-accent-cyan/10 flex items-center justify-center text-accent-cyan">
+                            <i class="fa-solid fa-circle-nodes"></i>
+                        </div>
+                    </div>
+                    <div class="relative z-10 flex-1">
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-accent-cyan transition-colors">Cosmic Ray Visualizer</h3>
+                        <p class="text-sm text-text-muted leading-relaxed mb-4">An interactive, responsive HTML5 canvas visualization engine animating the beautiful ionization trails left behind by incoming cosmic rays colliding with atmospheric molecules in real-time.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20">JavaScript</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-muted border border-white/10">HTML5 Canvas</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-text-muted border border-white/10">Physics</span>
+                        </div>
+                    </div>
+                </article>
+
+                
+            </div>
+        </section>
+
+        <!-- Hobbies Section -->
+        <section id="hobbies" class="page-section max-w-7xl mx-auto px-6 py-24 pointer-events-auto">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <p class="text-xs font-mono text-accent-cyan tracking-[0.3em] uppercase mb-3">// outside the lab</p>
+                    <h2 class="text-4xl md:text-6xl font-display font-bold">Hobbies</h2>
+                    <p class="text-text-muted max-w-xl font-light mt-4">Active pursuits and rituals that keep my mind clear, body strong, and physics research sharp.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Hobby Card 1: Gym -->
+                <article class="spotlight-card group relative flex flex-col p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-accent-primary/40 transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <div class="flex justify-between items-start mb-6 relative z-10">
+                        <div class="w-12 h-12 rounded-xl bg-accent-primary/10 flex items-center justify-center text-accent-primary text-xl">
+                            <i class="fa-solid fa-dumbbell"></i>
+                        </div>
+                        <span class="text-[9px] font-mono text-text-muted uppercase tracking-widest">// physical</span>
+                    </div>
+                    <div class="relative z-10 flex-1">
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent-primary transition-colors">Gym &amp; Strength Training</h3>
+                        <p class="text-sm text-text-muted leading-relaxed">Focusing on compound movements, biomechanical efficiency, and progressive overload. Gym sessions are my daily form of active meditation, building discipline and physical resilience.</p>
+                    </div>
+                </article>
+
+                <!-- Hobby Card 2: Hiking -->
+                <article class="spotlight-card group relative flex flex-col p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-accent-cyan/40 transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <div class="flex justify-between items-start mb-6 relative z-10">
+                        <div class="w-12 h-12 rounded-xl bg-accent-cyan/10 flex items-center justify-center text-accent-cyan text-xl">
+                            <i class="fa-solid fa-mountain"></i>
+                        </div>
+                        <span class="text-[9px] font-mono text-text-muted uppercase tracking-widest">// explore</span>
+                    </div>
+                    <div class="relative z-10 flex-1">
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent-cyan transition-colors">Hiking &amp; Escarpments</h3>
+                        <p class="text-sm text-text-muted leading-relaxed">Exploring the rugged trails of the Niagara Escarpment, Spencer Gorge, and Hamilton's waterfalls. Nature provides the perfect mental reset for digesting complex condensed-matter problems.</p>
+                    </div>
+                </article>
+
+                <!-- Hobby Card 3: Music -->
+                <article class="spotlight-card group relative flex flex-col p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-accent-secondary/40 transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <div class="flex justify-between items-start mb-6 relative z-10">
+                        <div class="w-12 h-12 rounded-xl bg-accent-secondary/10 flex items-center justify-center text-accent-secondary text-xl">
+                            <i class="fa-solid fa-headphones"></i>
+                        </div>
+                        <span class="text-[9px] font-mono text-text-muted uppercase tracking-widest">// focus</span>
+                    </div>
+                    <div class="relative z-10 flex-1">
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent-secondary transition-colors">Music &amp; Sonic Landscapes</h3>
+                        <p class="text-sm text-text-muted leading-relaxed">Deep listening across genres from high-energy synthwave and ambient drone textures to complex jazz fusion. Music is an immersive acoustic architecture that sustains my flow state.</p>
+                    </div>
+                </article>
+
+                <!-- Hobby Card 4: Culinary Thermodynamics -->
+                <article class="spotlight-card group relative flex flex-col p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-accent-tertiary/40 transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent-tertiary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <div class="flex justify-between items-start mb-6 relative z-10">
+                        <div class="w-12 h-12 rounded-xl bg-accent-tertiary/10 flex items-center justify-center text-accent-tertiary text-xl">
+                            <i class="fa-solid fa-mug-hot"></i>
+                        </div>
+                        <span class="text-[9px] font-mono text-text-muted uppercase tracking-widest">// craft</span>
+                    </div>
+                    <div class="relative z-10 flex-1">
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent-tertiary transition-colors">Culinary Thermodynamics</h3>
+                        <p class="text-sm text-text-muted leading-relaxed">Exploring thermodynamics and fluid dynamics through espresso extraction profiling, pressure dialing, and sourdough fermentation science. Physics in every cup and loaf.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="contact" class="page-section max-w-4xl mx-auto px-6 py-24 text-center pointer-events-auto">
+            <div class="spotlight-card p-12 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-primary via-accent-secondary to-accent-tertiary"></div>
+                <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-accent-primary/10 rounded-full blur-3xl group-hover:bg-accent-primary/20 transition-all duration-700"></div>
+                
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">Let's Collaborate</h2>
+                <p class="text-text-muted text-lg mb-10 max-w-2xl mx-auto font-light">
+                    Want to talk about physics, creative coding, or just connect? My inbox is always open.
+                </p>
+                
+                <button id="copy-email-btn" class="magnetic-btn inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-accent-primary transition-colors text-lg group relative z-10 hover:shadow-[0_0_30px_rgba(0,255,157,0.4)] mb-4" data-email="manilala@mcmaster.ca">
+                    <i class="fa-solid fa-envelope group-hover:rotate-12 transition-transform"></i>
+                    <span id="email-text">manilala@mcmaster.ca</span>
+                </button>
+                <div id="email-copied-msg" class="text-accent-primary text-sm opacity-0 transition-opacity duration-300">Copied to clipboard!</div>
+
+                <div class="mt-12 flex justify-center gap-8 relative z-20">
+                     <a href="https://github.com/adarshmanilal" target="_blank" class="text-2xl text-text-muted hover:text-black dark:hover:text-white hover:scale-125 transition-all" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                     <a href="https://www.linkedin.com/in/adarsh-manilal-697799280" target="_blank" class="text-2xl text-text-muted hover:text-[#0077b5] hover:scale-125 transition-all" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                     <a href="https://orcid.org/0009-0007-6127-5701" target="_blank" class="text-2xl text-text-muted hover:text-[#A6CE39] hover:scale-125 transition-all" title="ORCID"><i class="fa-brands fa-orcid"></i></a>
+                     <a href="https://twitter.com/" target="_blank" class="text-2xl text-text-muted hover:text-[#1da1f2] hover:scale-125 transition-all" title="Twitter / X"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+
+                <div class="mt-12 text-xs font-mono text-white/20">
+                    &copy; <span id="year">2025</span> Adarsh Manilal. <br>System Status: OPTIMAL
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+
+
+            // --- Theme Toggle Interaction ---
+            const themeToggleBtn = document.getElementById('theme-toggle-btn');
+            const themeToggleIcon = document.getElementById('theme-toggle-icon');
+
+            function updateThemeToggleIcon(theme) {
+                if (themeToggleIcon) {
+                    themeToggleIcon.className = theme === 'dark' ? 'fa-solid fa-moon text-xs' : 'fa-solid fa-sun text-xs';
+                }
+            }
+
+            // Initialize toggle icon based on current theme
+            updateThemeToggleIcon(document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    const isDark = document.documentElement.classList.contains('dark');
+                    if (isDark) {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('theme', 'light');
+                        updateThemeToggleIcon('light');
+                    } else {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('theme', 'dark');
+                        updateThemeToggleIcon('dark');
+                    }
+                });
+            }
+
+            // Helper function to map scroll/page sections to corresponding main navigation tabs
+            function getNavSectionId(sectionId) {
+                const homepageAboutSubsections = ['home', 'about', 'journey', 'dashboard', 'hobbies'];
+                if (homepageAboutSubsections.includes(sectionId)) {
+                    return 'about';
+                }
+                return sectionId;
+            }
+
+            // --- 1. Custom Cursor ---
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorOutline = document.getElementById('cursor-outline');
+            
+            // Performance: cache card refs + rAF-throttle mousemove
+            const spotlightCards = document.querySelectorAll('.spotlight-card');
+            let mouseMoveRAF = null;
+            window.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+                
+                // Hardware accelerated cursor position via transform instead of top/left
+                cursorDot.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`;
+                cursorOutline.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`;
+
+                // Throttle spotlight updates to animation frames
+                if (mouseMoveRAF) return;
+                mouseMoveRAF = requestAnimationFrame(() => {
+                    spotlightCards.forEach(card => {
+                        const rect = card.getBoundingClientRect();
+                        card.style.setProperty('--mouse-x', `${posX - rect.left}px`);
+                        card.style.setProperty('--mouse-y', `${posY - rect.top}px`);
+                    });
+                    mouseMoveRAF = null;
+                });
+            });
+
+            // Hover effects
+            const interactiveElements = document.querySelectorAll('a, button, .hover-trigger, .spotlight-card');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorOutline.classList.add('hovered');
+                    // Add scale class without overwriting position transform
+                    cursorDot.classList.add('scale-50');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorOutline.classList.remove('hovered');
+                    cursorDot.classList.remove('scale-50');
+                });
+            });
+
+            // --- 2. Magnetic Buttons ---
+            const magneticBtns = document.querySelectorAll('.magnetic-btn');
+            magneticBtns.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = 'translate(0, 0)';
+                });
+            });
+
+            // --- 3. Copy Citation Logic ---
+            const copyBtns = document.querySelectorAll('.copy-citation-btn');
+            copyBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const citation = btn.getAttribute('data-citation');
+                    if (citation) {
+                        navigator.clipboard.writeText(citation).then(() => {
+                            const originalIcon = btn.innerHTML;
+                            btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+                            btn.classList.add('bg-accent-primary', 'text-black');
+                            btn.classList.remove('bg-white/5');
+                            
+                            setTimeout(() => {
+                                btn.innerHTML = originalIcon;
+                                btn.classList.remove('bg-accent-primary', 'text-black');
+                                btn.classList.add('bg-white/5');
+                            }, 2000);
+                        });
+                    }
+                });
+            });
+
+            // --- 4. Stats Counter ---
+            const stats = document.querySelectorAll('.stat-number');
+            const observerOptions = { threshold: 0.5 };
+            
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseFloat(entry.target.getAttribute('data-target'));
+                        animateValue(entry.target, 0, target, 2000);
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            stats.forEach(stat => statsObserver.observe(stat));
+            
+            function animateValue(obj, start, endVal, duration) {
+                const isDecimal = endVal.toString().includes('.');
+                const decimalPlaces = isDecimal ? endVal.toString().split('.')[1].length : 0;
+                const suffix = obj.getAttribute('data-suffix') || '';
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const currentVal = progress * (endVal - start) + start;
+                    obj.innerHTML = currentVal.toFixed(decimalPlaces) + suffix;
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            // --- 5. CONSOLIDATED Scroll Handler (throttled via rAF) ---
+            const navbar = document.getElementById('navbar');
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const backToTopBtn = document.getElementById('back-to-top');
+            const timelineContainer = document.getElementById('timeline-container');
+            const timelineBar = document.getElementById('timeline-progress-bar');
+            let scrollRAF = null;
+
+            window.addEventListener('scroll', () => {
+                if (scrollRAF) return;
+                scrollRAF = requestAnimationFrame(() => {
+                    const scrollY = window.pageYOffset;
+
+                    // Navbar blur
+                    if (scrollY > 50) {
+                        navbar.classList.add('bg-bg-dark/80', 'backdrop-blur-md', 'border-white/5');
+                        navbar.classList.remove('border-transparent');
+                    } else {
+                        navbar.classList.remove('bg-bg-dark/80', 'backdrop-blur-md', 'border-white/5');
+                        navbar.classList.add('border-transparent');
+                    }
+
+                    // Scroll Spy
+                    let currentSection = '';
+                    sections.forEach(section => {
+                        // Only spy on currently visible (active/displayed) sections
+                        // (hidden sections with display:none have offsetParent === null)
+                        if (section.offsetParent !== null && scrollY >= section.offsetTop - 200) {
+                            currentSection = section.getAttribute('id');
+                        }
+                    });
+                    if (currentSection) {
+                        const highlightSection = getNavSectionId(currentSection);
+                        navLinks.forEach(link => {
+                            link.classList.remove('nav-active');
+                            if (link.getAttribute('href').includes(highlightSection) || link.getAttribute('data-section') === highlightSection) {
+                                link.classList.add('nav-active');
+                            }
+                        });
+                    }
+
+                    // Back to Top
+                    backToTopBtn.classList.toggle('visible', scrollY > 500);
+
+                    // Timeline Progress
+                    if (timelineContainer) {
+                        const rect = timelineContainer.getBoundingClientRect();
+                        const wh = window.innerHeight;
+                        if (rect.top < wh && rect.bottom > 0) {
+                            let pct = ((wh - rect.top - wh/2) / rect.height) * 100;
+                            timelineBar.style.height = `${Math.max(0, Math.min(100, pct))}%`;
+                        }
+                    }
+
+                    scrollRAF = null;
+                });
+            });
+            
+            // --- 6. Back to Top Click ---
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // --- 8. Dynamic Terminal Logs ---
+            const terminalContent = document.getElementById('terminal-content');
+            const logs = [
+                { type: 'INFO', msg: 'Coffee extraction complete. TDS: 1.34%' },
+                { type: 'SUCCESS', msg: 'Compiled Python Synthwave Track: synthwave_track_produced.wav' },
+                { type: 'WARN', msg: 'Dehydration warning: time to sip some espresso' },
+                { type: 'INFO', msg: 'Chapter of The Three-Body Problem completed' },
+                { type: 'SUCCESS', msg: 'Beehive Cellular Automata simulation converged' },
+                { type: 'INFO', msg: 'Flow state focus level: optimal' },
+                { type: 'SUCCESS', msg: 'Strength session logged: Bench PR optimized' },
+                { type: 'INFO', msg: 'Niagara Escarpment trail navigation completed: 8.5 km' },
+                { type: 'INFO', msg: 'Deep audio listening session: Ambient wave focus active' }
+            ];
+            
+            setInterval(() => {
+                const randomLog = logs[Math.floor(Math.random() * logs.length)];
+                const time = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+                
+                let colorClass = 'text-white/80';
+                if(randomLog.type === 'SUCCESS') colorClass = 'text-accent-primary';
+                if(randomLog.type === 'WARN') colorClass = 'text-accent-secondary';
+                if(randomLog.type === 'INFO') colorClass = 'text-accent-cyan';
+
+                const newLog = document.createElement('div');
+                newLog.className = 'flex gap-2 animate-fade-in-up';
+                newLog.innerHTML = `
+                    <span class="text-text-muted">${time}</span>
+                    <span class="${colorClass}">${randomLog.type}</span>
+                    <span class="text-white/80">${randomLog.msg}</span>
+                `;
+                
+                terminalContent.appendChild(newLog);
+                if(terminalContent.children.length > 5) {
+                    terminalContent.removeChild(terminalContent.children[0]);
+                }
+            }, 4000);
+
+            // --- 9. Email Copy Logic ---
+            const copyEmailBtn = document.getElementById('copy-email-btn');
+            const emailText = document.getElementById('email-text');
+            const copiedMsg = document.getElementById('email-copied-msg');
+            
+            copyEmailBtn.addEventListener('click', () => {
+                const email = copyEmailBtn.getAttribute('data-email');
+                navigator.clipboard.writeText(email).then(() => {
+                    emailText.innerText = "Copied!";
+                    copiedMsg.style.opacity = '1';
+                    setTimeout(() => {
+                        emailText.innerText = email;
+                        copiedMsg.style.opacity = '0';
+                    }, 2000);
+                });
+            });
+
+            // --- 10. Background Canvas (Plexus) ---
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+            
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.size = Math.random() * 2;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                }
+                draw() {
+                    const isDark = document.documentElement.classList.contains('dark');
+                    ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(15, 23, 42, 0.08)';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            for(let i=0; i<25; i++) particles.push(new Particle()); // Reduced from 40 for perf
+            
+            let isPlexusVisible = true;
+            function animate() {
+                if(isPlexusVisible) {
+                    ctx.clearRect(0, 0, width, height);
+                    const isDark = document.documentElement.classList.contains('dark');
+                    particles.forEach((p, index) => {
+                        p.update();
+                        p.draw();
+                        for(let j=index+1; j<particles.length; j++) {
+                            const p2 = particles[j];
+                            const dx = p.x - p2.x;
+                            const dy = p.y - p2.y;
+                            const dist = Math.sqrt(dx*dx + dy*dy);
+                            if (dist < 150) {
+                                ctx.strokeStyle = isDark ? `rgba(255, 255, 255, ${0.05 - dist/3000})` : `rgba(15, 23, 42, ${0.06 - dist/2500})`;
+                                ctx.lineWidth = 0.5;
+                                ctx.beginPath();
+                                ctx.moveTo(p.x, p.y);
+                                ctx.lineTo(p2.x, p2.y);
+                                ctx.stroke();
+                            }
+                        }
+                    });
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+
+             // --- 11. Small Canvas in Bento Grid ---
+             const bentoCanvas = document.getElementById('bento-canvas-1');
+             if(bentoCanvas) {
+                 const bCtx = bentoCanvas.getContext('2d');
+                 let offset = 0;
+                 function animateBento() {
+                    if(!isBentoVisible) {
+                        requestAnimationFrame(animateBento);
+                        return;
+                    }
+                    if(bentoCanvas.parentElement && bentoCanvas.width !== bentoCanvas.parentElement.offsetWidth) {
+                        bentoCanvas.width = bentoCanvas.parentElement.offsetWidth;
+                        bentoCanvas.height = bentoCanvas.parentElement.offsetHeight;
+                    }
+                    bCtx.clearRect(0,0, bentoCanvas.width, bentoCanvas.height);
+                    const isDark = document.documentElement.classList.contains('dark');
+                    bCtx.strokeStyle = isDark ? '#00FF9D' : '#059669';
+                    bCtx.lineWidth = 1;
+                    bCtx.beginPath();
+                    for(let x=0; x < bentoCanvas.width; x++) {
+                        const y = bentoCanvas.height/2 + Math.sin((x + offset) * 0.02) * 20 * Math.sin(offset*0.05);
+                        if(x===0) bCtx.moveTo(x,y);
+                        else bCtx.lineTo(x,y);
+                    }
+                    bCtx.stroke();
+                    offset++;
+                    requestAnimationFrame(animateBento);
+                 }
+                 
+                 let isBentoVisible = false;
+                 const bentoObserver = new IntersectionObserver((entries) => {
+                     entries.forEach(entry => {
+                         isBentoVisible = entry.isIntersecting;
+                     });
+                 }, { threshold: 0.1 });
+                 bentoObserver.observe(bentoCanvas);
+                 
+                 animateBento();
+             }
+
+            // --- 12. Physics Lab Simulator & Telemetry Engine [NEW FEATURE] ---
+            
+            // A. Publications Search, Filter & Export Logic
+            const pubSearch = document.getElementById('pub-search');
+            const pubFilter = document.getElementById('pub-filter');
+            const publicationsList = document.getElementById('publications-list');
+            const exportBibtex = document.getElementById('export-bibtex');
+            const exportApa = document.getElementById('export-apa');
+            
+            if (pubSearch && publicationsList) {
+                const publications = Array.from(publicationsList.querySelectorAll('.pub-item'));
+                
+                function filterPublications() {
+                    const searchTerm = pubSearch.value.toLowerCase().trim();
+                    const filterValue = pubFilter ? pubFilter.value : 'all';
+                    
+                    publications.forEach(pub => {
+                        const title = pub.dataset.title.toLowerCase();
+                        const authors = pub.dataset.authors.toLowerCase();
+                        const journal = pub.dataset.journal.toLowerCase();
+                        const year = pub.dataset.year;
+                        const text = pub.textContent.toLowerCase();
+                        
+                        const matchesSearch = text.includes(searchTerm) || title.includes(searchTerm) || authors.includes(searchTerm) || journal.includes(searchTerm);
+                        const matchesYear = filterValue === 'all' || year === filterValue;
+                        
+                        if (matchesSearch && matchesYear) {
+                            pub.style.display = 'block';
+                            pub.style.opacity = '1';
+                        } else {
+                            pub.style.display = 'none';
+                            pub.style.opacity = '0';
+                        }
+                    });
+                    
+                    // Show "no results" message if no publications match
+                    const visiblePubs = publications.filter(pub => pub.style.display !== 'none');
+                    const existingNoResults = publicationsList.querySelector('.no-results');
+                    
+                    if (visiblePubs.length === 0) {
+                        if (!existingNoResults) {
+                            const noResults = document.createElement('div');
+                            noResults.className = 'no-results font-mono text-center text-text-muted py-8 italic border border-white/5 rounded-xl bg-bg-card/50';
+                            noResults.innerHTML = 'No publications found matching your criteria.';
+                            publicationsList.appendChild(noResults);
+                        }
+                    } else if (existingNoResults) {
+                        existingNoResults.remove();
+                    }
+                }
+                
+                pubSearch.addEventListener('input', filterPublications);
+                if (pubFilter) {
+                    pubFilter.addEventListener('change', filterPublications);
+                }
+            }
+
+            // Citation formatting functions
+            function generateBibTeX(pub) {
+                const title = pub.dataset.title;
+                const authors = pub.dataset.authors;
+                const year = pub.dataset.year;
+                const journal = pub.dataset.journal;
+                
+                return `@article{manilal${year},
+  title={${title}},
+  author={${authors}},
+  journal={${journal}},
+  year={${year}}
+}`;
+            }
+            
+            function generateAPA(pub) {
+                const title = pub.dataset.title;
+                const authors = pub.dataset.authors;
+                const year = pub.dataset.year;
+                const journal = pub.dataset.journal;
+                
+                return `${authors} (${year}). ${title}. ${journal}.`;
+            }
+            
+            // Export functionality
+            if (exportBibtex) {
+                exportBibtex.addEventListener('click', () => {
+                    const visiblePubs = Array.from(document.querySelectorAll('.pub-item')).filter(pub => pub.style.display !== 'none');
+                    if (visiblePubs.length === 0) return;
+                    const bibtexEntries = visiblePubs.map(generateBibTeX).join('\n\n');
+                    
+                    const blob = new Blob([bibtexEntries], { type: 'text/plain;charset=utf-8' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'manilal_publications.bib';
+                    a.click();
+                    URL.revokeObjectURL(url);
+                });
+            }
+            
+            if (exportApa) {
+                exportApa.addEventListener('click', () => {
+                    const visiblePubs = Array.from(document.querySelectorAll('.pub-item')).filter(pub => pub.style.display !== 'none');
+                    if (visiblePubs.length === 0) return;
+                    const apaEntries = visiblePubs.map(generateAPA).join('\n\n');
+                    
+                    const blob = new Blob([apaEntries], { type: 'text/plain;charset=utf-8' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'manilal_publications_apa.txt';
+                    a.click();
+                    URL.revokeObjectURL(url);
+                });
+            }
+            
+            // Individual citation copy
+            document.addEventListener('click', (e) => {
+                const citeBtn = e.target.closest('.cite-btn');
+                if (citeBtn) {
+                    const pubItem = citeBtn.closest('.pub-item');
+                    const citation = generateAPA(pubItem);
+                    
+                    navigator.clipboard.writeText(citation).then(() => {
+                        const originalHTML = citeBtn.innerHTML;
+                        citeBtn.innerHTML = '<i class="fa-solid fa-check text-xs text-accent-primary"></i>';
+                        citeBtn.classList.add('border-accent-primary/50');
+                        setTimeout(() => {
+                            citeBtn.innerHTML = originalHTML;
+                            citeBtn.classList.remove('border-accent-primary/50');
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Clipboard copy failed: ', err);
+                    });
+                }
+            });
+
+            // B. Cryogenic Telemetry Engine
+            const tempVal = document.getElementById('temp-val');
+            const heliumVal = document.getElementById('helium-val');
+            const sparklineCanvas = document.getElementById('temp-sparkline');
+            const heliumCanvas = document.getElementById('helium-circle');
+            
+            let temperatures = Array.from({length: 15}, () => 88.5 + Math.random() * 5.5);
+            let wavePhase = 0;
+
+            // List of personal focus activities to cycle through
+            const activities = [
+                "📚 Reading Cixin Liu",
+                "☕ Brewing Espresso",
+                "💻 Coding Physics Art",
+                "🎵 Synthesizing Audio",
+                "🌌 Stargazing Hamilton",
+                "🍞 Baking Sourdough"
+            ];
+            const activityVal = document.getElementById('active-activity-val');
+
+            function updateTelemetry() {
+                // Fluctuating flow state between 88.5% and 94.0%
+                const currentTemp = 88.5 + Math.random() * 5.5;
+                if (tempVal) {
+                    tempVal.textContent = `${currentTemp.toFixed(1)}%`;
+                }
+                temperatures.push(currentTemp);
+                if (temperatures.length > 15) {
+                    temperatures.shift();
+                }
+                drawSparkline();
+
+                // Periodically update current focus activity
+                if (activityVal && Math.random() < 0.25) {
+                    activityVal.textContent = activities[Math.floor(Math.random() * activities.length)];
+                }
+            }
+
+            function drawSparkline() {
+                if (!sparklineCanvas) return;
+                const ctx = sparklineCanvas.getContext('2d');
+                const w = sparklineCanvas.width = sparklineCanvas.offsetWidth;
+                const h = sparklineCanvas.height = sparklineCanvas.offsetHeight;
+                
+                if (w === 0 || h === 0) return;
+                
+                ctx.clearRect(0, 0, w, h);
+                
+                const minTemp = Math.min(...temperatures);
+                const maxTemp = Math.max(...temperatures);
+                const range = (maxTemp - minTemp) || 1;
+
+                const isDark = document.documentElement.classList.contains('dark');
+                ctx.strokeStyle = isDark ? 'rgba(0, 255, 157, 0.8)' : 'rgba(5, 150, 105, 0.8)';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+
+                for (let i = 0; i < temperatures.length; i++) {
+                    const x = (i / (temperatures.length - 1)) * w;
+                    // Invert y because screen coordinates start at top left
+                    const y = h - 4 - ((temperatures[i] - minTemp) / range) * (h - 8);
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+
+                // Fill area under line
+                ctx.lineTo(w, h);
+                ctx.lineTo(0, h);
+                ctx.closePath();
+                const grad = ctx.createLinearGradient(0, 0, 0, h);
+                grad.addColorStop(0, isDark ? 'rgba(0, 255, 157, 0.15)' : 'rgba(5, 150, 105, 0.12)');
+                grad.addColorStop(1, isDark ? 'rgba(0, 255, 157, 0)' : 'rgba(5, 150, 105, 0)');
+                ctx.fillStyle = grad;
+                ctx.fill();
+            }
+
+            function drawHeliumCircle() {
+                if (!heliumCanvas) return;
+                const hCtx = heliumCanvas.getContext('2d');
+                const w = heliumCanvas.width = heliumCanvas.offsetWidth;
+                const h = heliumCanvas.height = heliumCanvas.offsetHeight;
+
+                if (w === 0 || h === 0) return;
+
+                hCtx.clearRect(0, 0, w, h);
+
+                // Clip to circular gauge
+                hCtx.save();
+                hCtx.beginPath();
+                hCtx.arc(w/2, h/2, w/2 - 2, 0, Math.PI * 2);
+                hCtx.clip();
+
+                // Draw waving liquid (72.8% full)
+                const fillPercent = 0.728;
+                const fillHeight = h - h * fillPercent;
+
+                const isDark = document.documentElement.classList.contains('dark');
+                hCtx.fillStyle = isDark ? 'rgba(0, 240, 255, 0.35)' : 'rgba(3, 169, 244, 0.35)';
+                hCtx.beginPath();
+                hCtx.moveTo(0, h);
+                for (let x = 0; x <= w; x++) {
+                    const waveY = fillHeight + Math.sin((x + wavePhase) * 0.18) * 2;
+                    hCtx.lineTo(x, waveY);
+                }
+                hCtx.lineTo(w, h);
+                hCtx.closePath();
+                hCtx.fill();
+
+                hCtx.restore();
+
+                // Glowing outer ring border
+                hCtx.strokeStyle = isDark ? 'rgba(0, 240, 255, 0.25)' : 'rgba(3, 169, 244, 0.3)';
+                hCtx.lineWidth = 1.5;
+                hCtx.beginPath();
+                hCtx.arc(w/2, h/2, w/2 - 2, 0, Math.PI * 2);
+                hCtx.stroke();
+                
+                wavePhase += 0.05;
+            }
+
+            // Start Telemetry Loops
+            setInterval(updateTelemetry, 2000);
+            updateTelemetry(); // initial call
+            
+            function animateCryoTele() {
+                drawHeliumCircle();
+                requestAnimationFrame(animateCryoTele);
+            }
+            animateCryoTele();
+
+
+            
+            // --- 13. Audio Player Logic ---
+            const audio = document.getElementById('ncs-audio');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const nextSongBtn = document.getElementById('next-song-btn');
+            const playIcon = document.getElementById('play-icon');
+            const muteBtn = document.getElementById('mute-btn');
+            const volumeIcon = document.getElementById('volume-icon');
+            const volumeSlider = document.getElementById('volume-slider');
+            const progressBar = document.getElementById('audio-progress-bar');
+            const progress = document.getElementById('audio-progress');
+            const visualizer = document.getElementById('audio-visualizer');
+            const trackTitle = document.getElementById('track-title');
+            
+            const playlist = [
+                { src: "synthwave_track_produced.wav", title: "Python Synthwave (Produced)" },
+                { src: "my_first_python_song.wav", title: "First Wave (Python Compiled)" }
+            ];
+            let currentTrackIdx = Math.floor(Math.random() * playlist.length);
+
+            if (audio) {
+                let isPlaying = false;
+                let isMuted = false;
+                
+                // Initialize default volume
+                audio.volume = 0.2;
+                volumeSlider.value = 0.2;
+
+                const loadTrack = (idx) => {
+                    audio.src = playlist[idx].src;
+                    trackTitle.textContent = playlist[idx].title;
+                    audio.load();
+                };
+                
+                // Load random initial track immediately on startup
+                loadTrack(currentTrackIdx);
+
+                const updateVisuals = (playing) => {
+                    if (playing) {
+                        playIcon.classList.remove('fa-play');
+                        playIcon.classList.add('fa-pause');
+                        visualizer.style.opacity = '1';
+                        visualizer.querySelectorAll('span').forEach(s => s.style.animationPlayState = 'running');
+                    } else {
+                        playIcon.classList.remove('fa-pause');
+                        playIcon.classList.add('fa-play');
+                        visualizer.style.opacity = '0.3';
+                        visualizer.querySelectorAll('span').forEach(s => s.style.animationPlayState = 'paused');
+                    }
+                };
+                
+                let consecutiveErrors = 0;
+
+                const playNext = (isError = false) => {
+                    if (isError) {
+                        consecutiveErrors++;
+                        if (consecutiveErrors >= playlist.length) {
+                            trackTitle.textContent = "Playback Error";
+                            updateVisuals(false);
+                            isPlaying = false;
+                            return; // Stop the infinite loop!
+                        }
+                    } else {
+                        consecutiveErrors = 0; // Manual skip resets error count
+                    }
+
+                    currentTrackIdx = (currentTrackIdx + 1) % playlist.length;
+                    loadTrack(currentTrackIdx);
+                    
+                    if (isPlaying) {
+                        setTimeout(() => {
+                            audio.play().catch(e => console.warn("Audio playback exception:", e));
+                        }, 500); // 500ms debounce to prevent browser lockup
+                    }
+                };
+
+                playPauseBtn.addEventListener('click', () => {
+                    if (isPlaying) {
+                        audio.pause();
+                        updateVisuals(false);
+                    } else {
+                        consecutiveErrors = 0;
+                        audio.play().catch(e => console.warn("Audio playback exception:", e));
+                        updateVisuals(true);
+                    }
+                    isPlaying = !isPlaying;
+                });
+                
+                nextSongBtn.addEventListener('click', () => playNext(false));
+                audio.addEventListener('ended', () => playNext(false));
+                audio.addEventListener('error', () => playNext(true));
+                audio.addEventListener('playing', () => { consecutiveErrors = 0; });
+
+                muteBtn.addEventListener('click', () => {
+                    isMuted = !isMuted;
+                    audio.muted = isMuted;
+                    if(isMuted || audio.volume === 0) {
+                        volumeIcon.className = 'fa-solid fa-volume-xmark text-[10px]';
+                    } else {
+                        volumeIcon.className = 'fa-solid fa-volume-low text-[10px]';
+                    }
+                });
+
+                volumeSlider.addEventListener('input', (e) => {
+                    const vol = parseFloat(e.target.value);
+                    audio.volume = vol;
+                    if (vol === 0) {
+                        volumeIcon.className = 'fa-solid fa-volume-xmark text-[10px]';
+                        audio.muted = true;
+                        isMuted = true;
+                    } else {
+                        volumeIcon.className = 'fa-solid fa-volume-low text-[10px]';
+                        audio.muted = false;
+                        isMuted = false;
+                    }
+                });
+
+                audio.addEventListener('timeupdate', () => {
+                    if (audio.duration) {
+                        const percent = (audio.currentTime / audio.duration) * 100;
+                        progress.style.width = `${percent}%`;
+                    }
+                });
+
+                progressBar.addEventListener('click', (e) => {
+                    const rect = progressBar.getBoundingClientRect();
+                    const pos = (e.clientX - rect.left) / rect.width;
+                    if (audio.duration) {
+                        audio.currentTime = pos * audio.duration;
+                    }
+                });
+                
+                // Initialize state
+                visualizer.querySelectorAll('span').forEach(s => s.style.animationPlayState = 'paused');
+                
+                // --- Python Synth Code Collapsible Toggle ---
+                const toggleCodeBtn = document.getElementById('toggle-synth-code-btn');
+                const codeDrawer = document.getElementById('synth-code-drawer');
+                const codeChevron = document.getElementById('code-chevron');
+                
+                if (toggleCodeBtn && codeDrawer) {
+                    toggleCodeBtn.addEventListener('click', () => {
+                        const isHidden = codeDrawer.classList.contains('hidden');
+                        if (isHidden) {
+                            codeDrawer.classList.remove('hidden');
+                            // Trigger reflow then expand
+                            codeDrawer.style.maxHeight = '0px';
+                            requestAnimationFrame(() => {
+                                codeDrawer.style.transition = 'max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                                codeDrawer.style.maxHeight = '200px';
+                                codeChevron.style.transform = 'rotate(180deg)';
+                            });
+                        } else {
+                            codeDrawer.style.transition = 'max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                            codeDrawer.style.maxHeight = '0px';
+                            codeChevron.style.transform = 'rotate(0deg)';
+                            setTimeout(() => {
+                                codeDrawer.classList.add('hidden');
+                            }, 400);
+                        }
+                    });
+                }
+            }
+
+
+            // --- SECTION-BASED NAVIGATION & MOBILE MENU ---
+            const allPageSections = document.querySelectorAll('.page-section');
+            const homeContent = document.querySelectorAll('.home-content');
+            const heroSec = document.getElementById('home');
+            const sectionNavLinks = document.querySelectorAll('[data-section]');
+            
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            function navigateToSection(sectionId) {
+                const homepageSections = ['home', 'about', 'journey', 'dashboard', 'hobbies', 'contact'];
+                const isHomepageSec = homepageSections.includes(sectionId);
+
+                if (isHomepageSec) {
+                    if (heroSec) {
+                        heroSec.style.display = 'flex';
+                        heroSec.classList.remove('hero-compact');
+                    }
+                    homeContent.forEach(el => el.style.display = '');
+                    
+                    allPageSections.forEach(s => {
+                        if (s.id === 'about' || s.id === 'journey' || s.id === 'dashboard' || s.id === 'hobbies' || s.id === 'contact') {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                } else {
+                    if (heroSec) {
+                        heroSec.style.display = 'none';
+                        heroSec.classList.add('hero-compact');
+                    }
+                    homeContent.forEach(el => el.style.display = 'none');
+                    
+                    allPageSections.forEach(s => {
+                        if (s.id === sectionId) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                }
+
+                const highlightSection = getNavSectionId(sectionId);
+
+                sectionNavLinks.forEach(link => {
+                    link.classList.remove('nav-active');
+                    if (link.getAttribute('data-section') === highlightSection) {
+                        link.classList.add('nav-active');
+                    }
+                });
+                
+                if (mobileNavLinks) {
+                    mobileNavLinks.forEach(link => {
+                        link.classList.remove('text-accent-primary');
+                        link.classList.add('text-text-muted');
+                        if (link.getAttribute('data-section') === highlightSection) {
+                            link.classList.remove('text-text-muted');
+                            link.classList.add('text-accent-primary');
+                        }
+                    });
+                }
+
+                if (isHomepageSec && sectionId !== 'home') {
+                    const target = document.getElementById(sectionId);
+                    if (target) {
+                        setTimeout(() => {
+                            const yOffset = -80; // Smooth offset for fixed navbar
+                            const y = target.getBoundingClientRect().top + (window.scrollY || window.pageYOffset) + yOffset;
+                            window.scrollTo({ top: y, behavior: 'smooth' });
+                        }, 50);
+                    }
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+
+                history.pushState(null, '', '#' + sectionId);
+            }
+
+            sectionNavLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navigateToSection(link.getAttribute('data-section'));
+                });
+            });
+
+            // Mobile Menu Toggle Logic
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    const isOpen = mobileMenu.classList.contains('opacity-100');
+                    if (isOpen) {
+                        mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                        mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                        mobileMenuIcon.className = 'fa-solid fa-bars transition-transform duration-300';
+                    } else {
+                        mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+                        mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+                        mobileMenuIcon.className = 'fa-solid fa-xmark transition-transform duration-300';
+                    }
+                });
+
+                if (mobileNavLinks) {
+                    mobileNavLinks.forEach(link => {
+                        link.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                            mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                            mobileMenuIcon.className = 'fa-solid fa-bars transition-transform duration-300';
+                            navigateToSection(link.getAttribute('data-section'));
+                        });
+                    });
+                }
+            }
+
+            window.addEventListener('popstate', () => {
+                navigateToSection(window.location.hash.replace('#', '') || 'home');
+            });
+
+            // Initialize
+            navigateToSection(window.location.hash.replace('#', '') || 'home');
+
+        });
+    </script>
+</body>
+</html>
